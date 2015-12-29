@@ -1,20 +1,18 @@
 API
 
-=================================
 Head: http://www.sysu-flea.com
-=================================
 
 Usage: 
 for registration, the url would be
 	 http://www.sysu-flea.com/register
 
-* Module Name
+Module Name
 /Url/string (access method)
 	parameter
 	parameter
 	parameter
 
-* Register
+Register
 /register (post)
 	username
 	password
@@ -24,7 +22,7 @@ for registration, the url would be
 	location
 	school
 
-* Login
+Login
 /login (put)	
 	account
 	password
