@@ -6,14 +6,8 @@ Usage:
 for registration, the url would be
 	 http://www.sysu-flea.com/register
 
-Module Name
-/Url/string (access method)
-	parameter
-	parameter
-	parameter
-
 Register
-/register (post)
+/register (post) 
 	username
 	password
 	phoneNum
@@ -21,10 +15,12 @@ Register
 	QQ
 	location
 	school
+- succeed: 1, mail box registered: 2, phoneNum registered: 3
 
 Login
 /login (put)	
 	account
 	password
+- succeed: 1, incorrect password: 2, inexistent user: 3
 	
 
