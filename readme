@@ -1,0 +1,177 @@
+API
+
+Head: http://www.sysu-flea.com
+
+Usage: 
+for registration, the url would be
+	 http://www.sysu-flea.com/register
+
+Register
+==================================================
+/register (post) 
+PARAMS:
+	username (string)
+	password (string)
+	phoneNum (string)
+	mailbox (string)
+	QQ (string)
+	location (string)
+	school (string)
+RETURN: 
+	none
+STATE:
+	succeed: 1, mail box registered: 2, phoneNum registered: 3
+==================================================
+
+
+Login
+==================================================
+/login (put)	
+PARAMS:
+	account (string)
+	password (string)
+RETURN: 
+	none
+STATE:
+	succeed: 1, incorrect password: 2, inexistent user: 3
+==================================================
+
+
+User
+==================================================
+/user (get)
+PARAMS:
+	userId (string)
+RETURN:
+	username (string)
+	realName (string)
+	phoneNum (string)
+	QQ	 (string)
+	mailbox  (string)
+	location (string)
+	school 	 (string)
+	userAvatar (unknown)
+STATE:
+	none
+==================================================
+==================================================
+/user (put)
+PARAMS:
+	username (string)
+	password (string)
+	phoneNum (string)
+	mailbox (string)
+	QQ (string)
+	location (string)
+	school (string)
+RETURN:
+	none
+STATE:
+	succeed: 1, fail: 0
+
+==================================================
+
+Item
+==================================================
+/item (post)
+PARAMS:
+	name (string)
+	type (number)
+	subtype (number)
+	price (number)
+	tradeVenue (string)
+	description (string)
+	pictureNum (number)
+	pictures (array of pictures)
+	arguable (number) 0 - no, 1 - yes
+	storage (number)
+RETURN: 
+	none
+STATE:
+	succeed: 1, fail: 0
+==================================================
+==================================================
+/item (get)
+PARAMS:
+	itemId (string)
+RETURN:
+	name (string)
+	type (number)
+	subtype (number)
+	price (number)
+	tradeVenue (string)
+	description (string)
+	pictureNum (number)
+	pictures (array of pictures)
+	arguable (number) 0 - no, 1 - yes
+	postTime (number)
+	storage (number)
+	sellerId (string)
+STATE:
+	none
+==================================================
+==================================================
+/item/wish (post)
+PARAMS:
+	name (string)
+	type (number)
+	tradeVenue (string)
+RETURN:
+STATE:
+==================================================
+
+
+Trade Record
+==================================================
+/record	(get)
+PARAMS:
+	recordId (string)
+RETURN:
+	itemName (string)	
+	dealTime (string)
+	deliveryMethods (number) 1 - in person, 2 - express
+	amount (number)
+	buyerId (string)
+	buyerName (string)
+	sellerId (string)
+	sellerName (string)
+STATE:
+	none
+==================================================
+==================================================
+/record/buying (get)
+PARAMS:
+	userId (string)
+RETURN:
+	records (list)
+		recordId (string)
+		itemName (string)	
+		dealTime (string)
+		amount (number)
+		deliveryMethods (number) 1 - in person, 2 - express
+		sellerId (string)
+		sellerName (string)
+STATE:
+	none
+==================================================
+	
+==================================================
+/record/sold (get)
+PARAMS:
+	userId (string)
+RETURN:
+	records (list)
+		recordId (string)
+		itemName (string)	
+		dealTime (string)
+		deliveryMethods (number) 1 - in person, 2 - express
+		buyerId (string)
+		buyerName (string)
+STATE:
+	none
+==================================================
+
+
+
+
+
