@@ -1,11 +1,26 @@
-import sqlite3
-from flask import Flask, jsonify
-from flask import request
+import MySQLdb
+from flask import Flask, jsonify, g, request
 from config import DEBUG
 
 app = Flask(__name__)
 app.debug = DEBUG
 app.config.from_pyfile("config.py")
+
+from sae.const import (MYSQL_HOST,
+                       MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
+                       )
+
+
+@app.before_request
+def before_reques():
+    g.db = MySQLdb.connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS,
+                           MYSQL_DB, port=int(MYSQL_PORT))
+
+
+@app.teardown_request
+def teardown_request():
+    if hasattr(g, 'db'):
+        g.db.close()
 
 
 @app.route("/", methods=['GET'])
