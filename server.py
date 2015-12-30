@@ -26,26 +26,29 @@ def teardown_request(exception):
 @app.route("/", methods=['GET'])
 def frontPage():
     cursor = g.db.cursor()
+    bla = []
     if cursor:
-        print "has cursor"
-    return "front page"
+        bla.append("lal")
+    bla.append("front page")
+    return bla
 
 
 @app.route("/register", methods=['POST'])
 def register():
     # check mailbox, phone number
     # insert data into database
-    username = request.form["username"]
-    password = request.form["password"]
-    phoneNum = request.form["phoneNum"]
-    mailbox = request.form["mailbox"]
-    QQ = request.form["QQ"]
-    location = request.form["location"]
-    school = request.form["school"]
+    # username = request.form["username"]
+    # password = request.form["password"]
+    # phoneNum = request.form["phoneNum"]
+    # mailbox = request.form["mailbox"]
+    # QQ = request.form["QQ"]
+    # location = request.form["location"]
+    # school = request.form["school"]
 
 
 
-    return jsonify(stat=1, username=username, password=password)
+    # return jsonify(stat=1, username=username, password=password)
+    return "happy"
 
 
 @app.route("/login", methods=['PUT'])
