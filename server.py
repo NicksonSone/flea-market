@@ -12,7 +12,7 @@ from sae.const import (MYSQL_HOST,
 
 
 @app.before_request
-def before_reques():
+def before_request(exception):
     g.db = MySQLdb.connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS,
                            MYSQL_DB, port=int(MYSQL_PORT))
 
