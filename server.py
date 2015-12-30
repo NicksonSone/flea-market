@@ -12,13 +12,13 @@ from sae.const import (MYSQL_HOST,
 
 
 @app.before_request
-def before_request(exception):
+def before_request():
     g.db = MySQLdb.connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS,
                            MYSQL_DB, port=int(MYSQL_PORT))
 
 
 @app.teardown_request
-def teardown_request():
+def teardown_request(exception):
     if hasattr(g, 'db'):
         g.db.close()
 
