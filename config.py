@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: Putf-8 -*-
+# -*- coding: utf-8 -*-
 
 # configuration
 DATABASE = '/tmp/flaskr.db'
