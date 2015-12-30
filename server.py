@@ -25,6 +25,9 @@ def teardown_request(exception):
 
 @app.route("/", methods=['GET'])
 def frontPage():
+    cursor = g.db.cursor()
+    if cursor:
+        return "has cursor"
     return "front page"
 
 
@@ -54,9 +57,6 @@ def login():
     password = request.form["password"]
     return jsonify(stat=1, account=account, password=password)
 
-
-def db_connect():
-    return sqlite3.connect(app.config["DATABASE"])
 
 if __name__ == "__main__":
     app.run()
