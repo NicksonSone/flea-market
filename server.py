@@ -27,7 +27,7 @@ def teardown_request(exception):
 def frontPage():
     cursor = g.db.cursor()
     if cursor:
-        return "has cursor"
+        print "has cursor"
     return "front page"
 
 
