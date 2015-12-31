@@ -38,12 +38,7 @@ def allow_cross_domain(fun):
 
 @app.route("/", methods=['GET'])
 def frontPage():
-    cursor = g.db.cursor()
-    bla = []
-    if cursor:
-        bla.append("lal")
-    bla.append("front page")
-    return bla
+    return "front page"
 
 
 @app.route("/register", methods=['POST'])
@@ -64,7 +59,7 @@ def register():
     # results = cursor.fetchall()
 
     # return jsonify(results=results)
-    return "happy"
+    return "lala"
 
 
 @app.route("/login", methods=['PUT'])
