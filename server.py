@@ -46,7 +46,7 @@ def frontPage():
 def register():
     # check mailbox, phone number
     # insert data into database
-    # username = request.form["username"]
+    username = request.form["username"]
     # password = request.form["password"]
     # phoneNum = request.form["phoneNum"]
     # mailbox = request.form["mailbox"]
@@ -57,9 +57,14 @@ def register():
     # cursor = g.db.cursor()
     # cursor.execute("select * from test")
     # results = cursor.fetchall()
+    cursor = g.db.cursor()
+    cursor.execute("insert into test values(1, 2, %s)", (username,))
+    cursor.commit()
 
-    # return jsonify(results=results)
-    return "lala"
+    cursor.execute("select * from test")
+    results = cursor.fetchall()
+
+    return jsonify(results=results)
 
 
 @app.route("/login", methods=['PUT'])
