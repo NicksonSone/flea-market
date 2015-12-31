@@ -41,7 +41,7 @@ def frontPage():
     return "front page"
 
 
-@app.route("/register", methods=['POST'])
+@app.route("/register", methods=['POST', 'OPTIONS'])
 @allow_cross_domain
 def register():
     # check mailbox, phone number
