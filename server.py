@@ -1,5 +1,6 @@
 import MySQLdb
-from flask import Flask, jsonify, g, request
+from functools import wraps
+from flask import Flask, jsonify, g, request, make_reponse
 from config import DEBUG
 
 app = Flask(__name__)
@@ -23,6 +24,18 @@ def teardown_request(exception):
         g.db.close()
 
 
+def allow_cross_domain(fun):
+    @wraps(fun)
+    def wrapper_fun(*args, **kwargs):
+        rst = make_reponse(fun(*args, **kwargs))
+        rst.headers["Access-Control-Allow-Origin"] = "*"
+        rst.headers["Access-Control-Allow-Methods"] = "PUT, GET, POST, DELETE"
+        allow_headers = "Referer, Accept, Origin, User-Agent"
+        rst.headers["Access-Control-Allow-Headers"] = allow_headers
+        return rst
+    return wrapper_fun
+
+
 @app.route("/", methods=['GET'])
 def frontPage():
     cursor = g.db.cursor()
@@ -34,6 +47,7 @@ def frontPage():
 
 
 @app.route("/register", methods=['POST'])
+@allow_cross_domain
 def register():
     # check mailbox, phone number
     # insert data into database
@@ -53,6 +67,7 @@ def register():
 
 
 @app.route("/login", methods=['PUT'])
+@allow_cross_domain
 def login():
     # find user account
     # check password
