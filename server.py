@@ -1,6 +1,6 @@
 import MySQLdb
 from functools import wraps
-from flask import Flask, jsonify, g, request, make_reponse
+from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG
 
 app = Flask(__name__)
@@ -27,7 +27,7 @@ def teardown_request(exception):
 def allow_cross_domain(fun):
     @wraps(fun)
     def wrapper_fun(*args, **kwargs):
-        rst = make_reponse(fun(*args, **kwargs))
+        rst = make_response(fun(*args, **kwargs))
         rst.headers["Access-Control-Allow-Origin"] = "*"
         rst.headers["Access-Control-Allow-Methods"] = "PUT, GET, POST, DELETE"
         allow_headers = "Referer, Accept, Origin, User-Agent"
