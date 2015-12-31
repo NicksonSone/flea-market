@@ -59,11 +59,12 @@ def register():
     # location = request.form["location"]
     # school = request.form["school"]
 
-    cursor = g.db.cursor()
-    cursor.execute("select * from test")
-    results = cursor.fetchall()
+    # cursor = g.db.cursor()
+    # cursor.execute("select * from test")
+    # results = cursor.fetchall()
 
-    return jsonify(results=results)
+    # return jsonify(results=results)
+    return "happy"
 
 
 @app.route("/login", methods=['PUT'])
