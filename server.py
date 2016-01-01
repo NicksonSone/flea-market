@@ -29,7 +29,8 @@ def allow_cross_domain(fun):
     def wrapper_fun(*args, **kwargs):
         rst = make_response(fun(*args, **kwargs))
         rst.headers['Access-Control-Allow-Origin'] = '*'
-        rst.headers['Access-Control-Allow-Methods'] = 'PUT,GET,POST,DELETE,OPTIONS'
+        rst.headers['Access-Control-Allow-Methods'] = (
+            'PUT,GET,POST,DELETE,OPTIONS')
         allow_headers = "Referer,Accept,Origin,User-Agent, Content-Type"
         rst.headers['Access-Control-Allow-Headers'] = allow_headers
         return rst
@@ -63,7 +64,6 @@ def register():
         "insert into test values(1, 2, %s, %s, %s, %s, %s, %s, %s)",
         (username, username, username, username, username, username, username, )
     )
-    cursor.commit()
 
     cursor.execute("select * from test")
     results = cursor.fetchall()
