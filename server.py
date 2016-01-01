@@ -60,8 +60,8 @@ def register():
     # results = cursor.fetchall()
     cursor = g.db.cursor()
     cursor.execute(
-        "insert into test values(1, 2, %s, %s, %s, %s, %s, %s, %s)",
-        (username, username, username, username, username, username, username, )
+        "insert into test values(1, 2, %s)",
+        (username,)
     )
 
     cursor.execute("select * from test")
