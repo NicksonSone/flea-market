@@ -81,7 +81,7 @@ def login():
 def test():
     num = request.form["num"]
     cursor = g.db.cursor()
-    stm = "insert into test values(%s)"
+    stm = "insert into test values(%s, 1, )"
     cursor.execute(stm, (num,))
 
     return "success"
