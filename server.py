@@ -51,8 +51,8 @@ def register():
     # check mailbox, phone number
     # insert data into database
     username = request.form["username"]
-    return username
-    username = base64.b64encode(username)
+    base64.b64encode(username)
+    return "happy"
     # password = request.form["password"]
     # phoneNum = request.form["phoneNum"]
     # mailbox = request.form["mailbox"]
