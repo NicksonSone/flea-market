@@ -50,7 +50,7 @@ def register():
     # check mailbox, phone number
     # insert data into database
     username = request.form["username"]
-    username.endcode('utf8')
+    username.encode('utf8')
     # password = request.form["password"]
     # phoneNum = request.form["phoneNum"]
     # mailbox = request.form["mailbox"]
