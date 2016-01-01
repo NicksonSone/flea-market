@@ -50,20 +50,31 @@ def frontPage():
 def register():
     # check mailbox, phone number
     # insert data into database
-    username = request.form["username"]
+    userName = request.form["userName"]
     password = request.form["password"]
     phoneNum = request.form["phoneNum"]
-    mailbox = request.form["mailbox"]
+    email = request.form["email"]
     QQ = request.form["QQ"]
     location = request.form["location"]
     school = request.form["school"]
+    avatar = request.form["avatar"]
+    signUpDate = ("TO BE DECIDED")
 
+    # check uniqueness
     cursor = g.db.cursor()
-    query = ""
-    cursor.execute("")
+    query = "select userId from User where phoneNum = %s or email = %s"
+    cursor.execute(query, (phoneNum, email))
+    if cursor.fetchone():
+        return jsonify(state=2, error="email or phone number registered")
 
-
-    return jsonify(results=results)
+    stm = ("insert into User"
+           "(userName, password, phoneNum, email, QQ,"
+           " location, school, avatar, signUpDate) values "
+           "(%s, %s, %s, %s, %s,"
+           " %s, %s, %s, %s)")
+    cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
+                         school, avatar, signUpDate))
+    return jsonify(state=1)
 
 
 @app.route("/login", methods=['PUT'])
@@ -74,7 +85,7 @@ def login():
 
     account = request.form["account"]
     password = request.form["password"]
-    return jsonify(stat=1, account=account, password=password)
+    return jsonify(state=1, account=account, password=password)
 
 
 @app.route("/test", methods=["POST"])
