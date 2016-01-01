@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import MySQLdb
+import base64
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG
@@ -50,7 +51,7 @@ def register():
     # check mailbox, phone number
     # insert data into database
     username = request.form["username"]
-    username.encode('utf8')
+    base64.b64encode(username)
     # password = request.form["password"]
     # phoneNum = request.form["phoneNum"]
     # mailbox = request.form["mailbox"]
