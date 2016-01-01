@@ -51,28 +51,19 @@ def register():
     # check mailbox, phone number
     # insert data into database
     username = request.form["username"]
-    base64.standard_b64encode(username)
-    return "happy"
-    # password = request.form["password"]
-    # phoneNum = request.form["phoneNum"]
-    # mailbox = request.form["mailbox"]
-    # QQ = request.form["QQ"]
-    # location = request.form["location"]
-    # school = request.form["school"]
+    password = request.form["password"]
+    phoneNum = request.form["phoneNum"]
+    mailbox = request.form["mailbox"]
+    QQ = request.form["QQ"]
+    location = request.form["location"]
+    school = request.form["school"]
 
-    # cursor = g.db.cursor()
-    # cursor.execute("select * from test")
-    # results = cursor.fetchall()
-    # cursor = g.db.cursor()
-    # cursor.execute(
-    #     "insert into test values(1, 2, %s)",
-    #     (username,)
-    # )
+    cursor = g.db.cursor()
+    query = ""
+    cursor.execute("")
 
-    # cursor.execute("select * from test")
-    # results = cursor.fetchall()
 
-    # return jsonify(results=results)
+    return jsonify(results=results)
 
 
 @app.route("/login", methods=['PUT'])
@@ -85,6 +76,15 @@ def login():
     password = request.form["password"]
     return jsonify(stat=1, account=account, password=password)
 
+
+@app.route("/test", methods=["POST"])
+def test():
+    num = request.form["num"]
+    cursor = g.db.cursor()
+    stm = "insert into test values(%s)"
+    cursor.execute(stm, (num,))
+
+    return "success"
 
 if __name__ == "__main__":
     app.run()
