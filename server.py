@@ -51,6 +51,7 @@ def register():
     # check mailbox, phone number
     # insert data into database
     username = request.form["username"]
+    return username
     base64.b64encode(username)
     # password = request.form["password"]
     # phoneNum = request.form["phoneNum"]
@@ -62,16 +63,16 @@ def register():
     # cursor = g.db.cursor()
     # cursor.execute("select * from test")
     # results = cursor.fetchall()
-    cursor = g.db.cursor()
-    cursor.execute(
-        "insert into test values(1, 2, %s)",
-        (username,)
-    )
+    # cursor = g.db.cursor()
+    # cursor.execute(
+    #     "insert into test values(1, 2, %s)",
+    #     (username,)
+    # )
 
-    cursor.execute("select * from test")
-    results = cursor.fetchall()
+    # cursor.execute("select * from test")
+    # results = cursor.fetchall()
 
-    return jsonify(results=results)
+    # return jsonify(results=results)
 
 
 @app.route("/login", methods=['PUT'])
