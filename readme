@@ -9,17 +9,18 @@ Register
 ==================================================
 /register (post) 
 PARAMS:
-	username (string)
+	userName (string)
 	password (string)
 	phoneNum (string)
-	mailbox (string)
+	email (string)
 	QQ (string)
 	location (string)
 	school (string)
+	avatar (to be decided)
 RETURN: 
 	none
 STATE:
-	succeed: 1, mail box registered: 2, phoneNum registered: 3
+	succeed: 1, email or phoneNUM registered: 2, fail: 0
 ==================================================
 
 
