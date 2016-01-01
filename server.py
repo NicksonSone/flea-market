@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import MySQLdb
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
