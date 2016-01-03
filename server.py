@@ -78,7 +78,7 @@ def register():
 
     stm = ("insert into User"
            "(userName, password, phoneNum, email, QQ,"
-           " location, school, avatar, signUpDate) values "
+           " location, school, signUpDate) values "
            "(%s, %s, %s, %s, %s,"
            " %s, %s, %s)")
     cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
