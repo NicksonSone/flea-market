@@ -76,13 +76,13 @@ def register():
     # cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
     #                      school, avatar, signUpDate))
 
-    # stm = ("insert into User"
-    #        "(userName, password, phoneNum, email, QQ,"
-    #        " location, school, signUpDate ) values "
-    #        "(%s, %s, %s, %s, %s,"
-    #        " %s, %s, %s)")
-    # cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
-                         # school, signUpDate))
+    stm = ("insert into User"
+           "(userName, password, phoneNum, email, QQ,"
+           " location, school, signUpDate ) values "
+           "(%s, %s, %s, %s, %s,"
+           " %s, %s, %s)")
+    cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
+                         school, signUpDate))
 
     return jsonify(state=1)
 
