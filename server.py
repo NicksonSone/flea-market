@@ -82,7 +82,7 @@ def register():
            "(%s, %s, %s, %s, %s,"
            " %s, %s, %s)")
     cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
-                         school, time))
+                         school, signUpDate))
 
     return jsonify(state=1)
 
