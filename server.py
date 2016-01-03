@@ -78,11 +78,11 @@ def register():
 
     stm = ("insert into User"
            "(userName, password, phoneNum, email, QQ,"
-           " location, school ) values "
+           " location, school, signUpDate ) values "
            "(%s, %s, %s, %s, %s,"
-           " %s, %s)")
+           " %s, %s, %s)")
     cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
-                         school))
+                         school, signUpDate))
 
     return jsonify(state=1)
 
@@ -101,7 +101,7 @@ def login():
 @app.route("/test", methods=["POST"])
 def test():
     cursor = g.db.cursor()
-    cursor.execute("select signUpDate from User where userId = 7")
+    cursor.execute("select signUpDate from User where userId = 6")
     c = cursor.fetchone()
     c = str(c)
     return jsonify(result=c)
