@@ -100,8 +100,9 @@ def login():
 
 @app.route("/test", methods=["POST"])
 def test():
+    num = request.form["num"]
     cursor = g.db.cursor()
-    cursor.execute("select signUpDate from User where userId = 6")
+    cursor.execute("select signUpDate from User where userId = %s", (num,))
     c = cursor.fetchone()
     c = str(c)
     return jsonify(result=c)
