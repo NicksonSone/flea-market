@@ -103,6 +103,7 @@ def test():
     cursor = g.db.cursor()
     cursor.execute("select signUpDate from User where userId = 6")
     c = cursor.fetchone()
+    c = str(c)
     return jsonify(result=c)
 
 if __name__ == "__main__":
