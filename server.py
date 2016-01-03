@@ -100,12 +100,10 @@ def login():
 
 @app.route("/test", methods=["POST"])
 def test():
-    num = request.form["num"]
     cursor = g.db.cursor()
-    stm = "insert into test values (%s, 1, 'sdf')"
-    cursor.execute(stm, (num,))
-
-    return "success"
+    cursor.execute("select signUpDate from User where userId = 6")
+    c = cursor.fetchone()
+    return c
 
 if __name__ == "__main__":
     app.run()
