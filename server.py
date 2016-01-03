@@ -78,11 +78,11 @@ def register():
 
     stm = ("insert into User"
            "(userName, password, phoneNum, email, QQ,"
-           " location, school, signUpDate) values "
+           " location, school ) values "
            "(%s, %s, %s, %s, %s,"
-           " %s, %s, %s)")
+           " %s, %s)")
     cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
-                         school, signUpDate))
+                         school))
 
     return jsonify(state=1)
 
