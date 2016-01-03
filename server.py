@@ -50,13 +50,13 @@ def frontPage():
 def register():
     # check mailbox, phone number
     # insert data into database
-    userName = request.form["userName"]
-    password = request.form["password"]
-    phoneNum = request.form["phoneNum"]
-    email = request.form["email"]
-    QQ = request.form["QQ"]
-    location = request.form["location"]
-    school = request.form["school"]
+    userName = request.form.get("userName", "")
+    password = request.form.get("password", "")
+    phoneNum = request.form.get("phoneNum", "")
+    email = request.form.get("email", "")
+    QQ = request.form("QQ", "")
+    location = request.form("location", "")
+    school = request.form("school", "")
     # avatar = request.form["avatar"]
     signUpDate = time()
 
@@ -65,7 +65,7 @@ def register():
     # query = "select userId from User where phoneNum = %s or email = %s"
     # cursor.execute(query, (phoneNum, email))
     # if cursor.fetchone():
-    #     return jsonify(state=2, error="email or phone number registered")
+         return jsonify(state=2, error="email or phone number registered")
 
     # TODO: way to access default avatar unknown
     # stm = ("insert into User"
