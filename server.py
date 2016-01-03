@@ -51,6 +51,7 @@ def register():
     # check mailbox, phone number
     # insert data into database
     userName = request.form.get("userName", "")
+    return userName
     password = request.form.get("password", "")
     phoneNum = request.form.get("phoneNum", "")
     email = request.form.get("email", "")
