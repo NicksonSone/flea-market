@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import MySQLdb
-import base64
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG
+from time import time
 
 app = Flask(__name__)
 app.debug = DEBUG
@@ -57,8 +57,8 @@ def register():
     QQ = request.form["QQ"]
     location = request.form["location"]
     school = request.form["school"]
-    avatar = request.form["avatar"]
-    signUpDate = ("TO BE DECIDED")
+    # avatar = request.form["avatar"]
+    signUpDate = time()
 
     # check uniqueness
     cursor = g.db.cursor()
@@ -67,13 +67,23 @@ def register():
     if cursor.fetchone():
         return jsonify(state=2, error="email or phone number registered")
 
+    # TODO: way to access default avatar unknown
+    # stm = ("insert into User"
+    #        "(userName, password, phoneNum, email, QQ,"
+    #        " location, school, avatar, signUpDate) values "
+    #        "(%s, %s, %s, %s, %s,"
+    #        " %s, %s, %s, %s)")
+    # cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
+    #                      school, avatar, signUpDate))
+
     stm = ("insert into User"
            "(userName, password, phoneNum, email, QQ,"
            " location, school, avatar, signUpDate) values "
            "(%s, %s, %s, %s, %s,"
-           " %s, %s, %s, %s)")
+           " %s, %s, %s)")
     cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
-                         school, avatar, signUpDate))
+                         school, time))
+
     return jsonify(state=1)
 
 
