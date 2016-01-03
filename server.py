@@ -54,9 +54,9 @@ def register():
     password = request.form.get("password", "")
     phoneNum = request.form.get("phoneNum", "")
     email = request.form.get("email", "")
-    QQ = request.form("QQ", "")
-    location = request.form("location", "")
-    school = request.form("school", "")
+    QQ = request.form.get("QQ", "")
+    location = request.form.get("location", "")
+    school = request.form.get("school", "")
     # avatar = request.form["avatar"]
     signUpDate = time()
 
