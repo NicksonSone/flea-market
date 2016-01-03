@@ -50,13 +50,13 @@ def frontPage():
 def register():
     # check mailbox, phone number
     # insert data into database
-    userName = request.form.get("userName", "")
-    password = request.form.get("password", "")
-    phoneNum = request.form.get("phoneNum", "")
-    email = request.form.get("email", "")
-    QQ = request.form.get("QQ", "")
-    location = request.form.get("location", "")
-    school = request.form.get("school", "")
+    userName = request.args.get("userName", "")
+    password = request.args.get("password", "")
+    phoneNum = request.args.get("phoneNum", "")
+    email = request.args.get("email", "")
+    QQ = request.args.get("QQ", "")
+    location = request.args.get("location", "")
+    school = request.args.get("school", "")
     # avatar = request.form["avatar"]
     signUpDate = time()
 
