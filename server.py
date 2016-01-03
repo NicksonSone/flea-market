@@ -50,22 +50,22 @@ def frontPage():
 def register():
     # check mailbox, phone number
     # insert data into database
-    userName = request.form["userName"]
-    password = request.form["password"]
-    phoneNum = request.form["phoneNum"]
-    email = request.form["email"]
-    QQ = request.form["QQ"]
-    location = request.form["location"]
-    school = request.form["school"]
-    # avatar = request.form["avatar"]
-    signUpDate = time()
+    # userName = request.form["userName"]
+    # password = request.form["password"]
+    # phoneNum = request.form["phoneNum"]
+    # email = request.form["email"]
+    # QQ = request.form["QQ"]
+    # location = request.form["location"]
+    # school = request.form["school"]
+    # # avatar = request.form["avatar"]
+    # signUpDate = time()
 
     # check uniqueness
-    cursor = g.db.cursor()
-    query = "select userId from User where phoneNum = %s or email = %s"
-    cursor.execute(query, (phoneNum, email))
-    if cursor.fetchone():
-        return jsonify(state=2, error="email or phone number registered")
+    # cursor = g.db.cursor()
+    # query = "select userId from User where phoneNum = %s or email = %s"
+    # cursor.execute(query, (phoneNum, email))
+    # if cursor.fetchone():
+    #     return jsonify(state=2, error="email or phone number registered")
 
     # TODO: way to access default avatar unknown
     # stm = ("insert into User"
@@ -76,12 +76,12 @@ def register():
     # cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
     #                      school, avatar, signUpDate))
 
-    stm = ("insert into User"
-           "(userName, password, phoneNum, email, QQ,"
-           " location, school, signUpDate ) values "
-           "(%s, %s, %s, %s, %s,"
-           " %s, %s, %s)")
-    cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
+    # stm = ("insert into User"
+    #        "(userName, password, phoneNum, email, QQ,"
+    #        " location, school, signUpDate ) values "
+    #        "(%s, %s, %s, %s, %s,"
+    #        " %s, %s, %s)")
+    # cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
                          school, signUpDate))
 
     return jsonify(state=1)
@@ -95,6 +95,8 @@ def login():
 
     account = request.form["account"]
     password = request.form["password"]
+
+
     return jsonify(state=1, account=account, password=password)
 
 
