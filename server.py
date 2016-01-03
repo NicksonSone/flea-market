@@ -65,7 +65,7 @@ def register():
     # query = "select userId from User where phoneNum = %s or email = %s"
     # cursor.execute(query, (phoneNum, email))
     # if cursor.fetchone():
-         return jsonify(state=2, error="email or phone number registered")
+    #     return jsonify(state=2, error="email or phone number registered")
 
     # TODO: way to access default avatar unknown
     # stm = ("insert into User"
