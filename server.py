@@ -51,7 +51,6 @@ def register():
     # check mailbox, phone number
     # insert data into database
     userName = request.args.get("userName", "")
-    return jsonify(state=request.method)
     password = request.args.get("password", "")
     phoneNum = request.args.get("phoneNum", "")
     email = request.args.get("email", "")
