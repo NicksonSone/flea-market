@@ -52,7 +52,7 @@ def register():
     # insert data into database
     # userName = request.values.get("userName", "")
     # return jsonify(state=request.values)
-    req = request.form
+    req = request.data
     req = str(req)
     return jsonify(state=req)
     password = request.form.get("password", "")
