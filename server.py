@@ -54,8 +54,9 @@ def register():
     # userName = request.values.get("userName", "")
     # return jsonify(state=request.values)
     s = request.data
-    d = ast.literal_eval(s)
     return jsonify(state=s)
+    d = ast.literal_eval(s)
+    return jsonify(state=d)
     password = request.form.get("password", "")
     phoneNum = request.form.get("phoneNum", "")
     email = request.form.get("email", "")
