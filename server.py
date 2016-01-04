@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import ast
 import MySQLdb
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
@@ -52,8 +53,7 @@ def register():
     # insert data into database
     # userName = request.values.get("userName", "")
     # return jsonify(state=request.values)
-    req = request.form.get("userName", "hello")
-    req = str(req)
+    req = ast.literal_eval(request.data)
     return jsonify(state=req)
     password = request.form.get("password", "")
     phoneNum = request.form.get("phoneNum", "")
