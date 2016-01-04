@@ -50,7 +50,8 @@ def frontPage():
 def register():
     # check mailbox, phone number
     # insert data into database
-    userName = request.form.get("userName", "")
+    userName = request.values.get("userName", "")
+    return userName
     password = request.form.get("password", "")
     phoneNum = request.form.get("phoneNum", "")
     email = request.form.get("email", "")
@@ -76,6 +77,7 @@ def register():
     # cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
     #                      school, avatar, signUpDate))
 
+    # insert user data
     stm = ("insert into User"
            "(userName, password, phoneNum, email, QQ,"
            " location, school, signUpDate ) values "
@@ -84,20 +86,58 @@ def register():
     cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
                          school, signUpDate))
 
-    return jsonify(state=1)
+    # get userId to check the insertion
+    query = "select userId from User where email = %s"
+    cursor.execute(query, (email,))
+    # TODO: fetch userId
+    userId = cursor.fetchone()
+
+    if userId is None:
+        return jsonify(state=0, error="unable to register for unknbwn reasons")
+
+    return jsonify(state=1, userId=userId)
 
 
-@app.route("/login", methods=['PUT'])
+@app.route("/login", methods=["PUT"])
 @allow_cross_domain
 def login():
     # find user account
     # check password
 
-    account = request.form["account"]
-    password = request.form["password"]
+    account = request.form.get("account", "")
+    password = request.form("password", "")
 
+    query = "select userId, password from User where email = %s"
+    cursor = g.db.cursor()
+    cursor.execute(query, (account,))
+    # TODO: fetch userId and password
+    result = cursor.fetchone()
+
+    if result is None:
+        return jsonify(state=3, error="user does not exist")
+
+    if password != result:
+        return jsonify(state=2, error="incorrect password")
 
     return jsonify(state=1, account=account, password=password)
+
+
+@app.route("/user", methods=["GET"])
+@allow_cross_domain
+def get_user_info():
+    # retrieve user info by userId
+
+    userId = request.args.get("userId", None)
+    if not userId:
+        return jsonify(state=0, error="no arguement passed")
+
+    query = ("select userName, phoneNum, QQ, email, location, school, avatar"
+             "from userId where userId = %s")
+    cursor = g.db.cursor()
+    cursor.execute(query, (userId,))
+    result = cursor.fetchone()
+
+    return jsonify(state=1, result=result)
 
 
 @app.route("/test", methods=["POST"])
