@@ -54,7 +54,7 @@ def register():
     # userName = request.values.get("userName", "")
     # return jsonify(state=request.values)
     s = request.data
-    data = "'" + s + "'"
+    data = '"' + s + '"'
     return jsonify(state=data)
     r = ast.literal_eval(data)
     return jsonify(state=r.__class__.__name__)
