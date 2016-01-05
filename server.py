@@ -97,9 +97,8 @@ def register():
     # get userId to check the insertion
     query = "select userId, password from User where email = %s"
     cursor.execute(query, (email,))
-    # TODO: fetch userId
-    userId = cursor.fetchone()
-    userId = userId[0]
+    record = cursor.fetchone()
+    userId = record[0]
 
     if userId is None:
         return jsonify(state=0, error="unable to register for unknbwn reasons")
@@ -113,22 +112,22 @@ def login():
     # find user account
     # check password
 
-    account = request.form.get("account", "")
-    password = request.form("password", "")
+    data = parseData()
+    account = data.get("account", "")
+    password = data.get("password", "")
 
     query = "select userId, password from User where email = %s"
     cursor = g.db.cursor()
     cursor.execute(query, (account,))
-    # TODO: fetch userId and password
-    result = cursor.fetchone()
+    record = cursor.fetchone()
 
-    if result is None:
+    if record is None:
         return jsonify(state=3, error="user does not exist")
 
-    if password != result:
+    if password != record[1]:
         return jsonify(state=2, error="incorrect password")
 
-    return jsonify(state=1, account=account, password=password)
+    return jsonify(state=1, userId=record[0])
 
 
 @app.route("/user", methods=["GET"])
