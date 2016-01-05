@@ -164,7 +164,8 @@ def get_user_info():
         return jsonify(state=0, error="no arguement passed")
 
     userId = int(userId)
-    query = ("select userName, realName, phoneNum, QQ, location, school from User where userId = %s")
+    query = ("select userName, realName, phoneNum, QQ, location, school \
+             from User where userId = %s")
     cursor = g.db.cursor()
     cursor.execute(query, (userId,))
     result = cursor.fetchone()
