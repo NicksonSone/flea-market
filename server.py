@@ -136,20 +136,20 @@ def login():
 @allow_cross_domain
 def change_pwd():
     data = parseData()
-    userId = data.get("userId", "")
+    email = data.get("email", "")
     oldPwd = data.get("oldPwd", "")
     newPwd = data.get("newPwd", "")
 
     cursor = g.db.cursor()
-    query = "selct userId from User where userId = %s and password = %s"
-    cursor.execute(query, (userId, oldPwd))
+    query = "selct userId from User where email = %s and password = %s"
+    cursor.execute(query, (email, oldPwd))
     record = cursor.fetchone()
 
     if not record:
-        return jsonify(state=0, error="incorrect password" )
+        return jsonify(state=0, error="incorrect password")
 
-    update = "update User set password = %s where userId = %s "
-    cursor.execute(update, (newPwd, userId))
+    update = "update User set password = %s where email = %s "
+    cursor.execute(update, (newPwd, email))
     g.db.commit()
 
     return jsonify(state=1)
