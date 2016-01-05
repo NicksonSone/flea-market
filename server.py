@@ -135,10 +135,10 @@ def login():
 @app.route("/user/password", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def change_pwd():
-    data = parseData()
-    email = data.get("email", "")
-    oldPwd = data.get("oldPwd", "")
-    newPwd = data.get("newPwd", "")
+    # data = parseData()
+    email = request.form.get("email", "")
+    oldPwd = request.form.get("oldPwd", "")
+    newPwd = request.form.get("newPwd", "")
 
     cursor = g.db.cursor()
     query = "selct userId from User where email = %s and password = %s"
