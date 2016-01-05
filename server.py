@@ -93,6 +93,7 @@ def register():
            " %s, %s, %s)")
     cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
                          school, signUpDate))
+    g.db.commit()
 
     # get userId to check the insertion
     query = "select userId, password from User where email = %s"
@@ -130,6 +131,16 @@ def login():
 
     return jsonify(state=1, userId=record[0])
 
+
+@app.route("/user/password", methods=["POST", "OPTIONS"])
+@allow_cross_domain
+def change_pwd():
+    data = parseData()
+    userId = data.get("userId", "")
+    oldPwd = data.get("oldPwd", "")
+    newPwd = data.get("newPwd", "")
+
+    cursor = g
 
 @app.route("/user", methods=["GET", "OPTIONS"])
 @allow_cross_domain
