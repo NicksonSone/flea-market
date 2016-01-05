@@ -141,7 +141,7 @@ def change_pwd():
     newPwd = request.form.get("npassword", "")
 
     cursor = g.db.cursor()
-    query = "selct userId from User where email = %s and password = %s"
+    query = "select userId from User where email = %s and password = %s"
     cursor.execute(query, (email, oldPwd))
     record = cursor.fetchone()
 
