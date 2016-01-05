@@ -136,6 +136,7 @@ def login():
 def change_pwd():
     # data = parseData()
     email = request.form.get("email", "")
+    return jsonify(state=email)
     oldPwd = request.form.get("oldpassword", "")
     newPwd = request.form.get("npassword", "")
 
