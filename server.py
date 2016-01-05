@@ -54,7 +54,7 @@ def register():
     # userName = request.values.get("userName", "")
     # return jsonify(state=request.values)
     r = request.form
-    return jsonify(state=r)
+    return jsonify(state=str(r))
     a = r[0]
     return jsonify(state=a.__class__.__name__)
     s = request.data
