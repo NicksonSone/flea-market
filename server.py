@@ -160,10 +160,10 @@ def get_user_info():
     # retrieve user info by userId
 
     userId = request.args.get("userId", None)
-    userId = int(userId)
     if not userId:
         return jsonify(state=0, error="no arguement passed")
 
+    userId = int(userId)
     query = ("select userName, realName, phoneNum, QQ, location, school"
              "from User where userId = %s")
     cursor = g.db.cursor()
