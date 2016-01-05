@@ -106,7 +106,7 @@ def register():
     return jsonify(state=1, userId=userId)
 
 
-@app.route("/login", methods=["PUT"])
+@app.route("/login", methods=["PUT", "OPTIONS"])
 @allow_cross_domain
 def login():
     # find user account
@@ -130,7 +130,7 @@ def login():
     return jsonify(state=1, userId=record[0])
 
 
-@app.route("/user", methods=["GET"])
+@app.route("/user", methods=["GET", "OPTIONS"])
 @allow_cross_domain
 def get_user_info():
     # retrieve user info by userId
