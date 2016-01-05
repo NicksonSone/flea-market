@@ -169,8 +169,15 @@ def get_user_info():
     cursor = g.db.cursor()
     cursor.execute(query, (userId,))
     result = cursor.fetchone()
+    dict_res = {}
+    dict_res["userName"] = result[0]
+    dict_res["realName"] = result[1]
+    dict_res["phoneNum"] = result[2]
+    dict_res["QQ"] = result[3]
+    dict_res["location"] = result[4]
+    dict_res["school"] = result[5]
 
-    return jsonify(state=1, result=result)
+    return jsonify(state=1, result=dict_res)
 
 
 @app.route("/user", methods=["POST", "OPTIONS"])
