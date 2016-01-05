@@ -43,7 +43,7 @@ def allow_cross_domain(fun):
 
 def parseData():
     data = list(request.form.iterkeys())
-    data = data[0]
+    #data = data[0]
     # data = ast.literal_eval(data)
     return data
 
