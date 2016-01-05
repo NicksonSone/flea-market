@@ -95,7 +95,7 @@ def register():
                          school, signUpDate))
 
     # get userId to check the insertion
-    query = "select userId from User where email = %s"
+    query = "select userId, password from User where email = %s"
     cursor.execute(query, (email,))
     # TODO: fetch userId
     userId = cursor.fetchone()
@@ -103,7 +103,7 @@ def register():
     if userId is None:
         return jsonify(state=0, error="unable to register for unknbwn reasons")
 
-    return jsonify(state=1, userId=userId.__class__.__name__)
+    return jsonify(state=1, userId=userId)
 
 
 @app.route("/login", methods=["PUT"])
