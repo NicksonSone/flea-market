@@ -137,8 +137,8 @@ def login():
 def change_pwd():
     # data = parseData()
     email = request.form.get("email", "")
-    oldPwd = request.form.get("oldPwd", "")
-    newPwd = request.form.get("newPwd", "")
+    oldPwd = request.form.get("oldpassword", "")
+    newPwd = request.form.get("npassword", "")
 
     cursor = g.db.cursor()
     query = "selct userId from User where email = %s and password = %s"
