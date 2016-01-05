@@ -112,7 +112,7 @@ def login():
     # find user account
     # check password
 
-    return jsonify(state=request._values)
+    return jsonify(state=request.values)
     data = parseData()
     return jsonify(state=data)
     account = data.get("account", "")
