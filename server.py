@@ -146,13 +146,13 @@ def change_pwd():
     record = cursor.fetchone()
 
     if not record:
-        return jsonify(state=0, error="incorrect password")
+        return 0
 
     update = "update User set password = %s where email = %s "
     cursor.execute(update, (newPwd, email))
     g.db.commit()
 
-    return jsonify(state=1)
+    return 1
 
 
 @app.route("/user", methods=["GET", "OPTIONS"])
