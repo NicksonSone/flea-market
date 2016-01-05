@@ -163,7 +163,7 @@ def get_user_info():
     if not userId:
         return jsonify(state=0, error="no arguement passed")
 
-    query = ("select userName, phoneNum, QQ, email, location, school, avatar"
+    query = ("select userName, realName, phoneNum, QQ, location, school"
              "from userId where userId = %s")
     cursor = g.db.cursor()
     cursor.execute(query, (userId,))
@@ -183,8 +183,13 @@ def edit_user_info():
     school = data.get("school", "")
 
     cursor = g.db.cursor()
-    update = ("update User set userName = %s, realName = %s, QQ = %s, location = %s, school = %s")
-    cursor
+    update = ("update User set userName = %s, realName = %s, "
+              "QQ = %s, location = %s, school = %s"
+              "where userId = %s")
+    cursor.execute(update, (userName, realName, QQ, location, school, userId))
+    g.db.commit()
+
+    return jsonify(state=1)
 
 
 @app.route("/test", methods=["POST"])
