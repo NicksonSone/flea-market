@@ -41,6 +41,12 @@ def allow_cross_domain(fun):
     return wrapper_fun
 
 
+def parseData():
+    data = list(request.form.iterkeys())[0]
+    data = ast.literal_eval(data)
+    return data
+
+
 @app.route("/", methods=['GET'])
 def frontPage():
     return "front page"
@@ -51,23 +57,15 @@ def frontPage():
 def register():
     # check mailbox, phone number
     # insert data into database
-    # userName = request.values.get("userName", "")
-    # return jsonify(state=request.values)
-    r = list(request.form.iterkeys())[0]
-    d = ast.literal_eval(r)
-    return jsonify(state=d.get('userName', ""))
-    s = request.data
-    # return jsonify(state=s)
-    a = s.replace('"', "'")
-    return jsonify(state=a)
-    d = ast.literal_eval(s)
-    return jsonify(state=d)
-    password = request.form.get("password", "")
-    phoneNum = request.form.get("phoneNum", "")
-    email = request.form.get("email", "")
-    QQ = request.form.get("QQ", "")
-    location = request.form.get("location", "")
-    school = request.form.get("school", "")
+    data = parseData()
+
+    userName = data.get("userName", "")
+    password = data.get("password", "")
+    phoneNum = data.get("phoneNum", "")
+    email = data.get("email", "")
+    QQ = data.get("QQ", "")
+    location = data.get("location", "")
+    school = data.get("school", "")
     # avatar = request.form["avatar"]
     signUpDate = time()
 
