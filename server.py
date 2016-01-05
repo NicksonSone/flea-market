@@ -165,7 +165,7 @@ def get_user_info():
 
     userId = int(userId)
     query = ("select userName, realName, phoneNum, QQ, location, school"
-             "from User where userId = %s")
+             "from User where userId == %s")
     cursor = g.db.cursor()
     cursor.execute(query, (userId,))
     result = cursor.fetchone()
