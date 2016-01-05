@@ -181,6 +181,7 @@ def get_user_info():
 
 
 @app.route("/user", methods=["POST", "OPTIONS"])
+@allow_cross_domain
 def edit_user_info():
     data = parseData()
     userId = data.get("userId", None)
