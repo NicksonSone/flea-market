@@ -58,7 +58,7 @@ def register():
         'b': 123,
         'c': 'a'
     }
-    return jsonify(state=str(r))
+    return jsonify(state=str(a))
     s = request.data
     # return jsonify(state=s)
     a = s.replace('"', "'")
