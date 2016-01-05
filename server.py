@@ -140,7 +140,20 @@ def change_pwd():
     oldPwd = data.get("oldPwd", "")
     newPwd = data.get("newPwd", "")
 
-    cursor = g
+    cursor = g.db.cursor()
+    query = "selct userId from User where userId = %s and password = %s"
+    cursor.execute(query, (userId, oldPwd))
+    record = cursor.fetchone()
+
+    if not record:
+        return jsonify(state=0, error="incorrect password" )
+
+    update = "update User set password = %s where userId = %s "
+    cursor.execute(update, (newPwd, userId))
+    g.db.commit()
+
+    return jsonify(state=1)
+
 
 @app.route("/user", methods=["GET", "OPTIONS"])
 @allow_cross_domain
