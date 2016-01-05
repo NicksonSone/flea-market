@@ -165,9 +165,9 @@ def get_user_info():
 
     userId = int(userId)
     query = ("select userName, realName, phoneNum, QQ, location, school"
-             "from User where userId = %s")
+             "from User where userId = 25")
     cursor = g.db.cursor()
-    cursor.execute(query, (userId,))
+    cursor.execute(query)
     result = cursor.fetchone()
 
     return jsonify(state=1, result=result)
@@ -176,12 +176,12 @@ def get_user_info():
 @app.route("/user", methods=["POST", "OPTIONS"])
 def edit_user_info():
     data = parseData()
-    userId = data.get("userId", "")
-    userName = data.get("userName", "")
-    realName = data.get("realName", "")
-    QQ = data.get("QQ", "")
-    location = data.get("location", "")
-    school = data.get("school", "")
+    userId = data.get("userId", None)
+    userName = data.get("userName", None)
+    realName = data.get("realName", None)
+    QQ = data.get("QQ", None)
+    location = data.get("location", None)
+    school = data.get("school", None)
 
     cursor = g.db.cursor()
     update = ("update User set userName = %s, realName = %s, "
