@@ -114,7 +114,6 @@ def login():
     # check password
 
     data = parseData()
-    return jsonify(state=data)
     account = data.get("account", "")
     password = data.get("password", "")
 
@@ -171,6 +170,21 @@ def get_user_info():
     result = cursor.fetchone()
 
     return jsonify(state=1, result=result)
+
+
+@app.route("/user", methods=["POST", "OPTIONS"])
+def edit_user_info():
+    data = parseData()
+    userId = data.get("userId", "")
+    userName = data.get("userName", "")
+    realName = data.get("realName", "")
+    QQ = data.get("QQ", "")
+    location = data.get("location", "")
+    school = data.get("school", "")
+
+    cursor = g.db.cursor()
+    update = ("update User set userName = %s, realName = %s, QQ = %s, location = %s, school = %s")
+    cursor
 
 
 @app.route("/test", methods=["POST"])
