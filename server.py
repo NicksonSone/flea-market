@@ -136,8 +136,8 @@ def login():
 def change_pwd():
     # data = parseData()
     email = request.form.get("email", "")
-    return jsonify(state=email)
     oldPwd = request.form.get("oldpassword", "")
+    return jsonify(state=oldPwd)
     newPwd = request.form.get("npassword", "")
 
     cursor = g.db.cursor()
