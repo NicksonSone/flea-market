@@ -106,14 +106,14 @@ def register():
     return jsonify(state=1, userId=userId)
 
 
-@app.route("/login", methods=["POST", "OPTIONS"])
+@app.route("/login", methods=["PUT", "OPTIONS"])
 @allow_cross_domain
 def login():
     # find user account
     # check password
 
     return jsonify(state=request.form)
-    data = parseData()
+    # data = parseData()
     # return jsonify(state=data)
     account = data.get("account", "")
     password = data.get("password", "")
