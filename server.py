@@ -42,9 +42,8 @@ def allow_cross_domain(fun):
 
 
 def parseData():
-    data = list(request.form.iterkeys())
-    # data = data[0]
-    # data = ast.literal_eval(data)
+    data = list(request.form.iterkeys())[0]
+    data = ast.literal_eval(data)
     return data
 
 
@@ -113,8 +112,7 @@ def login():
     # find user account
     # check password
 
-    data = parseData()
-    return jsonify(state=data)
+    return jsonify(state=request.form)
     account = data.get("account", "")
     password = data.get("password", "")
 
