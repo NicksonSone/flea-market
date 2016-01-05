@@ -99,6 +99,7 @@ def register():
     cursor.execute(query, (email,))
     # TODO: fetch userId
     userId = cursor.fetchone()
+    userId = userId[0]
 
     if userId is None:
         return jsonify(state=0, error="unable to register for unknbwn reasons")
