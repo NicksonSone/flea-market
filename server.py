@@ -103,7 +103,7 @@ def register():
     if userId is None:
         return jsonify(state=0, error="unable to register for unknbwn reasons")
 
-    return jsonify(state=1, userId=userId)
+    return jsonify(state=1, userId=userId.__class__.__name__)
 
 
 @app.route("/login", methods=["PUT"])
