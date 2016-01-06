@@ -229,7 +229,8 @@ def create_item():
 
 @app.route("/test", methods=["POST"])
 def test():
-    num = request.form["num"]
+    num = request.form.get("num", "")
+
     return jsonify(result=num.__class__.__name__)
 
 if __name__ == "__main__":
