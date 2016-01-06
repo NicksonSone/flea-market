@@ -13,7 +13,6 @@ app.debug = DEBUG
 app.config.from_pyfile("config.py")
 
 
-
 from sae.const import (MYSQL_HOST,
                        MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
                        )
@@ -220,6 +219,10 @@ def create_item():
     delivery = request.form.get("delivery", None)
     postDate = time()
 
+    return jsonify(userId=userId, title=title, categoryId=categoryId,
+                   subcategoryId=subcategoryId, price=price,
+                   tradeVenue=tradeVenue)
+
     # cast type
     categoryId = int(categoryId)
     subcategoryId = int(subcategoryId)
@@ -359,6 +362,7 @@ def test():
     pic = request.form.get("pic", None)
     if pic is None:
         return jsonify(state="no pic")
+    return jsonify(state=pic)
 
     bucket = Bucket("avatar")
     bucket.put_object("test.jpeg", pic)
