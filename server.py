@@ -153,8 +153,8 @@ def change_pwd():
     if not record:
         return jsonify(state=0)
 
-    update = "update User set password = %s where email = %s "
-    cursor.execute(update, (newPwd, email))
+    update = "update User set password = %s where userId = %s "
+    cursor.execute(update, (newPwd, userId))
     g.db.commit()
 
     return jsonify(state=1)
