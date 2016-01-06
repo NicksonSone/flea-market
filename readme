@@ -18,9 +18,9 @@ PARAMS:
 	school (string)
 	avatar (to be decided)
 RETURN: 
-	none
+	userId (string)	
 STATE:
-	succeed: 1, email or phoneNUM registered: 2, fail: 0
+	succeed: 1, email or phoneNUM registered: 2, failure for unknown reasons: 0
 ==================================================
 
 
@@ -31,9 +31,9 @@ PARAMS:
 	account (string)
 	password (string)
 RETURN: 
-	none
+	userId (string)	
 STATE:
-	succeed: 1, incorrect password: 2, inexistent user: 3
+	succeed: 1, incorrect password: 2, inexistent user: 3, 
 ==================================================
 
 
@@ -43,24 +43,22 @@ User
 PARAMS:
 	userId (string)
 RETURN:
-	username (string)
-	realName (string)
+	userName (string)
 	phoneNum (string)
 	QQ	 (string)
-	mailbox  (string)
+	email (string)
 	location (string)
 	school 	 (string)
-	userAvatar (unknown)
+	avatar (unknown)
 STATE:
 	none
 ==================================================
 ==================================================
-/user (put)
+/user (post)
 PARAMS:
-	username (string)
-	password (string)
-	phoneNum (string)
-	mailbox (string)
+	userId (string)
+	userName (string)
+	realName
 	QQ (string)
 	location (string)
 	school (string)
@@ -75,16 +73,18 @@ Item
 ==================================================
 /item (post)
 PARAMS:
+	userId (string)
 	name (string)
-	type (number)
-	subtype (number)
+	categoryId (number)
+	subcategoryId (number)
 	price (number)
 	tradeVenue (string)
 	description (string)
 	pictureNum (number)
 	pictures (array of pictures)
 	arguable (number) 0 - no, 1 - yes
-	storage (number)
+	recency (number) 0-5: brand new - 60% below or other
+	delivery (number) 0 - in person, 1 - express, 2 - both
 RETURN: 
 	none
 STATE:
