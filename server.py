@@ -5,7 +5,7 @@ import MySQLdb
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG
-# from sae.storage import Bucket
+from sae.storage import Bucket
 from time import time
 
 app = Flask(__name__)
