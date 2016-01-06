@@ -201,14 +201,36 @@ def edit_user_info():
     return jsonify(state=1)
 
 
+@app.route("/item", methods=["POST", "OPTIONS"])
+@allow_cross_domain
+def create_item():
+    userId = request.form.get("userId", None)
+    name = request.form.get("name", None)
+    category = request.form.get("category", None)
+    subcategory = request.form.get("subcategory", None)
+    price = request.form.get("price", None)
+    tradeVenue = request.form.get("tradeVenue", None)
+    description = request.form.get("description", None)
+    pictureNum = request.form.get("pictureNum", None)
+    # TODO: picture uploading
+    # pictures
+    arguable = request.form.get("arguable", None)
+    recency = request.form.get("recency", None)
+
+    # get sender name
+    cursor = g.db.cursor()
+    query = "select userName from User where userId = %s"
+    cursor.execute(query, (userId,))
+    userName = cursor.fetchone()[0]
+
+    # create new item
+    insert = ("insert into Item(userId, userName, ) values ()")
+
+
 @app.route("/test", methods=["POST"])
 def test():
     num = request.form["num"]
-    cursor = g.db.cursor()
-    cursor.execute("select signUpDate from User where userId = %s", (num,))
-    c = cursor.fetchone()
-    c = str(c)
-    return jsonify(result=c)
+    return jsonify(result=num.__class__.__name__)
 
 if __name__ == "__main__":
     app.run()
