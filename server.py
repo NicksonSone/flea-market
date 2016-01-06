@@ -5,14 +5,14 @@ import MySQLdb
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG
-# from sae.storage import Bucket
+from sae.storage import Bucket
 from time import time
 
 app = Flask(__name__)
 app.debug = DEBUG
 app.config.from_pyfile("config.py")
 
-# bucket = Bucket("avatar")
+bucket = Bucket("avatar")
 
 from sae.const import (MYSQL_HOST,
                        MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
@@ -274,7 +274,7 @@ def create_item():
         return jsonify(state=0, error="fail to create item")
 
 
-@app.route("item/sellingProducts", methods=["GET", "OPTIONS"])
+@app.route("/item/sellingProducts", methods=["GET", "OPTIONS"])
 @allow_cross_domain
 def get_selling_products():
 
@@ -354,9 +354,8 @@ def get_collected_items():
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test():
-
-
     return jsonify(state=1)
+
 
 if __name__ == "__main__":
     app.run()
