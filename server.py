@@ -96,8 +96,8 @@ def register():
     g.db.commit()
 
     # get userId to check the insertion
-    query = "select userId, password from User where email = %s"
-    cursor.execute(query, (email,))
+    query = "select last_insert_id()"
+    cursor.execute(query)
     record = cursor.fetchone()
     userId = record[0]
 
@@ -117,7 +117,7 @@ def login():
     account = data.get("account", "")
     password = data.get("password", "")
 
-    query = "select userId, password from User where email = %s"
+    query = "select userId, password, userName from User where email = %s"
     cursor = g.db.cursor()
     cursor.execute(query, (account,))
     record = cursor.fetchone()
@@ -128,16 +128,16 @@ def login():
     if password != record[1]:
         return jsonify(state=2, error="incorrect password")
 
-    return jsonify(state=1, userId=record[0])
+    return jsonify(state=1, userId=record[0], userName=record[2])
 
 
 @app.route("/user/password", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def change_pwd():
-    # data = parseData()
-    email = request.form.get("email", "")
-    oldPwd = request.form.get("oldpassword", "")
-    newPwd = request.form.get("npassword", "")
+    data = parseData()
+    email = data.get("email", "")
+    oldPwd = data.get("oldpassword", "")
+    newPwd = data.get("npassword", "")
 
     cursor = g.db.cursor()
     query = "select userId from User where email = %s and password = %s"
@@ -205,9 +205,9 @@ def edit_user_info():
 @allow_cross_domain
 def create_item():
     userId = request.form.get("userId", None)
-    name = request.form.get("name", None)
-    category = request.form.get("category", None)
-    subcategory = request.form.get("subcategory", None)
+    title = request.form.get("title", None)
+    categoryId = request.form.get("category", None)
+    subcategoryId = request.form.get("subcategory", None)
     price = request.form.get("price", None)
     tradeVenue = request.form.get("tradeVenue", None)
     description = request.form.get("description", None)
@@ -216,16 +216,116 @@ def create_item():
     # pictures
     arguable = request.form.get("arguable", None)
     recency = request.form.get("recency", None)
+    delivery = request.form.get("delivery", None)
+    postDate = time()
 
-    # get sender name
+    # cast type
+    categoryId = int(categoryId)
+    subcategoryId = int(subcategoryId)
+    price = float(price)
+    pictureNum = int(pictureNum)
+    arguable = int(arguable)
+    recency = int(recency)
+    delivery = int(delivery)
+
+    # TODO: image uploading
+    try:
+        # get sender name
+        cursor = g.db.cursor()
+        query = "select userName from User where userId = %s"
+        cursor.execute(query, (userId,))
+        userName = cursor.fetchone()[0]
+
+        # create new item
+        insert = ("insert into Item(\
+                userId, userName, name, categoryId, subcategoryId, price,\
+                arguable, tradeVenue, recency, description, postDate, delivery,\
+                postDate ) values ( \
+                %s, %s, %s, %s, %s, %s, \
+                %s, %s, %s, %s, %s, %s, %s)")
+        params = (userId, userName, title, categoryId, subcategoryId, price,
+                  arguable, tradeVenue, recency, description, postDate,
+                  delivery, postDate)
+        cursor.execute(insert, params)
+        g.db.commit()
+
+        # get newly generated item id
+        query = ("select last_insert_id()")
+        cursor.execute(query)
+        result = cursor.fetchone()
+        itemId = result[0]
+
+        # create Sell relationship between seller and posted item
+        insert = ("insert into Sell(userId, itemId) values(%s, %s)")
+        cursor.execute(insert, (userId, itemId))
+        g.db.commit()
+
+        # create fallsIn relationship between the category and subcategory
+        insert = ("insert into FallsIn(itemId, categoryId, subcategoryId) \
+                values(%s, %s, %s)")
+        cursor.execute(insert, (itemId, categoryId, subcategoryId))
+        g.db.commit()
+
+        return jsonify(state=1)
+    except:
+        return jsonify(state=0, error="fail to create item")
+
+
+@app.route("/item", methods=["GET, OPTIONS"])
+@allow_cross_domain
+def get_item_info():
+    itemId = request.args.get("itemId", None)
+    if not itemId:
+        return jsonify(state=0, error="no arguement passed")
+
+    # get item info
+    # TODO: item image
     cursor = g.db.cursor()
-    query = "select userName from User where userId = %s"
-    cursor.execute(query, (userId,))
-    userName = cursor.fetchone()[0]
+    query = ("select * from Item where itemId = %s")
+    cursor.execute(query, (itemId,))
+    item_record = cursor.fetchone()
 
-    # create new item
-    insert = ("insert into Item(userId, userName, ) values ()")
+    # get category
 
+
+    # package data
+    return jsonify()
+
+
+@app.route("/item/collect", methods=["POST", "OPTIONS"])
+@allow_cross_domain
+def collect_item():
+    itemId = request.form.get("itemId", None)
+    userId = request.form.get("userId", None)
+    collectTime = time()
+
+    if not itemId or not userId:
+        return jsonify(state=0, error="no arguement passed")
+
+    cursor = g.db.cursor()
+    insert = ("insert into Collect(userId, itemId, collectTime) \
+              values(%s, %s, %s)")
+    cursor.execute(insert, (userId, itemId, collectTime))
+    g.db.commit()
+
+    return jsonify(state=1)
+
+
+@app.route("/item/collections", methods=["GET", "OPTIONS"])
+@allow_cross_domain
+def get_collected_items():
+    userId = request.args.get("userId", None)
+    if not userId:
+        return jsonify(state=0, error="no arguement passed")
+
+    cursor = g.db.cursor()
+    query = ("select itemId, title from Item, Collect \
+             where Collect.userId = %s and Collect.itemId = Item.itemId")
+    cursor.execute(query, (userId))
+    records = cursor.fetchall()
+
+
+    return jsonify(state=1)
 
 @app.route("/test", methods=["POST"])
 def test():
