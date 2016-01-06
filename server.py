@@ -5,14 +5,14 @@ import MySQLdb
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG
-from sae.storage import Bucket
+# from sae.storage import Bucket
 from time import time
 
 app = Flask(__name__)
 app.debug = DEBUG
 app.config.from_pyfile("config.py")
 
-bucket = Bucket("avatar")
+# bucket = Bucket("avatar")
 
 from sae.const import (MYSQL_HOST,
                        MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
@@ -115,10 +115,10 @@ def register():
 def login():
     # find user account
     # check password
+
     data = parseData()
     account = data.get("account", "")
     password = data.get("password", "")
-    return jsonify(state=account)
 
     query = "select userId, password, userName from User where email = %s"
     cursor = g.db.cursor()
@@ -131,7 +131,7 @@ def login():
     if password != record[1]:
         return jsonify(state=2, error="incorrect password")
 
-    return jsonify(state=1, userId=record[0] )
+    return jsonify(state=1, userId=record[0], userName=record[2])
 
 
 @app.route("/user/password", methods=["POST", "OPTIONS"])
