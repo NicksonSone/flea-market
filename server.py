@@ -131,7 +131,7 @@ def login():
     if password != record[1]:
         return jsonify(state=2, error="incorrect password")
 
-    return jsonify(state=1, userId=record[0], userName=record[2])
+    return jsonify(state=1, userId=record[0] )
 
 
 @app.route("/user/password", methods=["POST", "OPTIONS"])
