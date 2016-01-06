@@ -271,6 +271,26 @@ def create_item():
         return jsonify(state=0, error="fail to create item")
 
 
+@app.route("item/sellingProducts", methods=["GET", "OPTIONS"])
+@allow_cross_domain
+def get_selling_products():
+
+    # get arguements
+    userId = request.args.get("userId", None)
+    if not userId:
+        return jsonify(state=0, error="no arguement passed")
+
+    # retrieve data
+    cursor = g.db.cursor()
+    query = ("select itemId, title, state from Item and Sell \
+             where Sell.userId = %s and Sell.itemId = Item.itemId")
+    cursor.execute(query, (userId,))
+    items = cursor.fetchall()
+
+    # return values
+    return jsonify(state=1, items=items)
+
+
 @app.route("/item", methods=["GET, OPTIONS"])
 @allow_cross_domain
 def get_item_info():
@@ -319,20 +339,20 @@ def get_collected_items():
         return jsonify(state=0, error="no arguement passed")
 
     cursor = g.db.cursor()
-    query = ("select itemId, title from Item, Collect \
+    # query correctness unsure
+    query = ("select itemId, title from Item and Collect \
              where Collect.userId = %s and Collect.itemId = Item.itemId")
     cursor.execute(query, (userId))
-    records = cursor.fetchall()
+    items = cursor.fetchall()
+
+    return jsonify(state=1, items=items)
+
+@app.route("/test", methods=["POST", "OPTIONS"])
+@allow_cross_domain
+def test():
 
 
     return jsonify(state=1)
-
-@app.route("/test", methods=["POST"])
-def test():
-    num = request.form.get("num", "")
-    a = int(num)
-
-    return jsonify(result=a.__class__.__name__)
 
 if __name__ == "__main__":
     app.run()
