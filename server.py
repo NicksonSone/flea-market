@@ -352,7 +352,7 @@ def get_collected_items():
     # query correctness unsure
     query = ("select itemId, title from Item, Collect \
              where Collect.userId = %s and Collect.itemId = Item.itemId")
-    cursor.execute(query, (userId))
+    cursor.execute(query, (userId,))
     items = cursor.fetchall()
 
     return jsonify(state=1, items=items)
