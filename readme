@@ -32,6 +32,7 @@ PARAMS:
 	password (string)
 RETURN: 
 	userId (string)	
+	userName (string)
 STATE:
 	succeed: 1, incorrect password: 2, inexistent user: 3, 
 ==================================================
