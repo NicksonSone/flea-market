@@ -150,7 +150,7 @@ def change_pwd():
     row = cursor.execute(update, (newPwd, userId, oldPwd))
 
     if not row:
-        return jsonify(state=0)
+        return jsonify(state=0, error="incorrect password")
 
     return jsonify(state=1)
 
