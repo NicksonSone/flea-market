@@ -126,13 +126,24 @@ STATE:
 PARAMS:
 	userId (string)
 RETURN:
-	itemId (string)
-	title (string)
+	items(list)
+		itemId (string)
+		title (string)
 STATE:
 	none
 ==================================================
-
-
+==================================================
+/item/sellingProducts(get)
+PARAMS:
+	userId (string)
+RETURN:
+	items(list)
+		itemId (string)
+		title (string)
+		state (int)
+STATE:
+	none
+==================================================
 ==================================================
 /item/wish (post)
 PARAMS:
