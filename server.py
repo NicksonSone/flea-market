@@ -146,16 +146,11 @@ def change_pwd():
     newPwd = data.get("newPwd", "")
 
     cursor = g.db.cursor()
-    query = "select userId from User where userId = %s and password = %s"
-    cursor.execute(query, (userId, oldPwd))
-    record = cursor.fetchone()
+    update = "update User set password = %s where userId = %s and password = %s"
+    row = cursor.execute(update, (newPwd, userId, oldPwd))
 
-    if not record:
+    if not row:
         return jsonify(state=0)
-
-    update = "update User set password = %s where userId = %s "
-    cursor.execute(update, (newPwd, userId))
-    g.db.commit()
 
     return jsonify(state=1)
 
