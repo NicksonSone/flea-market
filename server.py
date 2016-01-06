@@ -115,10 +115,10 @@ def register():
 def login():
     # find user account
     # check password
-
     data = parseData()
     account = data.get("account", "")
     password = data.get("password", "")
+    return jsonify(state=account)
 
     query = "select userId, password, userName from User where email = %s"
     cursor = g.db.cursor()
