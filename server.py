@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.debug = DEBUG
 app.config.from_pyfile("config.py")
 
-# bucket = Bucket("avatar")
+
 
 from sae.const import (MYSQL_HOST,
                        MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
@@ -357,7 +357,13 @@ def get_collected_items():
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test():
-    return jsonify(state=1)
+    pic = request.form.get("pic", None)
+    if pic is None:
+        return jsonify(state="no pic")
+
+    bucket = Bucket("avatar")
+    bucket.put_object("test.jpeg", pic)
+    return jsonify(state=bucket.generate_url("test.jpeg"))
 
 
 if __name__ == "__main__":
