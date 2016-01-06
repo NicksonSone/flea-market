@@ -117,8 +117,11 @@ def login():
     # check password
 
     data = parseData()
-    account = data.get("account", "")
-    password = data.get("password", "")
+    account = data.get("account", None)
+    password = data.get("password", None)
+
+    if not account or not password:
+        return jsonify(state=0)
 
     query = "select userId, password, userName from User where email = %s"
     cursor = g.db.cursor()
