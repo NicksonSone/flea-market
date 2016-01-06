@@ -5,11 +5,14 @@ import MySQLdb
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG
+from sae.storage import Bucket
 from time import time
 
 app = Flask(__name__)
 app.debug = DEBUG
 app.config.from_pyfile("config.py")
+
+bucket = Bucket("avatar")
 
 from sae.const import (MYSQL_HOST,
                        MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
@@ -346,6 +349,7 @@ def get_collected_items():
     items = cursor.fetchall()
 
     return jsonify(state=1, items=items)
+
 
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain

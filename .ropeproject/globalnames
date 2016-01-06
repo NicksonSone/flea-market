@@ -1,4 +1,4 @@
 €}q(Uconfig]qUDEBUGqaUshutil]q(UcopyfileqUignore_patternsqUcopytreeqUget_archive_formatsqUcopyfileobjq	Uregister_archive_formatq
 UcopymodeqUmake_archiveqUmoveqUunregister_archive_formatqUrmtreeqUErrorqUcopyqU	ExecErrorqUcopy2qUSpecialFileErrorqUcopystatqUWindowsErrorqeUos]q(Upopen4qUexecleqUpopen3qUSEEK_CURqUspawnlpqUexeclpqUenvironqUspawnvpqUspawnlq Uexecvpq!Umakedirsq"Ulinesepq#UP_WAITq$Uspawnvq%Uspawnveq&Uexecvpeq'Uunsetenvq(USEEK_SETq)Ugetenvq*Upopen2q+Uwalkq,Uspawnleq-Uexeclq.Unameq/USEEK_ENDq0Uspawnlpeq1U	P_NOWAITOq2UP_NOWAITq3U
-removedirsq4Urenamesq5Uspawnvpeq6Uexeclpeq7eUserver]q8(Ucollect_itemq9Uappq:U
-change_pwdq;Ubefore_requestq<U	parseDataq=Uget_user_infoq>Uget_item_infoq?Uget_selling_productsq@Uedit_user_infoqAUtestqBUget_collected_itemsqCU	frontPageqDUregisterqEUcreate_itemqFUloginqGUallow_cross_domainqHUteardown_requestqIeu.
+removedirsq4Urenamesq5Uspawnvpeq6Uexeclpeq7eUserver]q8(Uregisterq9Ubucketq:Uappq;U
+change_pwdq<Ubefore_requestq=U	parseDataq>Uget_user_infoq?Uget_item_infoq@Uget_selling_productsqAUedit_user_infoqBUtestqCUget_collected_itemsqDU	frontPageqEUcollect_itemqFUcreate_itemqGUloginqHUallow_cross_domainqIUteardown_requestqJeu.
