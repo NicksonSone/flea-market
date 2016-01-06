@@ -283,7 +283,7 @@ def get_selling_products():
 
     # retrieve data
     cursor = g.db.cursor()
-    query = ("select itemId, title, state from Item and Sell \
+    query = ("select Item.itemId, tItem.itle, sItem.tate from Item and Sell \
              where Sell.userId = %s and Sell.itemId = Item.itemId")
     cursor.execute(query, (userId,))
     items = cursor.fetchall()
@@ -345,7 +345,7 @@ def get_collected_items():
     userId = int(userId)
     cursor = g.db.cursor()
     # query correctness unsure
-    query = ("select itemId, title from Item, Collect \
+    query = ("select Item.itemId, Item.title from Item, Collect \
              where Collect.userId = %s and Collect.itemId = Item.itemId")
     cursor.execute(query, (userId,))
     items = cursor.fetchall()
