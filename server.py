@@ -328,6 +328,9 @@ def collect_item():
     if not itemId or not userId:
         return jsonify(state=0, error="no arguement passed")
 
+    userId = int(userId)
+    itemId = int(itemId)
+
     cursor = g.db.cursor()
     insert = ("insert into Collect(userId, itemId, collectTime) \
               values(%s, %s, %s)")
@@ -344,9 +347,10 @@ def get_collected_items():
     if not userId:
         return jsonify(state=0, error="no arguement passed")
 
+    userId = int(userId)
     cursor = g.db.cursor()
     # query correctness unsure
-    query = ("select itemId, title from Item and Collect \
+    query = ("select itemId, title from Item, Collect \
              where Collect.userId = %s and Collect.itemId = Item.itemId")
     cursor.execute(query, (userId))
     items = cursor.fetchall()
