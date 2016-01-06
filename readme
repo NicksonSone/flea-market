@@ -74,7 +74,7 @@ Item
 /item (post)
 PARAMS:
 	userId (string)
-	name (string)
+	title (string)
 	categoryId (number)
 	subcategoryId (number)
 	price (number)
@@ -86,7 +86,7 @@ PARAMS:
 	recency (number) 0-5: brand new - 60% below or other
 	delivery (number) 0 - in person, 1 - express, 2 - both
 RETURN: 
-	none
+	itemId (string)	
 STATE:
 	succeed: 1, fail: 0
 ==================================================
@@ -95,7 +95,7 @@ STATE:
 PARAMS:
 	itemId (string)
 RETURN:
-	name (string)
+	title (string)
 	type (number)
 	subtype (number)
 	price (number)
@@ -110,6 +110,28 @@ RETURN:
 STATE:
 	none
 ==================================================
+==================================================
+/item/collect (post)
+PARAMS:
+	itemId (string)
+	userId (string)
+RETURN:
+	none	
+STATE:
+	1: succeed, 0: fail	
+==================================================
+==================================================
+/item/collections (get)
+PARAMS:
+	userId (string)
+RETURN:
+	itemId (string)
+	title (string)
+STATE:
+	none
+==================================================
+
+
 ==================================================
 /item/wish (post)
 PARAMS:
