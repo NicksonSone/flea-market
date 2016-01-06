@@ -141,13 +141,13 @@ def login():
 @allow_cross_domain
 def change_pwd():
     data = parseData()
-    email = data.get("email", "")
-    oldPwd = data.get("oldpassword", "")
-    newPwd = data.get("npassword", "")
+    userId = int(data.get("userId", ""))
+    oldPwd = data.get("oldPwd", "")
+    newPwd = data.get("newPwd", "")
 
     cursor = g.db.cursor()
-    query = "select userId from User where email = %s and password = %s"
-    cursor.execute(query, (email, oldPwd))
+    query = "select userId from User where userId = %s and password = %s"
+    cursor.execute(query, (userId, oldPwd))
     record = cursor.fetchone()
 
     if not record:
