@@ -6,7 +6,6 @@ from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG
 from sae.storage import Bucket
-from time import time
 from datetime import datetime
 
 app = Flask(__name__)
@@ -72,7 +71,7 @@ def register():
     location = data.get("location", "")
     school = data.get("school", "")
     # avatar = request.form["avatar"]
-    signUpDate = time()
+    signUpDate = datetime.now()
 
     # check uniqueness
     cursor = g.db.cursor()
@@ -218,12 +217,11 @@ def create_item():
     tradeVenue = request.form.get("tradeVenue", None)
     description = request.form.get("description", None)
     # image upload
-    postDate = time()
+    postDate = datetime.now()
 
     return jsonify(userId=userId, title=title, categoryId=categoryId,
                    subcategoryId=subcategoryId, price=price,
                    tradeVenue=tradeVenue)
-
 
     # TODO: image uploading
     try:
@@ -318,7 +316,7 @@ def collect_item():
     data = parseData()
     itemId = int(data.get("itemId", 0))
     userId = int(data.get("userId", 0))
-    collectTime = time()
+    collectTime = datetime.time()
 
     if not itemId or not userId:
         return jsonify(state=0, error="no arguement passed")
@@ -374,32 +372,36 @@ def get_collected_items():
 
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
-def test():
-    # post = request.form
-    # filed = request.files
-    # data = request.get_json()
-    # d = request.json
-    # a = request.data
-    # bucket = Bucket("avatar")
-    # url = {}
-    # if post:
-    #     bucket.put_object("post", post)
-    #     url["post"] = bucket.generate_url("post")
-    # if filed:
-    #     bucket.put_object("filed", filed)
-    #     url["filed"] = bucket.generate_url("filed")
-    # if data:
-    #     bucket.put_object("data", data)
-    #     url["data"] = bucket.generate_url("data")
-    # if d:
-    #     bucket.put_object("d", d)
-    #     url["d"] = bucket.generate_url("d")
-    # if a:
-    #     bucket.put_object("a", a)
-    #     url["post"] = bucket.generate_url("post")
-    #
-    # return jsonify(state=bucket.generate_url("1.jpg"))
+def test_image_upload():
+    post = request.form
+    filed = request.files
+    data = request.get_json()
+    d = request.json
+    a = request.data
+    bucket = Bucket("avatar")
+    url = {}
+    if post:
+        bucket.put_object("post", post)
+        url["post"] = bucket.generate_url("post")
+    if filed:
+        bucket.put_object("filed", filed)
+        url["filed"] = bucket.generate_url("filed")
+    if data:
+        bucket.put_object("data", data)
+        url["data"] = bucket.generate_url("data")
+    if d:
+        bucket.put_object("d", d)
+        url["d"] = bucket.generate_url("d")
+    if a:
+        bucket.put_object("a", a)
+        url["post"] = bucket.generate_url("post")
 
+    return jsonify(state=bucket.generate_url("1.jpg"))
+
+
+@app.route("/testTime", methods=["POST", "OPTIONS"])
+@allow_cross_domain
+def test_time():
     cnt = 10
     now = datetime.now()
 
