@@ -279,7 +279,7 @@ def get_item_info():
     cursor.execute(query, (itemId,))
     item = cursor.fetchone()
 
-    return jsonify(item=item)
+    return jsonify(item=item.__class__.__name__)
     item[11] = item[11].timetuple()
 
     # get seller info
