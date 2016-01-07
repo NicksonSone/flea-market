@@ -394,9 +394,9 @@ def test_image_upload():
         url["d"] = bucket.generate_url("d")
     if a:
         bucket.put_object("a", a)
-        url["post"] = bucket.generate_url("post")
+        url["a"] = bucket.generate_url("a")
 
-    return jsonify(state=bucket.generate_url("1.jpg"))
+    return jsonify(state=url)
 
 
 @app.route("/testTime", methods=["POST", "OPTIONS"])
