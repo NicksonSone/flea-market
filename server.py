@@ -277,7 +277,8 @@ def get_item_info():
     cursor = g.db.cursor()
     query = ("select * from Item where itemId = %s")
     cursor.execute(query, (itemId,))
-    item = cursor.fetchone()
+    item = list(cursor.fetchone())
+    item[11] = item[11].timetuple()
 
     # get seller info
     userId = item[1]
@@ -375,7 +376,7 @@ def get_collected_items():
 def test_image_upload():
     post = request.form
     filed = request.files
-    # data = request.get_json()
+    data = request.get_json()
     d = request.json
     a = request.data
     return jsonify(a=a)
