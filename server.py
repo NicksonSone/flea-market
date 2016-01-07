@@ -337,6 +337,7 @@ def remove_collection():
     data = parseData()
     itemId = int(data.get("itemId", 0))
     userId = int(data.get("userId", 0))
+    return jsonify(itemId=itemId, userId=userId)
 
     if not itemId or not userId:
         return jsonify(state=0, error="no arguement passed")
@@ -378,6 +379,10 @@ def get_collected_items():
 @allow_cross_domain
 def test():
 
+    data = request.get_json()
+    d = request.json
+    a = request.data
+    return jsonify(data=data, d=d, a=a)
     bucket = Bucket("avatar")
     return jsonify(state=bucket.generate_url("1.jpg"))
 
