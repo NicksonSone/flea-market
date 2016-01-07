@@ -373,30 +373,30 @@ def get_collected_items():
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test_image_upload():
-    post = request.form
-    filed = request.files
-    data = request.get_json()
-    d = request.json
-    a = request.data
-    bucket = Bucket("avatar")
-    url = {}
-    if post:
-        bucket.put_object("post", post)
-        url["post"] = bucket.generate_url("post")
-    if filed:
-        bucket.put_object("filed", filed)
-        url["filed"] = bucket.generate_url("filed")
-    if data:
-        bucket.put_object("data", data)
-        url["data"] = bucket.generate_url("data")
-    if d:
-        bucket.put_object("d", d)
-        url["d"] = bucket.generate_url("d")
-    if a:
-        bucket.put_object("a", a)
-        url["a"] = bucket.generate_url("a")
+    # post = request.form
+    # filed = request.files
+    # data = request.get_json()
+    # d = request.json
+    # a = request.data
+    # bucket = Bucket("avatar")
+    # url = {}
+    # if post:
+    #     bucket.put_object("post", post)
+    #     url["post"] = bucket.generate_url("post")
+    # if filed:
+    #     bucket.put_object("filed", filed)
+    #     url["filed"] = bucket.generate_url("filed")
+    # if data:
+    #     bucket.put_object("data", data)
+    #     url["data"] = bucket.generate_url("data")
+    # if d:
+    #     bucket.put_object("d", d)
+    #     url["d"] = bucket.generate_url("d")
+    # if a:
+    #     bucket.put_object("a", a)
+    #     url["a"] = bucket.generate_url("a")
 
-    return jsonify(state=url)
+    return jsonify(state="aa")
 
 
 @app.route("/testTime", methods=["POST", "OPTIONS"])
