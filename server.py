@@ -278,8 +278,8 @@ def get_item_info():
     query = ("select * from Item where itemId = %s")
     cursor.execute(query, (itemId,))
     item = list(cursor.fetchone())
-    return jsonify(state=item[11].__class__.__name__)
     item[11] = item[11].timetuple()
+    return jsonify(state=item[11].__class__.__name__)
 
     # get seller info
     userId = item[1]
