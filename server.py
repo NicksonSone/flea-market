@@ -383,7 +383,7 @@ def test():
     data = request.get_json()
     d = request.json
     a = request.data
-    return jsonify(data=data, d=d, a=a, post=post)
+    return jsonify(data=data, d=d, a=a, post=post, filed=filed)
     bucket = Bucket("avatar")
     return jsonify(state=bucket.generate_url("1.jpg"))
 
