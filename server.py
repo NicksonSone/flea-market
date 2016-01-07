@@ -278,7 +278,6 @@ def get_item_info():
     query = ("select * from Item where itemId = %s")
     cursor.execute(query, (itemId,))
     item = cursor.fetchone()
-    return jsonify(state=1)
 
     return jsonify(item=item)
     item[11] = item[11].timetuple()
