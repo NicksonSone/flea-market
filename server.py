@@ -267,28 +267,24 @@ def create_item():
         return jsonify(state=0, error="fail to create item")
 
 
-@app.route("/item", methods=["GET, OPTIONS"])
+@app.route("/item", methods=["GET", "OPTIONS"])
 @allow_cross_domain
 def get_item_info():
-    return jsonify(state="hello")
-    # itemId = request.args.get("itemId", None)
-    # if not itemId:
-    #     return jsonify(state=0, error="no arguement passed")
+    itemId = int(request.args.get("itemId", 0))
+    if not itemId:
+        return jsonify(state=0, error="no arguement passed")
 
-    # # get item info
-    # # TODO: item image
-    # cursor = g.db.cursor()
-    # query = ("select * from Item where itemId = %s")
-    # cursor.execute(query, (itemId,))
-    # item_record = cursor.fetchone()
-
-    # # get item category
+    # get item info
+    # TODO: item image
+    cursor = g.db.cursor()
+    query = ("select * from Item where itemId = %s")
+    cursor.execute(query, (itemId,))
+    item_record = cursor.fetchone()
 
 
-    # # get seller info
+    # get seller info
 
-    # # package data
-    # return jsonify(state=item_record)
+    return jsonify(state=1, item=item, user=user)
 
 
 @app.route("/item/sellingProducts", methods=["GET", "OPTIONS"])
