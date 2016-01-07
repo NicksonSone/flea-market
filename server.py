@@ -275,14 +275,16 @@ def get_item_info():
         return jsonify(state=0, error="no arguement passed")
 
     # get item info
-    # TODO: item image
     cursor = g.db.cursor()
     query = ("select * from Item where itemId = %s")
     cursor.execute(query, (itemId,))
-    item_record = cursor.fetchone()
-
+    item = cursor.fetchone()
 
     # get seller info
+    userId = item[1]
+    query = ("select userId, userName, phoneNum, QQ from User where userI = %s")
+    cursor.execute(query, (userId,))
+    user = cursor.fetchone()
 
     return jsonify(state=1, item=item, user=user)
 
