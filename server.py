@@ -282,7 +282,8 @@ def get_item_info():
 
     # get seller info
     userId = item[1]
-    query = ("select userId, userName, phoneNum, QQ from User where userI = %s")
+    query = ("select userId, userName, phoneNum, QQ from User \
+             where userId = %s")
     cursor.execute(query, (userId,))
     user = cursor.fetchone()
 
