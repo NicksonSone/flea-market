@@ -277,9 +277,8 @@ def get_item_info():
     cursor = g.db.cursor()
     query = ("select * from Item where itemId = %s")
     cursor.execute(query, (itemId,))
-    item = cursor.fetchone()
-
-    return jsonify(item=item.__class__.__name__)
+    item = list(cursor.fetchone())
+    return jsonify(state=item[11].__class__.__name__)
     item[11] = item[11].timetuple()
 
     # get seller info
