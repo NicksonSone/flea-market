@@ -341,19 +341,16 @@ def remove_collection():
     if not itemId or not userId:
         return jsonify(state=0, error="no arguement passed")
 
-    # try:
-    #     cursor = g.db.cursor()
-    #     delete = ("delete from Collect where userId = %s and itemId = %s")
-    #     cursor.execute(delete, (userId, itemId))
-    #     g.db.commit()
-    # except:
-    #     g.db.rollback()
-    #     return jsonify(state=0)
-    cursor = g.db.cursor()
-    delete = ("delete from Collect where userId = %s and itemId = %s")
-    cursor.execute(delete, (userId, itemId))
+    try:
+        cursor = g.db.cursor()
+        delete = ("delete from Collect where userId = %s and itemId = %s")
+        cursor.execute(delete, (userId, itemId))
+        g.db.commit()
+    except:
+        g.db.rollback()
+        return jsonify(state=0)
 
-    jsonify(state=1)
+    return jsonify(state=1)
 
 
 @app.route("/item/collections", methods=["GET", "OPTIONS"])
