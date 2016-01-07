@@ -348,7 +348,7 @@ def get_collected_items():
     userId = int(userId)
     cursor = g.db.cursor()
     # query correctness unsure
-    query = ("select Item.itemId, Item.title Item.image1 from Item, Collect \
+    query = ("select Item.itemId, Item.title, Item.image1 from Item, Collect \
              where Collect.userId = %s and Collect.itemId = Item.itemId")
     cursor.execute(query, (userId,))
     items = cursor.fetchall()
