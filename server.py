@@ -272,6 +272,7 @@ def get_item_info():
     itemId = int(request.args.get("itemId", 0))
     if not itemId:
         return jsonify(state=0, error="no arguement passed")
+    return jsonify(state=1)
 
     # get item info
     cursor = g.db.cursor()
