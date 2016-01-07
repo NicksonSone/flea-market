@@ -359,14 +359,9 @@ def get_collected_items():
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test():
-    pic = request.form.get("pic", None)
-    if pic is None:
-        return jsonify(state="no pic")
-    return jsonify(state=pic)
 
     bucket = Bucket("avatar")
-    bucket.put_object("test.jpeg", pic)
-    return jsonify(state=bucket.generate_url("test.jpeg"))
+    return jsonify(state=bucket.generate_url("1.jpg"))
 
 
 if __name__ == "__main__":
