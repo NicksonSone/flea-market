@@ -285,7 +285,7 @@ def get_item_info():
     # get seller info
 
     # package data
-    return jsonify()
+    return jsonify(state=item_record)
 
 
 @app.route("/item/sellingProducts", methods=["GET", "OPTIONS"])
@@ -321,7 +321,7 @@ def collect_item():
         return jsonify(state=0, error="no arguement passed")
 
     cursor = g.db.cursor()
-    insert = ("insert into Collect(userId, itemId, collectTime) \
+    insert = ("insert ignore into Collect(userId, itemId, collectTime) \
               values(%s, %s, %s)")
     cursor.execute(insert, (userId, itemId, collectTime))
     g.db.commit()
