@@ -408,7 +408,7 @@ def test():
     cursor.execute("select time from test where test = %s", (cnt,))
     time = cursor.fetchone()[0]
 
-    return jsonify(time=time)
+    return jsonify(time=time.timetuple())
 
 
 
