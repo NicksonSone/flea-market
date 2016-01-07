@@ -272,12 +272,13 @@ def get_item_info():
     itemId = int(request.args.get("itemId", 0))
     if not itemId:
         return jsonify(state=0, error="no arguement passed")
-    return jsonify(state=1)
 
     # get item info
     cursor = g.db.cursor()
     query = ("select * from Item where itemId = %s")
     cursor.execute(query, (itemId,))
+
+    return jsonify(state=1)
     item = cursor.fetchone()
     return jsonify(item=item)
     item[11] = item[11].timetuple()
