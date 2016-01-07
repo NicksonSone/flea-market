@@ -286,7 +286,8 @@ def get_selling_products():
 
     # retrieve data
     cursor = g.db.cursor()
-    query = ("select Item.itemId, Item.title, Item.state from Item, Sell \
+    query = ("select Item.itemId, Item.title, Item.state, Item.image1\
+             from Item, Sell \
              where Sell.userId = %s and Sell.itemId = Item.itemId")
     cursor.execute(query, (userId,))
     items = cursor.fetchall()
