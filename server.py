@@ -7,6 +7,7 @@ from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG
 from sae.storage import Bucket
 from time import time
+from datetime import datetime
 
 app = Flask(__name__)
 app.debug = DEBUG
@@ -374,14 +375,41 @@ def get_collected_items():
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test():
-    post = request.form
-    filed = request.files
-    data = request.get_json()
-    d = request.json
-    a = request.data
-    return jsonify(data=data, d=d, a=a, post=post, filed=filed)
-    bucket = Bucket("avatar")
-    return jsonify(state=bucket.generate_url("1.jpg"))
+    # post = request.form
+    # filed = request.files
+    # data = request.get_json()
+    # d = request.json
+    # a = request.data
+    # bucket = Bucket("avatar")
+    # url = {}
+    # if post:
+    #     bucket.put_object("post", post)
+    #     url["post"] = bucket.generate_url("post")
+    # if filed:
+    #     bucket.put_object("filed", filed)
+    #     url["filed"] = bucket.generate_url("filed")
+    # if data:
+    #     bucket.put_object("data", data)
+    #     url["data"] = bucket.generate_url("data")
+    # if d:
+    #     bucket.put_object("d", d)
+    #     url["d"] = bucket.generate_url("d")
+    # if a:
+    #     bucket.put_object("a", a)
+    #     url["post"] = bucket.generate_url("post")
+    #
+    # return jsonify(state=bucket.generate_url("1.jpg"))
+
+    cnt = 10
+    now = datetime.now()
+
+    cursor = g.db.cursor()
+    cursor.execute("insert into test(test, time) values(%s, %s)", (cnt, now))
+    cursor.execute("select time from test where test = %s", (cnt,))
+    time = cursor.fetchone()[0]
+
+    return jsonify(time=time)
+
 
 
 if __name__ == "__main__":
