@@ -378,11 +378,12 @@ def get_collected_items():
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test():
+    post = request.form
 
     data = request.get_json()
     d = request.json
     a = request.data
-    return jsonify(data=data, d=d, a=a)
+    return jsonify(data=data, d=d, a=a, post=post)
     bucket = Bucket("avatar")
     return jsonify(state=bucket.generate_url("1.jpg"))
 
