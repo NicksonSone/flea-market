@@ -334,6 +334,7 @@ def collect_item():
 @app.route("/item/removeCollection", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def remove_collection():
+    return jsonify(state="day day ")
     data = parseData()
     itemId = int(data.get("itemId", 0))
     userId = int(data.get("userId", 0))
