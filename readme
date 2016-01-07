@@ -3,7 +3,7 @@ API
 Head: http://sysuflea.sinaapp.com
 Usage: 
 for registration, the url would be
-	 http://sysuflea.sinaapp.com
+	 http://sysuflea.sinaapp.com/register
 
 Register
 ==================================================
@@ -122,6 +122,16 @@ STATE:
 	1: succeed, 0: fail	
 ==================================================
 ==================================================
+/item/removeCollection(post)
+PARAMS:
+	itemId (string)
+	userId (string)
+RETURN:
+	none	
+STATE:
+	1: succeed, 0: fail	
+==================================================
+==================================================
 /item/collections (get)
 PARAMS:
 	userId (string)
@@ -140,7 +150,7 @@ RETURN:
 	items(list)
 		itemId (string)
 		title (string)
-		state (int)
+		state (int) 0 - selling, 1 - sold
 STATE:
 	none
 ==================================================
@@ -154,7 +164,7 @@ RETURN:
 STATE:
 ==================================================
 
-
+////////////////////////////////////////////////////////////////
 Trade Record
 ==================================================
 /record	(get)
