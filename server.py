@@ -265,7 +265,7 @@ def create_item():
         return jsonify(state=0, error="fail to create item")
 
 
-@app.route("/item", methods=["GET, OPTIONS"])
+@app.route("/item/bla", methods=["GET, OPTIONS"])
 @allow_cross_domain
 def get_item_info():
     itemId = request.args.get("itemId", None)
