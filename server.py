@@ -377,8 +377,8 @@ def test_image_upload():
     filed = request.files
     # data = request.get_json()
     d = request.json
-    return jsonify(d=d)
     a = request.data
+    return jsonify(a=a)
     bucket = Bucket("avatar")
     url = {}
     if post:
