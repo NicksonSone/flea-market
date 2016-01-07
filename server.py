@@ -204,33 +204,23 @@ def edit_user_info():
 @app.route("/item", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def create_item():
-    userId = request.form.get("userId", None)
+    userId = int(request.form.get("userId", 0))
+    categoryId = int(request.form.get("category", 0))
+    subcategoryId = int(request.form.get("subcategory", 0))
+    arguable = int(request.form.get("arguable", 0))
+    recency = int(request.form.get("recency", 0))
+    delivery = int(request.form.get("delivery", 0))
+    price = float(request.form.get("price", 0.0))
     title = request.form.get("title", None)
-    categoryId = request.form.get("category", None)
-    subcategoryId = request.form.get("subcategory", None)
-    price = request.form.get("price", None)
     tradeVenue = request.form.get("tradeVenue", None)
     description = request.form.get("description", None)
-    pictureNum = request.form.get("pictureNum", None)
-    # TODO: picture uploading
-    # pictures
-    arguable = request.form.get("arguable", None)
-    recency = request.form.get("recency", None)
-    delivery = request.form.get("delivery", None)
+    # image upload
     postDate = time()
 
     return jsonify(userId=userId, title=title, categoryId=categoryId,
                    subcategoryId=subcategoryId, price=price,
                    tradeVenue=tradeVenue)
 
-    # cast type
-    categoryId = int(categoryId)
-    subcategoryId = int(subcategoryId)
-    price = float(price)
-    pictureNum = int(pictureNum)
-    arguable = int(arguable)
-    recency = int(recency)
-    delivery = int(delivery)
 
     # TODO: image uploading
     try:
@@ -275,6 +265,29 @@ def create_item():
         return jsonify(state=0, error="fail to create item")
 
 
+@app.route("/item", methods=["GET, OPTIONS"])
+@allow_cross_domain
+def get_item_info():
+    itemId = request.args.get("itemId", None)
+    if not itemId:
+        return jsonify(state=0, error="no arguement passed")
+
+    # get item info
+    # TODO: item image
+    cursor = g.db.cursor()
+    query = ("select * from Item where itemId = %s")
+    cursor.execute(query, (itemId,))
+    item_record = cursor.fetchone()
+
+    # get item category
+
+
+    # get seller info
+
+    # package data
+    return jsonify()
+
+
 @app.route("/item/sellingProducts", methods=["GET", "OPTIONS"])
 @allow_cross_domain
 def get_selling_products():
@@ -296,39 +309,16 @@ def get_selling_products():
     return jsonify(state=1, items=items)
 
 
-@app.route("/item", methods=["GET, OPTIONS"])
-@allow_cross_domain
-def get_item_info():
-    itemId = request.args.get("itemId", None)
-    if not itemId:
-        return jsonify(state=0, error="no arguement passed")
-
-    # get item info
-    # TODO: item image
-    cursor = g.db.cursor()
-    query = ("select * from Item where itemId = %s")
-    cursor.execute(query, (itemId,))
-    item_record = cursor.fetchone()
-
-    # get category
-
-
-    # package data
-    return jsonify()
-
-
 @app.route("/item/collect", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def collect_item():
-    itemId = request.form.get("itemId", None)
-    userId = request.form.get("userId", None)
+    data = parseData()
+    itemId = int(data.get("itemId", 0))
+    userId = int(data.get("userId", 0))
     collectTime = time()
 
     if not itemId or not userId:
         return jsonify(state=0, error="no arguement passed")
-
-    userId = int(userId)
-    itemId = int(itemId)
 
     cursor = g.db.cursor()
     insert = ("insert into Collect(userId, itemId, collectTime) \
@@ -337,6 +327,28 @@ def collect_item():
     g.db.commit()
 
     return jsonify(state=1)
+
+
+@app.route("/item/removeCollection", methods=["POST", "OPTIONS"])
+@allow_cross_domain
+def remove_collection():
+    data = parseData()
+    itemId = int(data.get("itemId", 0))
+    userId = int(data.get("userId", 0))
+
+    if not itemId or not userId:
+        return jsonify(state=0, error="no arguement passed")
+
+    try:
+        cursor = g.db.cursor()
+        delete = ("delete from Collect where userId = %s and itemId = %s")
+        cursor.execute(delete, (userId, itemId))
+        g.db.commit()
+    except:
+        g.db.rollback()
+        return jsonify(state=0)
+
+    jsonify(state=1)
 
 
 @app.route("/item/collections", methods=["GET", "OPTIONS"])
