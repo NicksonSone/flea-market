@@ -407,7 +407,7 @@ def test():
     cursor.execute("insert into test(test, time) values(%s, %s)", (cnt, now))
     cursor.execute("select time from test where test = %s", (cnt,))
     time = cursor.fetchone()[0]
-    l = list(time)
+    l = list(time.timetuple())
 
     return jsonify(time=l)
 
