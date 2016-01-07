@@ -335,7 +335,6 @@ def collect_item():
 @allow_cross_domain
 def remove_collection():
     data = parseData()
-    return jsonify(state=data)
     itemId = int(data.get("itemId", 0))
     userId = int(data.get("userId", 0))
     return jsonify(itemId=itemId, userId=userId)
@@ -380,7 +379,7 @@ def get_collected_items():
 @allow_cross_domain
 def test():
     post = request.form
-
+    filed = request.files
     data = request.get_json()
     d = request.json
     a = request.data
