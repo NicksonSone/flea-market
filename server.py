@@ -337,7 +337,6 @@ def remove_collection():
     data = parseData()
     itemId = int(data.get("itemId", 0))
     userId = int(data.get("userId", 0))
-    return jsonify(itemId=itemId, userId=userId)
 
     if not itemId or not userId:
         return jsonify(state=0, error="no arguement passed")
