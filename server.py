@@ -277,9 +277,9 @@ def get_item_info():
     cursor = g.db.cursor()
     query = ("select * from Item where itemId = %s")
     cursor.execute(query, (itemId,))
-
-    return jsonify(state=1)
     item = cursor.fetchone()
+    return jsonify(state=1)
+
     return jsonify(item=item)
     item[11] = item[11].timetuple()
 
