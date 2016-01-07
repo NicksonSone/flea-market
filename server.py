@@ -375,9 +375,9 @@ def get_collected_items():
 def test_image_upload():
     post = request.form
     filed = request.files
-    data = request.get_json()
-    return jsonify(data=data)
+    # data = request.get_json()
     d = request.json
+    return jsonify(d=d)
     a = request.data
     bucket = Bucket("avatar")
     url = {}
