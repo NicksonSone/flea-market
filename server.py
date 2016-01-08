@@ -245,6 +245,7 @@ def create_item():
     cursor.execute(query)
     result = cursor.fetchone()
     itemId = result[0]
+    return jsonify(itemId=itemId)
 
     # create Sell relationship between seller and posted item
     insert = ("insert into Sell(userId, itemId) values(%s, %s)")
