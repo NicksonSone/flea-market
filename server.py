@@ -227,7 +227,6 @@ def create_item():
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
 
-    return jsonify(userName=userName)
 
     # create new item
     insert = ("insert into Item(\
@@ -241,6 +240,8 @@ def create_item():
                 delivery)
     cursor.execute(insert, params)
     g.db.commit()
+
+    return jsonify(place="here")
 
     # get newly generated item id
     query = ("select last_insert_id()")
