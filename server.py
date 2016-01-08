@@ -220,46 +220,46 @@ def create_item():
     postDate = datetime.now()
 
     # TODO: image uploading
-    try:
+    # try:
         # get sender name
-        cursor = g.db.cursor()
-        query = "select userName from User where userId = %s"
-        cursor.execute(query, (userId,))
-        userName = cursor.fetchone()[0]
+    cursor = g.db.cursor()
+    query = "select userName from User where userId = %s"
+    cursor.execute(query, (userId,))
+    userName = cursor.fetchone()[0]
 
-        # create new item
-        insert = ("insert into Item(\
-                userId, userName, name, categoryId, subcategoryId, price,\
-                arguable, tradeVenue, recency, description, postDate, delivery,\
-                ) values ( \
-                %s, %s, %s, %s, %s, %s, \
-                %s, %s, %s, %s, %s, %s)")
-        params = (userId, userName, title, categoryId, subcategoryId, price,
-                  arguable, tradeVenue, recency, description, postDate,
-                  delivery)
-        cursor.execute(insert, params)
-        g.db.commit()
+    # create new item
+    insert = ("insert into Item(\
+            userId, userName, name, categoryId, subcategoryId, price,\
+            arguable, tradeVenue, recency, description, postDate, delivery,\
+            ) values ( \
+            %s, %s, %s, %s, %s, %s, \
+            %s, %s, %s, %s, %s, %s)")
+    params = (userId, userName, title, categoryId, subcategoryId, price,
+                arguable, tradeVenue, recency, description, postDate,
+                delivery)
+    cursor.execute(insert, params)
+    g.db.commit()
 
-        # get newly generated item id
-        query = ("select last_insert_id()")
-        cursor.execute(query)
-        result = cursor.fetchone()
-        itemId = result[0]
+    # get newly generated item id
+    query = ("select last_insert_id()")
+    cursor.execute(query)
+    result = cursor.fetchone()
+    itemId = result[0]
 
-        # create Sell relationship between seller and posted item
-        insert = ("insert into Sell(userId, itemId) values(%s, %s)")
-        cursor.execute(insert, (userId, itemId))
-        g.db.commit()
+    # create Sell relationship between seller and posted item
+    insert = ("insert into Sell(userId, itemId) values(%s, %s)")
+    cursor.execute(insert, (userId, itemId))
+    g.db.commit()
 
-        # create fallsIn relationship between the category and subcategory
-        insert = ("insert into FallsIn(itemId, categoryId, subcategoryId) \
-                values(%s, %s, %s)")
-        cursor.execute(insert, (itemId, categoryId, subcategoryId))
-        g.db.commit()
+    # create fallsIn relationship between the category and subcategory
+    insert = ("insert into FallsIn(itemId, categoryId, subcategoryId) \
+            values(%s, %s, %s)")
+    cursor.execute(insert, (itemId, categoryId, subcategoryId))
+    g.db.commit()
 
-        return jsonify(state=1)
-    except:
-        return jsonify(state=0, error="fail to create item")
+    return jsonify(state=1)
+    # `except:
+    # `    return jsonify(state=0, error="fail to create item")
 
 
 @app.route("/item", methods=["GET", "OPTIONS"])
