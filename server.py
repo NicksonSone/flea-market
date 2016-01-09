@@ -249,8 +249,10 @@ def create_item():
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
-            arguable, tradeVenue, recency, description, delivery,\
-            ) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+            arguable, tradeVenue, recency, description, delivery\
+            ) values ( \
+            %s, %s, %s, %s, %s, %s, \
+            %s, %s, %s, %s, %s)")
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description,
               delivery)
