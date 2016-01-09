@@ -228,12 +228,12 @@ def create_item():
     userName = cursor.fetchone()[0]
 
     # create new item
-    insert = ("insert into Item(\
-            userId, userName, title, categoryId, subcategoryId, price,\
-            arguable, tradeVenue, recency, description, postDate, delivery,\
-            ) values ( \
-            %s, %s, %s, %s, %s, %s, \
-            %s, %s, %s, %s, %s, %s)")
+    # insert = ("insert into Item(\
+    #         userId, userName, title, categoryId, subcategoryId, price,\
+    #         arguable, tradeVenue, recency, description, postDate, delivery,\
+    #         ) values ( \
+    #         %s, %s, %s, %s, %s, %s, \
+    #         %s, %s, %s, %s, %s, %s)")
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, postDate,
               delivery)
