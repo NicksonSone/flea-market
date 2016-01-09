@@ -206,6 +206,7 @@ def edit_user_info():
 @app.route("/item", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def create_item():
+    return jsonify(state="beginning")
     userId = int(request.form.get("userId", 0))
     categoryId = int(request.form.get("category", 0))
     subcategoryId = int(request.form.get("subcategory", 0))
@@ -235,7 +236,6 @@ def create_item():
             ) values ( \
             %s, %s, %s, %s, %s, %s, \
             %s, %s, %s, %s, %s, %s)")
-    return jsonify(state=insert)
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, postDate,
               delivery)
