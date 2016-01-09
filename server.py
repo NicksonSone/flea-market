@@ -226,10 +226,9 @@ def edit_user_info():
 @allow_cross_domain
 def create_item():
     userId = int(request.form.get("userId", 0))
-    return jsonify(userId=userId)
     categoryId = request.form.get("categoryId", "default")
-    return jsonify(state=categoryId)
     categoryId = Protocol.CategoryList.idMapping[categoryId]
+    return jsonify(state=categoryId)
     subcategoryId = int(request.form.get("subcategoryId", 0))
     arguable = int(request.form.get("arguable", 0))
     recency = int(request.form.get("recency", 0))
