@@ -264,12 +264,12 @@ def create_item():
     cursor.execute(query)
     result = cursor.fetchone()
     itemId = result[0]
+    return jsonify(newItem=itemId)
 
     # create Sell relationship between seller and posted item
     insert = ("insert into Sell(userId, itemId) values(%s, %s)")
     cursor.execute(insert, (userId, itemId))
     g.db.commit()
-    return jsonify(state="here")
 
     # create fallsIn relationship between the category and subcategory
     insert = ("insert into FallsIn(itemId, categoryId, subcategoryId) \
