@@ -222,19 +222,19 @@ def edit_user_info():
     return jsonify(state=1)
 
 
-@app.route("/item", methods=["POST", "OPTIONS"])
+@app.route("/item", methods=["GET", "OPTIONS"])
 @allow_cross_domain
 def create_item():
-    userId = int(request.form.get("userId", 0))
-    categoryId = int(request.form.get("categoryId", "default"))
-    subcategoryId = int(request.form.get("subcategoryId", 0))
-    arguable = int(request.form.get("arguable", 0))
-    recency = int(request.form.get("recency", 0))
-    delivery = int(request.form.get("delivery", 0))
-    price = float(request.form.get("price", 0.0))
-    title = request.form.get("title", "default")
-    tradeVenue = request.form.get("tradeVenue", "default")
-    description = request.form.get("description", "description")
+    userId = int(request.args.get("userId", 0))
+    categoryId = int(request.args.get("categoryId", "default"))
+    subcategoryId = int(request.args.get("subcategoryId", 0))
+    arguable = int(request.args.get("arguable", 0))
+    recency = int(request.args.get("recency", 0))
+    delivery = int(request.args.get("delivery", 0))
+    price = float(request.args.get("price", 0.0))
+    title = request.args.get("title", "default")
+    tradeVenue = request.args.get("tradeVenue", "default")
+    description = request.args.get("description", "description")
     # image upload
     postDate = datetime.now()
 
@@ -283,8 +283,71 @@ def create_item():
     g.db.commit()
 
     return jsonify(state=1)
-    # `except:
-    # `    return jsonify(state=0, error="fail to create item")
+
+
+# @app.route("/item", methods=["POST", "OPTIONS"])
+# @allow_cross_domain
+# def create_item():
+#     userId = int(request.form.get("userId", 0))
+#     categoryId = int(request.form.get("categoryId", "default"))
+#     subcategoryId = int(request.form.get("subcategoryId", 0))
+#     arguable = int(request.form.get("arguable", 0))
+#     recency = int(request.form.get("recency", 0))
+#     delivery = int(request.form.get("delivery", 0))
+#     price = float(request.form.get("price", 0.0))
+#     title = request.form.get("title", "default")
+#     tradeVenue = request.form.get("tradeVenue", "default")
+#     description = request.form.get("description", "description")
+#     # image upload
+#     postDate = datetime.now()
+#
+#     # TODO: image uploading
+#     # try:
+#         # get sender name
+#     cursor = g.db.cursor()
+#     query = "select userName from User where userId = %s"
+#     cursor.execute(query, (userId,))
+#     userName = cursor.fetchone()[0]
+#
+#     # create new item
+#     insert = ("insert into Item(\
+#             userId, userName, title, categoryId, subcategoryId, price,\
+#             arguable, tradeVenue, recency, description, delivery,\
+#             ) values ( \
+#             %s, %s, %s, %s, %s, %s, \
+#             %s, %s, %s, %s, %s)")
+#     params = (userId, userName, title, categoryId, subcategoryId, price,
+#               arguable, tradeVenue, recency, description,
+#               delivery)
+#     # return jsonify(userId=userId, userName=userName, title=title,
+#     #                categoryId=categoryId, subcategoryId=subcategoryId,
+#     #                price=price, arguable=arguable, tradeVenue=tradeVenue,
+#     #                recency=recency, description=description, delivery=delivery,
+#     #                insert=insert)
+#     cursor.execute(insert, params)
+#     return jsonify(r="here")
+#     g.db.commit()
+#
+#     # get newly generated item id
+#     query = ("select last_insert_id()")
+#     cursor.execute(query)
+#     result = cursor.fetchone()
+#     itemId = result[0]
+#
+#     # create Sell relationship between seller and posted item
+#     insert = ("insert into Sell(userId, itemId) values(%s, %s)")
+#     cursor.execute(insert, (userId, itemId))
+#     g.db.commit()
+#
+#     # create fallsIn relationship between the category and subcategory
+#     insert = ("insert into FallsIn(itemId, categoryId, subcategoryId) \
+#             values(%s, %s, %s)")
+#     cursor.execute(insert, (itemId, categoryId, subcategoryId))
+#     g.db.commit()
+#
+#     return jsonify(state=1)
+#     # `except:
+#     # `    return jsonify(state=0, error="fail to create item")
 
 
 @app.route("/item", methods=["GET", "OPTIONS"])
