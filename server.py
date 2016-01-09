@@ -234,7 +234,7 @@ def create_item():
             ) values ( \
             %s, %s, %s, %s, %s, %s, \
             %s, %s, %s, %s, %s, %s)")
-    jsonify(state=insert)
+    return jsonify(state=insert)
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, postDate,
               delivery)
