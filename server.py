@@ -225,7 +225,6 @@ def edit_user_info():
 @app.route("/item", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def create_item():
-    return jsonify(state=request.form)
     userId = int(request.form.get("userId", 0))
     categoryId = int(request.form.get("categoryId", "default"))
     subcategoryId = int(request.form.get("subcategoryId", 0))
@@ -258,10 +257,8 @@ def create_item():
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, postDate,
               delivery)
-
     cursor.execute(insert, params)
     g.db.commit()
-
 
     # get newly generated item id
     query = ("select last_insert_id()")
