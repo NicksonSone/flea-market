@@ -227,7 +227,6 @@ def create_item():
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
 
-    jsonify(state="here")
     # create new item
     insert = ("insert into Item(\
             userId, userName, name, categoryId, subcategoryId, price,\
@@ -235,6 +234,7 @@ def create_item():
             ) values ( \
             %s, %s, %s, %s, %s, %s, \
             %s, %s, %s, %s, %s, %s)")
+    jsonify(state=insert)
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, postDate,
               delivery)
