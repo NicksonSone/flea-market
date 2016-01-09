@@ -256,8 +256,12 @@ def create_item():
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, postDate,
               delivery)
+    return jsonify(userId=userId, userName=userName, title=title,
+                   categoryId=categoryId, subcategoryId=subcategoryId,
+                   price=price, arguable=arguable, tradeVenue=tradeVenue,
+                   recency=recency, description=description, delivery=delivery,
+                   insert=insert)
     cursor.execute(insert, params)
-    return jsonify(state="here")
     g.db.commit()
 
     # get newly generated item id
