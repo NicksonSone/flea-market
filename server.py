@@ -261,8 +261,8 @@ def create_item():
 
     # get newly generated item id
     query = ("select last_insert_id()")
-    cursor.execute(query)
     return jsonify(state="here")
+    cursor.execute(query)
     result = cursor.fetchone()
     itemId = result[0]
 
