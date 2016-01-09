@@ -260,8 +260,8 @@ def create_item():
     g.db.commit()
 
     # get newly generated item id
-    query = ("select last_insert_id()")
     return jsonify(state="here")
+    query = ("select last_insert_id()")
     cursor.execute(query)
     result = cursor.fetchone()
     itemId = result[0]
