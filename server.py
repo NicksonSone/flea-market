@@ -227,8 +227,9 @@ def edit_user_info():
 def create_item():
     userId = int(request.form.get("userId", 0))
     categoryId = request.form.get("categoryId", "default")
-    return jsonify(state=categoryId)
+    return jsonify(state=Protocol.CategoryList.idMapping[1])
     categoryId = Protocol.CategoryList.idMapping[categoryId]
+    return jsonify(state=categoryId)
     subcategoryId = int(request.form.get("subcategoryId", 0))
     arguable = int(request.form.get("arguable", 0))
     recency = int(request.form.get("recency", 0))
