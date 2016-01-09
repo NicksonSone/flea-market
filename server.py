@@ -245,7 +245,6 @@ def create_item():
     query = "select userName from User where userId = %s"
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
-    return jsonify(state="here")
 
     # create new item
     insert = ("insert into Item(\
@@ -270,6 +269,7 @@ def create_item():
     insert = ("insert into Sell(userId, itemId) values(%s, %s)")
     cursor.execute(insert, (userId, itemId))
     g.db.commit()
+    return jsonify(state="here")
 
     # create fallsIn relationship between the category and subcategory
     insert = ("insert into FallsIn(itemId, categoryId, subcategoryId) \
