@@ -36,6 +36,7 @@ class Protocol:
             "文体活动": 5,
         }
 
+
 @app.before_request
 def before_request():
     g.db = MySQLdb.connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS,
