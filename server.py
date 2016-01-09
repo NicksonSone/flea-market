@@ -17,6 +17,24 @@ from sae.const import (MYSQL_HOST,
                        MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
                        )
 
+class Protocol:
+    class CategoryList:
+        idMapping = {
+            "书本教材": 1,
+            "交通工具": 2,
+            "日常用品": 3,
+            "数码电器": 4,
+            "文体活动": 5,
+        }
+
+    class SubCategoryList:
+        idMapping = {
+            "留学资料": 11,
+            "考研复习": 12,
+            "日常用品": 3,
+            "数码电器": 4,
+            "文体活动": 5,
+        }
 
 @app.before_request
 def before_request():
@@ -206,9 +224,10 @@ def edit_user_info():
 @app.route("/item", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def create_item():
-    return jsonify(state=request.form)
     userId = int(request.form.get("userId", 0))
-    categoryId = int(request.form.get("categoryId", 0))
+    categoryId = request.form.get("categoryId", "default")
+    categoryId = Protocol.CategoryList.idMapping[categoryId]
+    return jsonify(state=categoryId)
     subcategoryId = int(request.form.get("subcategoryId", 0))
     arguable = int(request.form.get("arguable", 0))
     recency = int(request.form.get("recency", 0))
