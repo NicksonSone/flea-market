@@ -241,11 +241,11 @@ def create_item():
     # TODO: image uploading
     # try:
         # get sender name
-    return jsonify(state=params)
     cursor = g.db.cursor()
     query = "select userName from User where userId = %s"
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
+    return jsonify(state="here")
 
     # create new item
     insert = ("insert into Item(\
