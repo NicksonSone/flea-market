@@ -213,9 +213,9 @@ def create_item():
     recency = int(request.form.get("recency", 0))
     delivery = int(request.form.get("delivery", 0))
     price = float(request.form.get("price", 0.0))
-    title = request.form.get("title", None)
-    tradeVenue = request.form.get("tradeVenue", None)
-    description = request.form.get("description", None)
+    title = request.form.get("title", "default")
+    tradeVenue = request.form.get("tradeVenue", "default")
+    description = request.form.get("description", "description")
     # image upload
     postDate = datetime.now()
 
@@ -228,16 +228,16 @@ def create_item():
     userName = cursor.fetchone()[0]
 
     # create new item
-    # insert = ("insert into Item(\
-    #         userId, userName, title, categoryId, subcategoryId, price,\
-    #         arguable, tradeVenue, recency, description, postDate, delivery,\
-    #         ) values ( \
-    #         %s, %s, %s, %s, %s, %s, \
-    #         %s, %s, %s, %s, %s, %s)")
-    # params = (userId, userName, title, categoryId, subcategoryId, price,
-    #           arguable, tradeVenue, recency, description, postDate,
-    #           delivery)
-    return jsonify(state="lala")
+    insert = ("insert into Item(\
+            userId, userName, title, categoryId, subcategoryId, price,\
+            arguable, tradeVenue, recency, description, postDate, delivery,\
+            ) values ( \
+            %s, %s, %s, %s, %s, %s, \
+            %s, %s, %s, %s, %s, %s)")
+    params = (userId, userName, title, categoryId, subcategoryId, price,
+              arguable, tradeVenue, recency, description, postDate,
+              delivery)
+    return jsonify(state=params)
 
     cursor.execute(insert, params)
     g.db.commit()
