@@ -237,10 +237,11 @@ def create_item():
     params = (userId, userName, title, categoryId, subcategoryId, price,
                 arguable, tradeVenue, recency, description, postDate,
                 delivery)
-    cursor.execute(insert, (params,))
+    return jsonify(state=params)
+
+    cursor.execute(insert, params)
     g.db.commit()
 
-    return jsonify(place="here")
 
     # get newly generated item id
     query = ("select last_insert_id()")
