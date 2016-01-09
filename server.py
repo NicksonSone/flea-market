@@ -249,19 +249,20 @@ def create_item():
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
-            arguable, tradeVenue, recency, description, postDate, delivery,\
+            arguable, tradeVenue, recency, description, delivery,\
             ) values ( \
             %s, %s, %s, %s, %s, %s, \
-            %s, %s, %s, %s, %s, %s)")
+            %s, %s, %s, %s, %s)")
     params = (userId, userName, title, categoryId, subcategoryId, price,
-              arguable, tradeVenue, recency, description, postDate,
+              arguable, tradeVenue, recency, description,
               delivery)
-    return jsonify(userId=userId, userName=userName, title=title,
-                   categoryId=categoryId, subcategoryId=subcategoryId,
-                   price=price, arguable=arguable, tradeVenue=tradeVenue,
-                   recency=recency, description=description, delivery=delivery,
-                   insert=insert)
+    # return jsonify(userId=userId, userName=userName, title=title,
+    #                categoryId=categoryId, subcategoryId=subcategoryId,
+    #                price=price, arguable=arguable, tradeVenue=tradeVenue,
+    #                recency=recency, description=description, delivery=delivery,
+    #                insert=insert)
     cursor.execute(insert, params)
+    return jsonify(r="here")
     g.db.commit()
 
     # get newly generated item id
