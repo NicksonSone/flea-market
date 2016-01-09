@@ -241,6 +241,7 @@ def create_item():
     # TODO: image uploading
     # try:
         # get sender name
+    return jsonify(state=params)
     cursor = g.db.cursor()
     query = "select userName from User where userId = %s"
     cursor.execute(query, (userId,))
@@ -256,7 +257,6 @@ def create_item():
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, postDate,
               delivery)
-    return jsonify(state=params)
     cursor.execute(insert, params)
     g.db.commit()
 
