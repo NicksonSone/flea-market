@@ -457,7 +457,7 @@ def get_collected_items():
 def test_image_upload():
 
     files = request.files.keys()
-    return jsonify(a=files)
+    return jsonify(a=len(files))
     files = request.files
     bucket = Bucket("avatar")
     url = {}
