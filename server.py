@@ -463,7 +463,7 @@ def test_image_upload():
         bucket.put_object("files.jpg", files)
         url["files"] = bucket.generate_url("files")
 
-    return jsonify(state=url)
+    return jsonify(state=files)
 
 
 @app.route("/testTime", methods=["POST", "OPTIONS"])
