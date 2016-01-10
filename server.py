@@ -456,8 +456,9 @@ def get_collected_items():
 @allow_cross_domain
 def test_image_upload():
 
-    files = request.files["X_FILENAME"]
-    return jsonify(name=files.__class__.__name__)
+    if request.files:
+        return jsonify(nam="has")
+    files = request.files
     bucket = Bucket("avatar")
     url = {}
     if files:
