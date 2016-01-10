@@ -460,7 +460,7 @@ def test_image_upload():
     bucket = Bucket("avatar")
     url = {}
     if files:
-        bucket.put_object("files", files)
+        bucket.put_object("files.jpg", files)
         url["files"] = bucket.generate_url("files")
 
     return jsonify(state=url)
