@@ -456,7 +456,7 @@ def get_collected_items():
 @allow_cross_domain
 def test_image_upload():
 
-    files = request.stream
+    files = request.data
     bucket = Bucket("avatar")
     url = {}
     if files:
