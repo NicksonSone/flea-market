@@ -72,6 +72,7 @@ def parseData():
 
 @app.route("/", methods=['GET'])
 def frontPage():
+    #
     return "front page"
 
 
@@ -256,11 +257,6 @@ def create_item():
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description,
               delivery)
-    # return jsonify(userId=userId, userName=userName, title=title,
-    #                categoryId=categoryId, subcategoryId=subcategoryId,
-    #                price=price, arguable=arguable, tradeVenue=tradeVenue,
-    #                recency=recency, description=description, delivery=delivery,
-    #                insert=insert)
     cursor.execute(insert, params)
     return jsonify(r="here")
     g.db.commit()
@@ -458,8 +454,7 @@ def get_collected_items():
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test_image_upload():
-    post = request.form
-    return jsonify(state="data")
+    return jsonify(state=2)
     # filed = request.files
     # data = request.get_json()
     # d = request.json
