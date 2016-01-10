@@ -456,7 +456,7 @@ def get_collected_items():
 @allow_cross_domain
 def test_image_upload():
 
-    return jsonify(state=request.values)
+    return jsonify(state=request.files)
     # filed = request.files
     # data = request.get_json()
     # d = request.json
