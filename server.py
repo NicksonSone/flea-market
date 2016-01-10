@@ -457,7 +457,7 @@ def get_collected_items():
 def test_image_upload():
 
     files = request.files
-    get_json = request.get_json()
+    # get_json = request.get_json()
     json = request.json
     data = request.data
     bucket = Bucket("avatar")
@@ -471,9 +471,9 @@ def test_image_upload():
     if json:
         bucket.put_object("json", json)
         url["json"] = bucket.generate_url("json")
-    if get_json:
-        bucket.put_object("get_json", get_json)
-        url["get_json"] = bucket.generate_url("get_json")
+    # if get_json:
+    #     bucket.put_object("get_json", get_json)
+    #     url["get_json"] = bucket.generate_url("get_json")
 
     return jsonify(state=url)
 
