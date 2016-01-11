@@ -457,6 +457,7 @@ def get_collected_items():
 def test_image_upload():
 
     image = request.files['fileList']
+    image.save()
     bucket = Bucket("avatar")
     bucket.put_object("image.jpg", image)
     url = bucket.generate_url("image.jpg")
