@@ -456,15 +456,12 @@ def get_collected_items():
 @allow_cross_domain
 def test_image_upload():
 
-    return jsonify(a="123")
-    files = request.files
+    image = request.files["fileList"]
     bucket = Bucket("avatar")
-    url = {}
-    if files:
-        bucket.put_object("files.jpg", files)
-        url["files"] = bucket.generate_url("files")
+    bucket.put_object("image.jpg", image)
+    url = bucket.generate_url("image.jpg")
 
-    return jsonify(state=files)
+    return jsonify(state=url)
 
 
 @app.route("/testTime", methods=["POST", "OPTIONS"])
