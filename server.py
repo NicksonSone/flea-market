@@ -452,13 +452,14 @@ def get_collected_items():
     return jsonify(state=1, items=items)
 
 
-@app.route("/test", methods=["POST", "OPTIONS"])
+@app.route("/test_image", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test_image_upload():
-    return jsonify(a=list(request.files.iterkeys()))
     image = request.files["fileList"]
+    bucketImage = open("temp")
+    image.save(bucketImage)
     bucket = Bucket("avatar")
-    bucket.put_object("image.jpg", image)
+    bucket.put_object("image.jpg", bucketImage)
     url = bucket.generate_url("image.jpg")
 
     return jsonify(state=url)
