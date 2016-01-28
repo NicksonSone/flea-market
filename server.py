@@ -455,8 +455,8 @@ def get_collected_items():
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test_image_upload():
-    if request.method == "POST":
-        image = request.files["fileList"]
+    if request.method == 'POST':
+        image = request.files['fileList']
         if image:
             return jsonify(image=image.__class__.__name__)
     return jsonify(no="2")
