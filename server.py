@@ -460,8 +460,8 @@ def test_image_upload():
         if image:
             bucket = Bucket("avatar")
             bucket.put()
-            bucket.put_object("image.jpg", image.stream)
-            url = bucket.generate_url("image.jpg")
+            bucket.put_object(image.filename, image.stream)
+            url = bucket.generate_url(image.filename)
 
             return jsonify(state=url)
     return jsonify(error="fail to upload image")
