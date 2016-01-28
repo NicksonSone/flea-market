@@ -458,7 +458,7 @@ def test_image_upload():
     if request.method == 'POST':
         image = request.files['fileList']
         if image:
-            return jsonify(image=image.stream)
+            return jsonify(image=image.read)
     return jsonify(no="2")
     bucket = Bucket("avatar")
     bucket.put()
