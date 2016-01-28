@@ -456,7 +456,7 @@ def get_collected_items():
 @allow_cross_domain
 def test_image_upload():
     image = request.files.iterkeys()
-    return jsonify(image=list(image))
+    return jsonify(image=(request.data))
     bucket = Bucket("avatar")
     bucket.put()
     bucket.put_object("image.jpg", image)
