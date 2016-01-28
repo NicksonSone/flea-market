@@ -452,7 +452,7 @@ def get_collected_items():
     return jsonify(state=1, items=items)
 
 
-@app.route("/test_image", methods=["POST", "OPTIONS"])
+@app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test_image_upload():
     image = request.form.get("fileList", None)
