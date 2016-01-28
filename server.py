@@ -467,20 +467,5 @@ def test_image_upload():
     return jsonify(error="fail to upload image")
 
 
-@app.route("/testTime", methods=["POST", "OPTIONS"])
-@allow_cross_domain
-def test_time():
-    cnt = 10
-    now = datetime.now()
-
-    cursor = g.db.cursor()
-    cursor.execute("insert into test(test, time) values(%s, %s)", (cnt, now))
-    cursor.execute("select time from test where test = %s", (cnt,))
-    time = cursor.fetchone()[0]
-    l = list(time.timetuple())
-
-    return jsonify(time=l)
-
-
 if __name__ == "__main__":
     app.run()
