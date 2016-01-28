@@ -458,14 +458,13 @@ def test_image_upload():
     if request.method == 'POST':
         image = request.files['fileList']
         if image:
-            return jsonify(image=image.read)
-    return jsonify(no="2")
-    bucket = Bucket("avatar")
-    bucket.put()
-    bucket.put_object("image.jpg", image)
-    url = bucket.generate_url("image.jpg")
+            bucket = Bucket("avatar")
+            bucket.put()
+            bucket.put_object("image.jpg", image.stream)
+            url = bucket.generate_url("image.jpg")
 
-    return jsonify(state=url)
+            return jsonify(state=url)
+    return jsonify(error="fail to upload image")
 
 
 @app.route("/testTime", methods=["POST", "OPTIONS"])
