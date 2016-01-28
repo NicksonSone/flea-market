@@ -455,7 +455,7 @@ def get_collected_items():
 @app.route("/test", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def test_image_upload():
-    image = request.files
+    image = request.files.iterkeys()
     return jsonify(image=image)
     bucket = Bucket("avatar")
     bucket.put()
