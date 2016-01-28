@@ -456,7 +456,7 @@ def get_collected_items():
 @allow_cross_domain
 def test_image_upload():
     try:
-        image = request.files("fileList")
+        image = request.files["fileList"]
         return jsonify(image=image)
     except Exception as e:
         return jsonify(e=e)
