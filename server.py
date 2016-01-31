@@ -358,6 +358,8 @@ def get_item_info():
     cursor = g.db.cursor()
     query = ("select * from Item where itemId = %s")
     cursor.execute(query, (itemId,))
+
+    # transform datetime object to list of date elements, to be josnifiable
     item = list(cursor.fetchone())
     item[11] = list(item[11].timetuple())
 
@@ -452,15 +454,13 @@ def get_collected_items():
     return jsonify(state=1, items=items)
 
 
-@app.route("/test", methods=["POST", "OPTIONS"])
+@app.route("/image/upload", methods=["POST", "OPTIONS"])
 @allow_cross_domain
-def test_image_upload():
+def image_upload():
     if request.method == 'POST':
         image = request.files['fileList']
         if image:
             bucket = Bucket("avatar")
-            attributes = bucket.stat()
-            return jsonify(attr=attributes)
             bucket.put_object(image.filename, image.stream)
             url = bucket.generate_url(image.filename)
 
