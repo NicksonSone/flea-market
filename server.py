@@ -459,7 +459,8 @@ def test_image_upload():
         image = request.files['fileList']
         if image:
             bucket = Bucket("avatar")
-            bucket.put()
+            attributes = bucket.stat()
+            return jsonify(attr=attributes)
             bucket.put_object(image.filename, image.stream)
             url = bucket.generate_url(image.filename)
 
