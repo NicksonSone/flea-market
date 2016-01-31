@@ -73,7 +73,10 @@ def parseData():
 
 @app.route("/", methods=['GET'])
 def frontPage():
-    #
+    # get category list
+
+    # best selling list
+    # new product list
     return "front page"
 
 
