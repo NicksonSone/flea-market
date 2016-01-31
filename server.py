@@ -85,7 +85,33 @@ def frontPage():
     cursor.execute(query)
     subCategoryList = cursor.fetchall()
 
-    # best selling list
+    # latest foreign education materials
+    query = ("select * from Item "
+             "where subcategoryId = 11"
+             "order by postDate limit 5")
+    cursor.execute(query)
+    foreignBooks = cursor.fetchall()
+
+    # latest professional material
+    query = ("select * from Item "
+             "where subcategoryId = 14"
+             "order by postDate limit 5")
+    cursor.execute(query)
+    materials = cursor.fetchall()
+
+    # latest bikecycles
+    query = ("select * from Item "
+             "where subcategoryId = 21"
+             "order by postDate limit 5")
+    cursor.execute(query)
+    bikecycles = cursor.fetchall()
+
+    # latest appliances
+    query = ("select * from Item "
+             "where subcategoryId = 41"
+             "order by postDate limit 5")
+    cursor.execute(query)
+    appliances = cursor.fetchall()
 
     # new product list
     # Usually, this query is realized by utilizing cache in case of production.
@@ -94,7 +120,9 @@ def frontPage():
     cursor.execute(query)
     newProducts = cursor.fetchall()
     return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
-                   newProducts=newProducts)
+                   newProducts=newProducts, materials=materials,
+                   foreignBooks=foreignBooks, appliances=appliances,
+                   bikecycles=bikecycles)
 
 
 @app.route("/register", methods=['POST', 'OPTIONS'])
