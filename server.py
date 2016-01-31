@@ -73,11 +73,28 @@ def parseData():
 
 @app.route("/", methods=['GET'])
 def frontPage():
+    cursor = g.db.cursor()
+
     # get category list
+    query = ("select * from Category")
+    cursor.execute(query)
+    categoryList = cursor.fetchall()
+
+    # get subcategory list
+    query = ("select * from SubCategory")
+    cursor.execute(query)
+    subCategoryList = cursor.fetchall()
 
     # best selling list
+
     # new product list
-    return "front page"
+    # Usually, this query is realized by utilizing cache in case of production.
+    # Only using the database for now.
+    query = ("select * from Item order by postDate DESC limit 10")
+    cursor.execute(query)
+    newProducts = cursor.fetchall()
+    return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
+                   newProducts=newProducts)
 
 
 @app.route("/register", methods=['POST', 'OPTIONS'])
