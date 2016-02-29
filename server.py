@@ -77,7 +77,7 @@ def datetimeToTimeElement(datetime):
 
 @app.route("/page/front", methods=['GET', 'OPTIONS'])
 @allow_cross_domain
-def frontPage():
+def front_page():
     cursor = g.db.cursor()
 
     # get category list
@@ -135,6 +135,8 @@ def frontPage():
 def browsing_page():
     # return list of subcategory and a list of products
     # sort the list if sorting option provided
+    firstItemId = request.args.get("firstItemId", 1)
+    numberItems = request.args.get("numberItems", 10)
     categoryId = request.args.get("categoryId", 1)
     sorting = request.args.get("sorting", 1)
 
@@ -147,10 +149,18 @@ def browsing_page():
     # get products
     cursor = g.db.cursor()
     query = ""
-    cursor.execute(query, (sorting,))
+    # TODO: order of query parameters
+    cursor.execute(query, (sorting, firstItemId, numberItems))
     products = cursor.fetchall()
+    # TODO: total number of products
+    productsNum = len(products)
 
-    return jsonify(state=1, subcategories=subcategories, products=products)
+    # transform item objects
+    for item in products:
+        item[3] = datetimeToTimeElement(item[3])
+
+    return jsonify(state=1, subcategories=subcategories, products=products,
+                   productsNum=productsNum)
 
 
 @app.route("/register", methods=['POST', 'OPTIONS'])
