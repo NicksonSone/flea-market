@@ -117,6 +117,7 @@ def front_page():
     foreignBooks = list(cursor.fetchall())
     for book in foreignBooks:
         book[11] = datetimeToTimeElement(book[11])
+    return jsonify(foreignBooks=foreignBooks)
 
     # latest professional material
     query = ("select * from Item \
