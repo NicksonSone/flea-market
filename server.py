@@ -129,6 +129,7 @@ def front_page():
     professionalMaterials = list(cursor.fetchall())
     for material in professionalMaterials:
         material = list(material)
+        return jsonify(name=material.__class__.__name__)
         material[11] = datetimeToTimeElement(material[11])
 
     # latest bikecycles
