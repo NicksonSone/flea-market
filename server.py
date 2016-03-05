@@ -162,7 +162,8 @@ def front_page():
     return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
                    newProducts=newProducts, bikecycles=bikecycles,
                    foreignBooks=foreignBooks, appliances=appliances,
-                   professionalMaterials=professionalMaterials)
+                   # professionalMaterials=professionalMaterials
+                   )
 
 
 @app.route("/page/browsing", methods=['GET', 'OPTIONS'])
