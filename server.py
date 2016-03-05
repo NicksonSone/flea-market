@@ -115,6 +115,8 @@ def front_page():
              order by postDate limit 5")
     cursor.execute(query)
     foreignBooks = cursor.fetchall()
+    for book in foreignBooks:
+        book[11] = datetimeToTimeElement(book[11])
 
     # latest professional material
     query = ("select * from Item \
@@ -122,6 +124,8 @@ def front_page():
              order by postDate limit 5")
     cursor.execute(query)
     professionalMaterials = cursor.fetchall()
+    for material in professionalMaterials:
+        material[11] = datetimeToTimeElement(material[11])
 
     # latest bikecycles
     query = ("select * from Item \
@@ -129,6 +133,8 @@ def front_page():
              order by postDate limit 5")
     cursor.execute(query)
     bikecycles = cursor.fetchall()
+    for bike in bikecycles:
+        bike[11] = datetimeToTimeElement(bike[11])
 
     # latest appliances
     query = ("select * from Item \
@@ -136,6 +142,8 @@ def front_page():
              order by postDate limit 5")
     cursor.execute(query)
     appliances = cursor.fetchall()
+    for appliance in appliances:
+        appliance[11] = datetimeToTimeElement(appliance[11])
 
     # new product list
     query = ("select * from Item order by postDate DESC limit 10")
