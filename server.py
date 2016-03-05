@@ -71,6 +71,25 @@ def parseData():
     return data
 
 
+def getSubRange(categoryId):
+    if categoryId == 1:
+        firstSubId = 11
+        lastSubId = 17
+    elif categoryId == 2:
+        firstSubId = 21
+        lastSubId = 22
+    elif categoryId == 3:
+        firstSubId = 31
+        lastSubId = 36
+    elif categoryId == 4:
+        firstSubId = 41
+        lastSubId = 46
+    else:
+        firstSubId = 51
+        lastSubId = 56
+    return firstSubId, lastSubId
+
+
 def datetimeToTimeElement(datetime):
     return list(datetime.timetuple())
 
@@ -102,7 +121,7 @@ def front_page():
              "where subcategoryId = 14"
              "order by postDate limit 5")
     cursor.execute(query)
-    materials = cursor.fetchall()
+    professionalMaterials = cursor.fetchall()
 
     # latest bikecycles
     query = ("select * from Item "
@@ -119,15 +138,14 @@ def front_page():
     appliances = cursor.fetchall()
 
     # new product list
-    # Usually, this query is realized by utilizing cache
-    # Only using the database for now.
     query = ("select * from Item order by postDate DESC limit 10")
     cursor.execute(query)
     newProducts = cursor.fetchall()
+
     return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
-                   newProducts=newProducts, materials=materials,
+                   newProducts=newProducts, bikecycles=bikecycles,
                    foreignBooks=foreignBooks, appliances=appliances,
-                   bikecycles=bikecycles)
+                   professionalMaterials=professionalMaterials)
 
 
 @app.route("/page/browsing", methods=['GET', 'OPTIONS'])
@@ -138,26 +156,54 @@ def browsing_page():
     firstItemId = request.args.get("firstItemId", 1)
     numberItems = request.args.get("numberItems", 10)
     categoryId = request.args.get("categoryId", 1)
+    subcategoryId = request.args.get("subcategoryId", None)
     sorting = request.args.get("sorting", 1)
 
     # get list of subcategories
+    firstSubId, lastSubId = getSubRange(categoryId)
     cursor = g.db.cursor()
-    query = ""
-    cursor.execute(query, (categoryId,))
+    query = "select * from SubCategory where subcategoryId between %s and %s"
+    cursor.execute(query, (firstSubId, lastSubId))
     subcategories = cursor.fetchall()
+
+    # form query and parameter for retrieving products
+    query = ("select title, tradeVenue, postDate, price from Item"
+             " where categoryId = %s")
+    parameters = (categoryId,)
+    if subcategoryId is not None:
+        query += "and subcategoryId = %s"
+        parameters += (subcategoryId,)
+
+    if sorting == 2:
+        query += "order by postDate DESC"
+    elif sorting == 3:
+        query += "order by price ASC"
+    elif sorting == 4:
+        query += "order by price DESC"
+
+    query += "limit %s offset %s"
+    parameters += (numberItems, firstItemId)
 
     # get products
     cursor = g.db.cursor()
-    query = ""
-    # TODO: order of query parameters
-    cursor.execute(query, (sorting, firstItemId, numberItems))
+    cursor.execute(query, parameters)
     products = cursor.fetchall()
-    # TODO: total number of products
-    productsNum = len(products)
 
     # transform item objects
     for item in products:
         item[3] = datetimeToTimeElement(item[3])
+
+    # number of products under specific category
+    count = ("select count(itemId) from FallsIn where categoryId = %s")
+    parameters = (categoryId,)
+
+    if subcategoryId is not None:
+        query += "and subcategoryId = %s"
+        parameters += (subcategoryId,)
+
+    cursor = g.db.cursor()
+    cursor.execute(count, parameters)
+    productsNum = cursor.fetchall()
 
     return jsonify(state=1, subcategories=subcategories, products=products,
                    productsNum=productsNum)
@@ -337,13 +383,12 @@ def create_item():
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
-            arguable, tradeVenue, recency, description, delivery\
+            arguable, tradeVenue, recency, description, delivery, postDate\
             ) values ( \
             %s, %s, %s, %s, %s, %s, \
-            %s, %s, %s, %s, %s)")
+            %s, %s, %s, %s, %s, %s)")
     params = (userId, userName, title, categoryId, subcategoryId, price,
-              arguable, tradeVenue, recency, description,
-              delivery)
+              arguable, tradeVenue, recency, description, delivery, postDate)
     cursor.execute(insert, params)
     return jsonify(r="here")
     g.db.commit()
