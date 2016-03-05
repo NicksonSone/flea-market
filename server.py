@@ -120,8 +120,9 @@ def front_page():
     for book in foreignBooks:
         book = list(book)
         book[11] = datetimeToTimeElement(book[11])
+
     return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
-                   foreignBooks=foreignBooks)
+                   foreignBooks=len(foreignBooks))
 
     # latest professional material
     query = ("select * from Item \
