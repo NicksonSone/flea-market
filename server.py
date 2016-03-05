@@ -114,7 +114,7 @@ def front_page():
              where subcategoryId = 11 \
              order by postDate limit 5")
     cursor.execute(query)
-    foreignBooks = cursor.fetchall()
+    foreignBooks = list(cursor.fetchall())
     for book in foreignBooks:
         book[11] = datetimeToTimeElement(book[11])
 
