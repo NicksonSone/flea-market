@@ -110,9 +110,9 @@ def front_page():
     subCategoryList = cursor.fetchall()
 
     # latest foreign education materials
-    query = ("select * from Item "
-             "where subcategoryId = 11"
-             "order by postDate limit 5")
+    query = ("select * from Item \
+             where subcategoryId = 11 \
+             order by postDate limit 5")
     cursor.execute(query)
     foreignBooks = cursor.fetchall()
 
