@@ -120,8 +120,8 @@ def front_page():
     for book in foreignBooks:
         book = list(book)
         book[11] = datetimeToTimeElement(book[11])
-        return jsonify(name=book[11])
 
+    return jsonify(name=foreignBooks[11][1])
     return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
                    foreignBooks=foreignBooks)
 
