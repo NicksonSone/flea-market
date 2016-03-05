@@ -121,18 +121,16 @@ def front_page():
         foreignBooks[i] = list(foreignBooks[i])
         foreignBooks[i][11] = datetimeToTimeElement(foreignBooks[i][11])
 
-    return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
-                   foreignBooks=foreignBooks)
-
     # latest professional material
     query = ("select * from Item \
              where subcategoryId = 14 \
              order by postDate limit 5")
     cursor.execute(query)
     professionalMaterials = list(cursor.fetchall())
-    for material in professionalMaterials:
-        return jsonify(name=material.__class__.__name__)
-        material[11] = datetimeToTimeElement(material[11])
+    for i in xrange(len(professionalMaterials)):
+        professionalMaterials[i] = list(professionalMaterials[i])
+        professionalMaterials[i][11] = \
+            datetimeToTimeElement(professionalMaterials[i][11])
 
     # latest bikecycles
     query = ("select * from Item \
@@ -140,9 +138,9 @@ def front_page():
              order by postDate limit 5")
     cursor.execute(query)
     bikecycles = list(cursor.fetchall())
-    for bike in bikecycles:
-        bike = list(bike)
-        bike[11] = datetimeToTimeElement(bike[11])
+    for i in xrange(len(bikecycles)):
+        bikecycles[i] = list(bikecycles[i])
+        bikecycles[i][11] = datetimeToTimeElement(bikecycles[i][11])
 
     # latest appliances
     query = ("select * from Item \
@@ -158,9 +156,9 @@ def front_page():
     query = ("select * from Item order by postDate DESC limit 10")
     cursor.execute(query)
     newProducts = list(cursor.fetchall())
-    for newProduct in newProducts:
-        newProduct = list(newProduct)
-        newProduct[11] = datetimeToTimeElement(newProduct[11])
+    for i in xrange(len(newProducts)):
+        newProducts[i] = list(newProducts[i])
+        newProducts[i][11] = datetimeToTimeElement(newProducts[i][11])
 
     return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
                    newProducts=newProducts, bikecycles=bikecycles,
