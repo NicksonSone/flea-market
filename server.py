@@ -119,7 +119,7 @@ def front_page():
     foreignBooks = list(cursor.fetchall())
     for i in xrange(len(foreignBooks)):
         foreignBooks[i] = list(foreignBooks[i])
-        foreignBooks[11] = datetimeToTimeElement(foreignBooks[11])
+        foreignBooks[i][11] = datetimeToTimeElement(foreignBooks[i][11])
 
     return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
                    foreignBooks=foreignBooks)
