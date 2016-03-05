@@ -127,6 +127,7 @@ def front_page():
              order by postDate limit 5")
     cursor.execute(query)
     professionalMaterials = list(cursor.fetchall())
+    return jsonify(name=professionalMaterials.__class__.__name__)
     for material in professionalMaterials:
         material = list(material)
         return jsonify(name=material.__class__.__name__)
