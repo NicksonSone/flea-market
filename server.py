@@ -120,6 +120,8 @@ def front_page():
     for book in foreignBooks:
         book = list(book)
         book[11] = datetimeToTimeElement(book[11])
+    return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
+                   foreignBooks=foreignBooks)
 
     # latest professional material
     query = ("select * from Item \
@@ -162,8 +164,7 @@ def front_page():
     return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
                    newProducts=newProducts, bikecycles=bikecycles,
                    foreignBooks=foreignBooks, appliances=appliances,
-                   # professionalMaterials=professionalMaterials
-                   )
+                   professionalMaterials=professionalMaterials)
 
 
 @app.route("/page/browsing", methods=['GET', 'OPTIONS'])
