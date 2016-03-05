@@ -117,23 +117,23 @@ def front_page():
     foreignBooks = cursor.fetchall()
 
     # latest professional material
-    query = ("select * from Item "
-             "where subcategoryId = 14"
-             "order by postDate limit 5")
+    query = ("select * from Item \
+             where subcategoryId = 14 \
+             order by postDate limit 5")
     cursor.execute(query)
     professionalMaterials = cursor.fetchall()
 
     # latest bikecycles
-    query = ("select * from Item "
-             "where subcategoryId = 21"
-             "order by postDate limit 5")
+    query = ("select * from Item \
+             where subcategoryId = 21 \
+             order by postDate limit 5")
     cursor.execute(query)
     bikecycles = cursor.fetchall()
 
     # latest appliances
-    query = ("select * from Item "
-             "where subcategoryId = 41"
-             "order by postDate limit 5")
+    query = ("select * from Item \
+             where subcategoryId = 41 \
+             order by postDate limit 5")
     cursor.execute(query)
     appliances = cursor.fetchall()
 
