@@ -114,19 +114,21 @@ def front_page():
              where subcategoryId = 11 \
              order by postDate limit 5")
     cursor.execute(query)
+
+    # change to list for modification
     foreignBooks = list(cursor.fetchall())
     for book in foreignBooks:
         book = list(book)
         book[11] = datetimeToTimeElement(book[11])
-        return jsonify(name=book[11])
 
     # latest professional material
     query = ("select * from Item \
              where subcategoryId = 14 \
              order by postDate limit 5")
     cursor.execute(query)
-    professionalMaterials = cursor.fetchall()
+    professionalMaterials = list(cursor.fetchall())
     for material in professionalMaterials:
+        material = list(material)
         material[11] = datetimeToTimeElement(material[11])
 
     # latest bikecycles
@@ -134,8 +136,9 @@ def front_page():
              where subcategoryId = 21 \
              order by postDate limit 5")
     cursor.execute(query)
-    bikecycles = cursor.fetchall()
+    bikecycles = list(cursor.fetchall())
     for bike in bikecycles:
+        bike = list(bike)
         bike[11] = datetimeToTimeElement(bike[11])
 
     # latest appliances
@@ -143,14 +146,18 @@ def front_page():
              where subcategoryId = 41 \
              order by postDate limit 5")
     cursor.execute(query)
-    appliances = cursor.fetchall()
+    appliances = list(cursor.fetchall())
     for appliance in appliances:
+        appliance = list(appliance)
         appliance[11] = datetimeToTimeElement(appliance[11])
 
     # new product list
     query = ("select * from Item order by postDate DESC limit 10")
     cursor.execute(query)
-    newProducts = cursor.fetchall()
+    newProducts = list(cursor.fetchall())
+    for newProduct in newProducts:
+        newProduct = list(newProduct)
+        newProduct[11] = datetimeToTimeElement(newProduct[11])
 
     return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
                    newProducts=newProducts, bikecycles=bikecycles,
