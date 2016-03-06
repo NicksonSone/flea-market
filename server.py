@@ -171,7 +171,7 @@ def front_page():
 def browsing_page():
     # return list of subcategory and a list of products
     # sort the list if sorting option provided
-    lastItemId = request.args.get("firstItemId", 0)
+    page = request.args.get("page", 1)
     numberItems = request.args.get("numberItems", 10)
     categoryId = request.args.get("categoryId", 1)
     subcategoryId = request.args.get("subcategoryId", None)
@@ -200,8 +200,7 @@ def browsing_page():
         query += "order by price DESC "
 
     query += "limit %s offset %s "
-    parameters += (numberItems, lastItemId)
-    return jsonify(query=query, parameters=list(parameters))
+    parameters += (numberItems, (page-1)*numberItems)
 
     # return jsonify(firstItemId=firstItemId, numberItems=numberItems,
     #                categoryId=categoryId, subcategoryId=subcategoryId,
