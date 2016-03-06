@@ -202,6 +202,10 @@ def browsing_page():
     query += "limit %s offset %s"
     parameters += (numberItems, firstItemId)
 
+    return jsonify(firstItemId=firstItemId, numberItems=numberItems,
+                   categoryId=categoryId, subcategoryId=subcategoryId,
+                   sorting=sorting, firstSubId=firstSubId, lastSubId=lastSubId)
+
     # get products
     cursor = g.db.cursor()
     cursor.execute(query, parameters)
