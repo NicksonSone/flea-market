@@ -202,14 +202,11 @@ def browsing_page():
     query += "limit %s offset %s "
     parameters += (numberItems, (page-1)*numberItems)
 
-    # return jsonify(firstItemId=firstItemId, numberItems=numberItems,
-    #                categoryId=categoryId, subcategoryId=subcategoryId,
-    #                sorting=sorting, firstSubId=firstSubId, lastSubId=lastSubId)
-
     # get products
     cursor = g.db.cursor()
     cursor.execute(query, parameters)
     products = cursor.fetchall()
+    return jsonify(name=products.__class__.__name__)
 
     # transform item objects
     for item in products:
