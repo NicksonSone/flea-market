@@ -186,20 +186,20 @@ def browsing_page():
 
     # form query and parameter for retrieving products
     query = ("select title, tradeVenue, postDate, price from Item"
-             " where categoryId = %s")
+             " where categoryId = %s ")
     parameters = (categoryId,)
     if subcategoryId is not None:
-        query += "and subcategoryId = %s"
+        query += "and subcategoryId = %s "
         parameters += (subcategoryId,)
 
     if sorting == 2:
-        query += "order by postDate DESC"
+        query += "order by postDate DESC "
     elif sorting == 3:
-        query += "order by price ASC"
+        query += "order by price ASC "
     elif sorting == 4:
-        query += "order by price DESC"
+        query += "order by price DESC "
 
-    query += "limit %s offset %s"
+    query += "limit %s offset %s "
     parameters += (numberItems, firstItemId)
     return jsonify(query=query, parameters=list(parameters))
 
