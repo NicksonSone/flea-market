@@ -171,10 +171,15 @@ def front_page():
 def browsing_page():
     # return list of subcategory and a list of products
     # sort the list if sorting option provided
-    page = request.args.get("page", 1)
-    numberItems = request.args.get("numberItems", 10)
     categoryId = request.args.get("categoryId", 1)
     subcategoryId = request.args.get("subcategoryId", None)
+
+    page = request.args.get("page", 1)
+    numberItems = request.args.get("numberItems", 10)
+
+    recency = request.args.get("recency", None)
+    price = request.args.get("price", None)
+    location = request.args.get("location", None)
     sorting = request.args.get("sorting", 1)
 
     # get list of subcategories
@@ -185,12 +190,32 @@ def browsing_page():
     subcategories = cursor.fetchall()
 
     # form query and parameter for retrieving products
-    query = ("select title, tradeVenue, postDate, price from Item"
+    query = ("select title, tradeVenue, postDate, price recency from Item"
              " where categoryId = %s ")
     parameters = (categoryId,)
     if subcategoryId is not None:
         query += "and subcategoryId = %s "
         parameters += (subcategoryId,)
+
+    if recency is not None:
+        query += "and recency = %s "
+        parameters += (recency,)
+
+    if price == 0:
+        query += "and price < 10 "
+    elif price == 1:
+        query += "and price >= 10 and price < 30 "
+    elif price == 2:
+        query += "and price >= 30 and price < 50"
+    elif price == 3:
+        query += "and price >= 50 and price < 80 "
+    elif price == 4:
+        query += "and price >= 80 and price > 100 "
+    elif price == 5:
+        query += "and price >= 100 "
+
+    if location is not None:
+        pass
 
     if sorting == 2:
         query += "order by postDate DESC "
