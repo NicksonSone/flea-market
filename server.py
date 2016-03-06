@@ -205,12 +205,12 @@ def browsing_page():
     # get products
     cursor = g.db.cursor()
     cursor.execute(query, parameters)
-    products = cursor.fetchall()
-    return jsonify(name=products.__class__.__name__)
+    products = list(cursor.fetchall())
 
     # transform item objects
-    for item in products:
-        item[3] = datetimeToTimeElement(item[3])
+    for i in xrange(len(products)):
+        products[i] = list(products[i])
+        products[i][3] = datetimeToTimeElement(products[i][3])
 
     # number of products under specific category
     count = ("select count(itemId) from FallsIn where categoryId = %s")
