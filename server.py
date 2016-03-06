@@ -90,6 +90,43 @@ def getSubRange(categoryId):
     return firstSubId, lastSubId
 
 
+def getSubCategory(categoryId):
+    firstSubId, lastSubId = getSubRange(categoryId)
+    cursor = g.db.cursor()
+    query = "select * from SubCategory where subcategoryId between %s and %s"
+    cursor.execute(query, (firstSubId, lastSubId))
+    subcategories = cursor.fetchall()
+    return subcategories
+
+
+def addPriceCondition(query, price):
+    if price == 0:
+        query += "and price < 10 "
+    elif price == 1:
+        query += "and price >= 10 and price < 30 "
+    elif price == 2:
+        query += "and price >= 30 and price < 50"
+    elif price == 3:
+        query += "and price >= 50 and price < 80 "
+    elif price == 4:
+        query += "and price >= 80 and price > 100 "
+    elif price == 5:
+        query += "and price >= 100 "
+
+    return query
+
+
+def addSortingCondition(query, sorting):
+    if sorting == 2:
+        query += "order by postDate DESC "
+    elif sorting == 3:
+        query += "order by price ASC "
+    elif sorting == 4:
+        query += "order by price DESC "
+
+    return query
+
+
 def datetimeToTimeElement(datetime):
     return list(datetime.timetuple())
 
@@ -110,7 +147,7 @@ def front_page():
     subCategoryList = cursor.fetchall()
 
     # latest foreign education materials
-    query = ("select * from Item \
+    query = ("select itemId, title, postDate from Item \
              where subcategoryId = 11 \
              order by postDate limit 5")
     cursor.execute(query)
@@ -119,46 +156,47 @@ def front_page():
     foreignBooks = list(cursor.fetchall())
     for i in xrange(len(foreignBooks)):
         foreignBooks[i] = list(foreignBooks[i])
-        foreignBooks[i][11] = datetimeToTimeElement(foreignBooks[i][11])
+        foreignBooks[i][2] = datetimeToTimeElement(foreignBooks[i][2])
 
     # latest professional material
-    query = ("select * from Item \
+    query = ("select itemId, title, postDate from Item \
              where subcategoryId = 14 \
              order by postDate limit 5")
     cursor.execute(query)
     professionalMaterials = list(cursor.fetchall())
     for i in xrange(len(professionalMaterials)):
         professionalMaterials[i] = list(professionalMaterials[i])
-        professionalMaterials[i][11] = \
-            datetimeToTimeElement(professionalMaterials[i][11])
+        professionalMaterials[i][2] = \
+            datetimeToTimeElement(professionalMaterials[i][2])
 
     # latest bikecycles
-    query = ("select * from Item \
+    query = ("select itemId, title, postDate from Item \
              where subcategoryId = 21 \
              order by postDate limit 5")
     cursor.execute(query)
     bikecycles = list(cursor.fetchall())
     for i in xrange(len(bikecycles)):
         bikecycles[i] = list(bikecycles[i])
-        bikecycles[i][11] = datetimeToTimeElement(bikecycles[i][11])
+        bikecycles[i][2] = datetimeToTimeElement(bikecycles[i][2])
 
     # latest appliances
-    query = ("select * from Item \
+    query = ("select itemId, title, postDate from Item \
              where subcategoryId = 41 \
              order by postDate limit 5")
     cursor.execute(query)
     appliances = list(cursor.fetchall())
     for appliance in appliances:
         appliance = list(appliance)
-        appliance[11] = datetimeToTimeElement(appliance[11])
+        appliance[2] = datetimeToTimeElement(appliance[2])
 
     # new product list
-    query = ("select * from Item order by postDate DESC limit 10")
+    query = ("select itemId, title, postDate from Item \
+             order by postDate DESC limit 10")
     cursor.execute(query)
     newProducts = list(cursor.fetchall())
     for i in xrange(len(newProducts)):
         newProducts[i] = list(newProducts[i])
-        newProducts[i][11] = datetimeToTimeElement(newProducts[i][11])
+        newProducts[i][2] = datetimeToTimeElement(newProducts[i][2])
 
     return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
                    newProducts=newProducts, bikecycles=bikecycles,
@@ -179,21 +217,18 @@ def browsing_page():
 
     recency = request.args.get("recency", None)
     price = request.args.get("price", None)
-    location = request.args.get("location", None)
+    tradeVenue = request.args.get("tradeVenue", None)
     sorting = request.args.get("sorting", 1)
 
     # get list of subcategories
-    firstSubId, lastSubId = getSubRange(categoryId)
-    cursor = g.db.cursor()
-    query = "select * from SubCategory where subcategoryId between %s and %s"
-    cursor.execute(query, (firstSubId, lastSubId))
-    subcategories = cursor.fetchall()
+    subcategories = getSubCategory()
 
     # form query and parameter for retrieving products
     query = ("select title, tradeVenue, postDate, price recency from Item"
              " where categoryId = %s ")
     parameters = (categoryId,)
     if subcategoryId is not None:
+        # trailing space is necessary for query assembly
         query += "and subcategoryId = %s "
         parameters += (subcategoryId,)
 
@@ -201,28 +236,15 @@ def browsing_page():
         query += "and recency = %s "
         parameters += (recency,)
 
-    if price == 0:
-        query += "and price < 10 "
-    elif price == 1:
-        query += "and price >= 10 and price < 30 "
-    elif price == 2:
-        query += "and price >= 30 and price < 50"
-    elif price == 3:
-        query += "and price >= 50 and price < 80 "
-    elif price == 4:
-        query += "and price >= 80 and price > 100 "
-    elif price == 5:
-        query += "and price >= 100 "
+    if tradeVenue is not None:
+        query += "and tradeVenue = %s "
+        parameters += (tradeVenue,)
 
-    if location is not None:
-        pass
+    if price is not None:
+        query = addPriceCondition(query, price)
 
-    if sorting == 2:
-        query += "order by postDate DESC "
-    elif sorting == 3:
-        query += "order by price ASC "
-    elif sorting == 4:
-        query += "order by price DESC "
+    if sorting != 1:
+        query = addSortingCondition(query, sorting)
 
     query += "limit %s offset %s "
     parameters += (numberItems, (page-1)*numberItems)
@@ -232,7 +254,6 @@ def browsing_page():
     cursor.execute(query, parameters)
     products = list(cursor.fetchall())
 
-    # transform item objects
     for i in xrange(len(products)):
         products[i] = list(products[i])
         products[i][2] = datetimeToTimeElement(products[i][2])
@@ -276,15 +297,6 @@ def register():
     cursor.execute(query, (phoneNum, email))
     if cursor.fetchone():
         return jsonify(state=2, error="email or phone number registered")
-
-    # TODO: way to access default avatar unknown
-    # stm = ("insert into User"
-    #        "(userName, password, phoneNum, email, QQ,"
-    #        " location, school, avatar, signUpDate) values "
-    #        "(%s, %s, %s, %s, %s,"
-    #        " %s, %s, %s, %s)")
-    # cursor.execute(stm, (userName, password, phoneNum, email, QQ, location,
-    #                      school, avatar, signUpDate))
 
     # insert user data
     stm = ("insert into User"
