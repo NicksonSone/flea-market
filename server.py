@@ -212,8 +212,6 @@ def browsing_page():
         products[i] = list(products[i])
         products[i][2] = datetimeToTimeElement(products[i][2])
 
-    return jsonify(products=products)
-
     # number of products under specific category
     count = ("select count(itemId) from FallsIn where categoryId = %s")
     parameters = (categoryId,)
