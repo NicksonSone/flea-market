@@ -210,7 +210,9 @@ def browsing_page():
     # transform item objects
     for i in xrange(len(products)):
         products[i] = list(products[i])
-        products[i][3] = datetimeToTimeElement(products[i][3])
+        products[i][2] = datetimeToTimeElement(products[i][2])
+
+    return jsonify(products=products)
 
     # number of products under specific category
     count = ("select count(itemId) from FallsIn where categoryId = %s")
