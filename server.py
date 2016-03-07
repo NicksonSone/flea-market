@@ -99,7 +99,7 @@ def getSubCategory(categoryId):
     return subcategories
 
 
-def addPriceCondition(query, price):
+def addPriceCondition(query, categoryId, price):
     if price == 0:
         query += "and price < 10 "
     elif price == 1:
@@ -241,7 +241,7 @@ def browsing_page():
         parameters += (tradeVenue,)
 
     if price is not None:
-        query = addPriceCondition(query, price)
+        query = addPriceCondition(query, categoryId, price)
 
     if sorting != 1:
         query = addSortingCondition(query, sorting)
