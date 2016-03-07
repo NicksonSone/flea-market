@@ -5,6 +5,64 @@ Usage:
 for registration, the url would be
 	 http://sysuflea.sinaapp.com/register
 
+Webpage
+==================================================
+/page/front (get)
+PARAMS:
+	none
+RETURN:
+	categoryList (list)	
+		categoryId (number)
+		categoryName (string)
+	subcategoryList (List)
+		subcategoryId (number)
+		subcategoryName (string)
+	foreignBooks (list)	
+		itemId (number)
+		title (string)
+		postDate (list)
+	professionalMaterials (list)
+		itemId (number)
+		title (string)
+		postDate (list)
+	newProducts (list)
+		itemId (number)
+		title (string)
+		postDate (list)
+	bikecycles (list)
+		itemId (number)
+		title (string)
+		postDate (list)
+	appliances (list)
+		itemId (number)
+		title (string)
+		postDate (list)
+STATE:
+	succeed: 1
+==================================================
+==================================================
+/page/browsing (get)
+PARAMS:
+	categoryId (number)
+	subcategoryId (number) optional
+	page (number)
+	numberItems (number)
+	sorting (number)
+	price (number) optional
+	recency (number) optional
+	tradeVenue (number) optional
+RETURN:
+	subcategories (list)
+	productsNum (number of products)
+	products (list)
+		title (string)
+		tradeVenue (string)
+		postdate (list of elements)
+		price (number)
+STATE:
+	succeed: 1
+==================================================
+
 Register
 ==================================================
 /register (post) 
@@ -164,7 +222,9 @@ RETURN:
 STATE:
 ==================================================
 
+THE FOLLOWING API MAYBE USELESS
 ////////////////////////////////////////////////////////////////
+
 Trade Record
 ==================================================
 /record	(get)
