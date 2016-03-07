@@ -46,8 +46,8 @@ PARAMS:
 	categoryId (number)
 	subcategoryId (number) optional
 	page (number)
-	numberItems (number)
-	sorting (number)
+	numberItems (number) optional
+	sorting (number) optional
 	price (number) optional
 	recency (number) optional
 	tradeVenue (number) optional
