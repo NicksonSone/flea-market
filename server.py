@@ -221,7 +221,7 @@ def browsing_page():
     sorting = request.args.get("sorting", 1)
 
     # get list of subcategories
-    subcategories = getSubCategory()
+    subcategories = getSubCategory(categoryId)
 
     # form query and parameter for retrieving products
     query = ("select title, tradeVenue, postDate, price recency from Item"
