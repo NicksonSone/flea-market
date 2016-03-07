@@ -210,11 +210,53 @@ def front_page():
         newProducts[i] = list(newProducts[i])
         newProducts[i][2] = datetimeToTimeElement(newProducts[i][2])
 
+    # books
+    query = ("select itemId, title, postDate from Item \
+             order by postDate DESC limit 10 \
+             where categoryId = 1")
+    cursor.execute(query)
+    books = list(cursor.fetchall())
+    for i in xrange(len(books)):
+        books[i] = list(books[i])
+        books[i][2] = datetimeToTimeElement(books[i][2])
+
+    # transportation
+    query = ("select itemId, title, postDate from Item \
+             order by postDate DESC limit 10 \
+             where categoryId = 2")
+    cursor.execute(query)
+    transportations = list(cursor.fetchall())
+    for i in xrange(len(transportations)):
+        transportations[i] = list(transportations[i])
+        transportations[i][2] = datetimeToTimeElement(transportations[i][2])
+
+    # groceries
+    query = ("select itemId, title, postDate from Item \
+             order by postDate DESC limit 10 \
+             where categoryId = 3")
+    cursor.execute(query)
+    groceries = list(cursor.fetchall())
+    for i in xrange(len(groceries)):
+        groceries[i] = list(groceries[i])
+        groceries[i][2] = datetimeToTimeElement(groceries[i][2])
+
+    # entertainments
+    query = ("select itemId, title, postDate from Item \
+             order by postDate DESC limit 10 \
+             where categoryId = 3")
+    cursor.execute(query)
+    entertainments = list(cursor.fetchall())
+    for i in xrange(len(entertainments)):
+        entertainments[i] = list(entertainments[i])
+        entertainments[i][2] = datetimeToTimeElement(entertainments[i][2])
+
     return jsonify(state=1, categoryList=categoryList,
                    subCategoryList=subCategoryList,
                    newProducts=newProducts, bikecycles=bikecycles,
                    foreignBooks=foreignBooks, appliances=appliances,
-                   professionalMaterials=professionalMaterials)
+                   professionalMaterials=professionalMaterials, books=books,
+                   groceries=groceries, transportations=transportations,
+                   entertainments=entertainments)
 
 
 @app.route("/page/browsing", methods=['GET', 'OPTIONS'])
