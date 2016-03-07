@@ -100,18 +100,30 @@ def getSubCategory(categoryId):
 
 
 def addPriceCondition(query, categoryId, price):
-    if price == 0:
-        query += "and price < 10 "
-    elif price == 1:
-        query += "and price >= 10 and price < 30 "
-    elif price == 2:
-        query += "and price >= 30 and price < 50"
-    elif price == 3:
-        query += "and price >= 50 and price < 80 "
-    elif price == 4:
-        query += "and price >= 80 and price > 100 "
-    elif price == 5:
-        query += "and price >= 100 "
+    if 2 <= categoryId and categoryId <= 4:
+        if price == 0:
+            query += "and price < 100 "
+        elif price == 1:
+            query += "and price >= 100 and price < 300 "
+        elif price == 2:
+            query += "and price >= 300 and price < 500 "
+        elif price == 3:
+            query += "and price >= 500 and price < 1000 "
+        else:
+            query += "and price >= 100 "
+    else:
+        if price == 0:
+            query += "and price < 10 "
+        elif price == 1:
+            query += "and price >= 10 and price < 30 "
+        elif price == 2:
+            query += "and price >= 30 and price < 50 "
+        elif price == 3:
+            query += "and price >= 50 and price < 80 "
+        elif price == 4:
+            query += "and price >= 80 and price > 100 "
+        elif price == 5:
+            query += "and price >= 100 "
 
     return query
 
@@ -198,7 +210,8 @@ def front_page():
         newProducts[i] = list(newProducts[i])
         newProducts[i][2] = datetimeToTimeElement(newProducts[i][2])
 
-    return jsonify(categoryList=categoryList, subCategoryList=subCategoryList,
+    return jsonify(state=1, categoryList=categoryList,
+                   subCategoryList=subCategoryList,
                    newProducts=newProducts, bikecycles=bikecycles,
                    foreignBooks=foreignBooks, appliances=appliances,
                    professionalMaterials=professionalMaterials)
