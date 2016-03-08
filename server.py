@@ -302,7 +302,8 @@ def browsing_page():
         query = addSortingCondition(query, sorting)
 
     query += "limit %s offset %s "
-    parameters += (numberItems, (page-1)*numberItems)
+    offset = (page-1) * numberItems
+    parameters += (numberItems, offset)
 
     # get products
     cursor = g.db.cursor()
