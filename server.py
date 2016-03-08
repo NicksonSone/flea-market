@@ -17,6 +17,7 @@ from sae.const import (MYSQL_HOST,
                        MYSQL_PORT, MYSQL_USER, MYSQL_PASS, MYSQL_DB
                        )
 
+
 class Protocol:
     class CategoryList:
         idMapping = {
@@ -317,7 +318,7 @@ def browsing_page():
     count = ("select count(itemId) from FallsIn where categoryId = %s")
     parameters = (categoryId,)
 
-    if subcategoryId is not None:
+    if subcategoryId is not -1:
         query += "and subcategoryId = %s"
         parameters += (subcategoryId,)
 
