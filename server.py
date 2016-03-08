@@ -212,8 +212,8 @@ def front_page():
 
     # books
     query = ("select itemId, title, postDate from Item \
-             order by postDate DESC limit 10 \
-             where categoryId = 1")
+             where categoryId = 1 \
+             order by postDate DESC limit 10 ")
     cursor.execute(query)
     books = list(cursor.fetchall())
     for i in xrange(len(books)):
@@ -222,8 +222,8 @@ def front_page():
 
     # transportation
     query = ("select itemId, title, postDate from Item \
-             order by postDate DESC limit 10 \
-             where categoryId = 2")
+             where categoryId =  2 \
+             order by postDate DESC limit 10")
     cursor.execute(query)
     transportations = list(cursor.fetchall())
     for i in xrange(len(transportations)):
@@ -232,8 +232,8 @@ def front_page():
 
     # groceries
     query = ("select itemId, title, postDate from Item \
-             order by postDate DESC limit 10 \
-             where categoryId = 3")
+             where categoryId =3 \
+             order by postDate DESC limit 10")
     cursor.execute(query)
     groceries = list(cursor.fetchall())
     for i in xrange(len(groceries)):
@@ -242,8 +242,8 @@ def front_page():
 
     # entertainments
     query = ("select itemId, title, postDate from Item \
-             order by postDate DESC limit 10 \
-             where categoryId = 3")
+             where categoryId =3 \
+             order by postDate DESC limit 10 ")
     cursor.execute(query)
     entertainments = list(cursor.fetchall())
     for i in xrange(len(entertainments)):
