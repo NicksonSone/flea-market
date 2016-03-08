@@ -264,16 +264,16 @@ def front_page():
 def browsing_page():
     # return list of subcategory and a list of products
     # sort the list if sorting option provided
-    categoryId = request.args.get("categoryId", 1)
-    subcategoryId = request.args.get("subcategoryId", None)
+    categoryId = int(request.args.get("categoryId", 1))
+    subcategoryId = int(request.args.get("subcategoryId", -1))
 
-    page = request.args.get("page", 1)
-    numberItems = request.args.get("numberItems", 10)
+    page = int(request.args.get("page", 1))
+    numberItems = int(request.args.get("numberItems", 10))
 
-    recency = request.args.get("recency", None)
-    price = request.args.get("price", None)
-    tradeVenue = request.args.get("tradeVenue", None)
-    sorting = request.args.get("sorting", 1)
+    recency = int(request.args.get("recency", -1))
+    price = int(request.args.get("price", -1))
+    tradeVenue = int(request.args.get("tradeVenue", -1))
+    sorting = int(request.args.get("sorting", 1))
 
     # get list of subcategories
     subcategories = getSubCategory(categoryId)
@@ -282,29 +282,27 @@ def browsing_page():
     query = ("select title, tradeVenue, postDate, price recency from Item"
              " where categoryId = %s ")
     parameters = (categoryId,)
-    if subcategoryId is not None:
+    if subcategoryId is not -1:
         # trailing space is necessary for query assembly
         query += "and subcategoryId = %s "
         parameters += (subcategoryId,)
 
-    if recency is not None:
+    if recency is not -1:
         query += "and recency = %s "
         parameters += (recency,)
 
-    if tradeVenue is not None:
+    if tradeVenue is not -1:
         query += "and tradeVenue = %s "
         parameters += (tradeVenue,)
 
-    if price is not None:
+    if price is not -1:
         query = addPriceCondition(query, categoryId, price)
 
     if sorting != 1:
         query = addSortingCondition(query, sorting)
 
     query += "limit %s offset %s "
-    return jsonify(page=page.__class__.__name__)
-    offset = (page-1) * numberItems
-    parameters += (numberItems, offset)
+    parameters += (numberItems, (page-1) * numberItems)
 
     # get products
     cursor = g.db.cursor()
