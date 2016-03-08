@@ -324,7 +324,7 @@ def browsing_page():
 
     cursor = g.db.cursor()
     cursor.execute(count, parameters)
-    productsNum = cursor.fetchall()
+    productsNum = cursor.fetchall()[0]
 
     return jsonify(state=1, subcategories=subcategories, products=products,
                    productsNum=productsNum)
