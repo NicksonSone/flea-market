@@ -302,7 +302,7 @@ def browsing_page():
         query = addSortingCondition(query, sorting)
 
     query += "limit %s offset %s "
-    return jsonify(page=page)
+    return jsonify(page=page.__class__.__name__)
     offset = (page-1) * numberItems
     parameters += (numberItems, offset)
 
