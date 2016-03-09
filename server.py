@@ -471,6 +471,8 @@ def edit_user_info():
 @app.route("/item", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def create_item():
+
+    return jsonify(r="here")
     userId = int(request.args.get("userId", 0))
     categoryId = int(request.args.get("categoryId", 0))
     subcategoryId = int(request.args.get("subcategoryId", 0))
@@ -492,7 +494,6 @@ def create_item():
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
 
-    return jsonify(r="here")
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
