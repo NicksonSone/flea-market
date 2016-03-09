@@ -635,6 +635,8 @@ def get_collected_items():
 @app.route("/image/upload", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def image_upload():
+    b = Bucket("avatar")
+    return jsonify(n=b.stat()["objects"])
     if request.method == 'POST':
         image = request.files['fileList']
         if image:
