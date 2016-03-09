@@ -635,13 +635,12 @@ def get_collected_items():
 @app.route("/image/upload", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def image_upload():
-    avatar = Bucket("avatar")
-    numObejcts = avatar.stat()["objects"]
 
     if request.method == 'POST':
         image = request.files['fileList']
         if image:
             bucket = Bucket("avatar")
+            numObejcts = bucket.stat()["objects"]
             bucket.put_object(str(numObejcts + 1), image.stream)
             url = bucket.generate_url(image.filename)
 
