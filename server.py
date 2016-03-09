@@ -472,7 +472,7 @@ def edit_user_info():
 @allow_cross_domain
 def create_item():
     userId = int(request.args.get("userId", 0))
-    categoryId = int(request.args.get("categoryId", "default"))
+    categoryId = int(request.args.get("categoryId", 0))
     subcategoryId = int(request.args.get("subcategoryId", 0))
     arguable = int(request.args.get("arguable", 0))
     recency = int(request.args.get("recency", 0))
