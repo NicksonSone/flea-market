@@ -642,7 +642,7 @@ def image_upload():
             bucket.put_object(image.filename, image.stream)
             url = bucket.generate_url(image.filename)
 
-            return jsonify(state=url)
+            return url
     return jsonify(error="fail to upload image")
 
 
