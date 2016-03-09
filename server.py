@@ -484,7 +484,6 @@ def create_item():
     description = request.args.get("description", "description")
     # image upload
     postDate = datetime.now()
-    return jsonify(r="here")
 
     # TODO: image uploading
     # try:
@@ -494,6 +493,7 @@ def create_item():
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
 
+    return jsonify(r=userName)
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
