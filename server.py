@@ -490,10 +490,10 @@ def create_item():
     #   get sender name
     cursor = g.db.cursor()
     query = "select userName from User where userId = %s"
+    return jsonify(r=query, userId=userId)
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
 
-    return jsonify(r=userName)
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
