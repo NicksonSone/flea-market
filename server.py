@@ -472,7 +472,9 @@ def edit_user_info():
 @allow_cross_domain
 def create_item():
 
-    userId = int(request.args.get("userId", 0))
+    userId = request.args.get("userId", 0)
+    return jsonify(userId=userId)
+
     categoryId = int(request.args.get("categoryId", 0))
     subcategoryId = int(request.args.get("subcategoryId", 0))
     arguable = int(request.args.get("arguable", 0))
@@ -490,7 +492,6 @@ def create_item():
     #   get sender name
     cursor = g.db.cursor()
     query = "select userName from User where userId = %s"
-    return jsonify(r=query, userId=userId)
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
 
