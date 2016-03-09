@@ -562,7 +562,7 @@ def get_selling_products():
 
     # retrieve data
     cursor = g.db.cursor()
-    query = ("select Item.itemId, Item.title, Item.state, Item.image1\
+    query = ("select Item.itemId, Item.title, Item.state, Item.image1 \
              from Item, Sell \
              where Sell.userId = %s and Sell.itemId = Item.itemId")
     cursor.execute(query, (userId,))
@@ -641,8 +641,9 @@ def image_upload():
         if image:
             bucket = Bucket("avatar")
             numObejcts = bucket.stat()["objects"]
-            bucket.put_object(str(numObejcts + 1), image.stream)
-            url = bucket.generate_url(image.filename)
+            imageId = str(numObejcts + 1)
+            bucket.put_object(imageId, image.stream)
+            url = bucket.generate_url(imageId)
 
             return url
     return jsonify(error="fail to upload image")
