@@ -468,7 +468,7 @@ def edit_user_info():
     return jsonify(state=1)
 
 
-@app.route("/item", methods=["GET", "OPTIONS"])
+@app.route("/item", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def create_item():
     userId = int(request.args.get("userId", 0))
