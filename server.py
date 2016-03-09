@@ -473,16 +473,15 @@ def edit_user_info():
 def create_item():
 
     userId = request.form.get("userId", 0)
-    return jsonify(userId=userId)
-    categoryId = int(request.args.get("categoryId", 0))
-    subcategoryId = int(request.args.get("subcategoryId", 0))
-    arguable = int(request.args.get("arguable", 0))
-    recency = int(request.args.get("recency", 0))
-    delivery = int(request.args.get("delivery", 0))
-    price = float(request.args.get("price", 0.0))
-    title = request.args.get("title", "default")
-    tradeVenue = request.args.get("tradeVenue", "default")
-    description = request.args.get("description", "description")
+    categoryId = int(request.form.get("categoryId", 0))
+    subcategoryId = int(request.form.get("subcategoryId", 0))
+    arguable = int(request.form.get("arguable", 0))
+    recency = int(request.form.get("recency", 0))
+    delivery = int(request.form.get("delivery", 0))
+    price = float(request.form.get("price", 0.0))
+    title = request.form.get("title", "default")
+    tradeVenue = request.form.get("tradeVenue", "default")
+    description = request.form.get("description", "description")
     # image upload
     postDate = datetime.now()
 
@@ -493,6 +492,7 @@ def create_item():
     query = "select userName from User where userId = %s"
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
+    return jsonify(userName=userName)
 
     # create new item
     insert = ("insert into Item(\
