@@ -472,7 +472,6 @@ def edit_user_info():
 @allow_cross_domain
 def create_item():
 
-    return jsonify(r="here")
     userId = int(request.args.get("userId", 0))
     categoryId = int(request.args.get("categoryId", 0))
     subcategoryId = int(request.args.get("subcategoryId", 0))
@@ -485,6 +484,7 @@ def create_item():
     description = request.args.get("description", "description")
     # image upload
     postDate = datetime.now()
+    return jsonify(r="here")
 
     # TODO: image uploading
     # try:
