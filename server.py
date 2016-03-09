@@ -640,8 +640,7 @@ def image_upload():
         image = request.files['fileList']
         if image:
             bucket = Bucket("avatar")
-            numObejcts = bucket.stat()["objects"]
-            return numObejcts.__class__.__name__
+            numObejcts = int(bucket.stat()["objects"])
             imageId = str(numObejcts + 1)
             bucket.put_object(imageId, image.stream)
             url = bucket.generate_url(imageId)
