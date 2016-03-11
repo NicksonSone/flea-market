@@ -482,7 +482,6 @@ def create_item():
     tradeVenue = request.form.get("tradeVenue", "default")
     description = request.form.get("description", "description")
     picArray = request.form.getlist("picArray[]")
-    return jsonify(picArray=picArray)
     postDate = datetime.now()
 
     #   get sender name
@@ -500,7 +499,8 @@ def create_item():
             %s, %s, %s, %s, %s, %s, \
             %s, %s, %s, %s)")
     params = (userId, userName, title, categoryId, subcategoryId, price,
-              arguable, tradeVenue, recency, description, delivery, postDate)
+              arguable, tradeVenue, recency, description, delivery, postDate,
+              picArray[0], picArray[1], picArray[2], picArray[3])
     cursor.execute(insert, params)
     g.db.commit()
 
