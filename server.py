@@ -512,6 +512,7 @@ def create_item():
     # insert image url into database
     fields = ("insert into Item(")
     values = (") values (")
+    return jsonify(stat="here")
 
     # forming insertion statement
     numImages = len(picArray)
