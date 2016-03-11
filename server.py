@@ -657,6 +657,7 @@ def image_upload():
         if image:
             bucket = Bucket("avatar")
             numObejcts = int(bucket.stat()["objects"])
+            return jsonify(numObejcts=numObejcts)
             imageId = str(numObejcts + 1) + ".jpg"
             bucket.put_object(imageId, image.stream)
             url = bucket.generate_url(imageId)
