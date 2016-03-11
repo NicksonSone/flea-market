@@ -4,7 +4,7 @@ import ast
 import MySQLdb
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
-from config import DEBUG
+from config import DEBUG, lock
 from sae.storage import Bucket
 from datetime import datetime
 
@@ -651,15 +651,19 @@ def get_collected_items():
 @app.route("/image/upload", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def image_upload():
-
     if request.method == 'POST':
         image = request.files['fileList']
+        while lock == 1:
+            pass
+        lock = 1
         if image:
             bucket = Bucket("avatar")
             numObejcts = int(bucket.stat()["objects"])
             imageId = str(numObejcts + 1) + ".jpg"
             bucket.put_object(imageId, image.stream)
             url = bucket.generate_url(imageId)
+
+            lock = 0
 
             return url
     return jsonify(error="fail to upload image")

@@ -3,3 +3,6 @@
 
 # configuration
 DEBUG = True
+
+# lock
+lock = 0
