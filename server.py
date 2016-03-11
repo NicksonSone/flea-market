@@ -666,6 +666,7 @@ def image_upload():
             lock = 0
 
             return url
+        lock = 0
     return jsonify(error="fail to upload image")
 
 
