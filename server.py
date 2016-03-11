@@ -652,7 +652,6 @@ def get_collected_items():
 @allow_cross_domain
 def image_upload():
     global lock
-    return jsonify(lock=lock)
     if request.method == 'POST':
         image = request.files['fileList']
         while lock == 1:
