@@ -472,12 +472,10 @@ def edit_user_info():
 @allow_cross_domain
 def create_item():
     userId = int(request.form.get("userId", 0))
-    return jsonify(state="here")
     categoryId = int(request.form.get("categoryId", 0))
     subcategoryId = int(request.form.get("subcategoryId", 0))
     arguable = int(request.form.get("arguable", 0))
     recency = int(request.form.get("recency", 0))
-
     delivery = int(request.form.get("delivery", 0))
     price = float(request.form.get("price", 0.0))
     title = request.form.get("title", "default")
@@ -496,7 +494,6 @@ def create_item():
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
 
-
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
@@ -509,9 +506,10 @@ def create_item():
     cursor.execute(insert, params)
     g.db.commit()
 
-    query = ("select last_insert_id()")
+    query = ("select last_insert_id() from Item")
     cursor.execute(query)
     result = cursor.fetchone()
+    return jsonify(result=len(result))
     itemId = result[0]
 
     # create Sell relationship between seller and posted item
