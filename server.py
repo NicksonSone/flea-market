@@ -476,6 +476,8 @@ def create_item():
     subcategoryId = int(request.form.get("subcategoryId", 0))
     arguable = int(request.form.get("arguable", 0))
     recency = int(request.form.get("recency", 0))
+
+    return jsonify(state="here")
     delivery = int(request.form.get("delivery", 0))
     price = float(request.form.get("price", 0.0))
     title = request.form.get("title", "default")
@@ -485,7 +487,6 @@ def create_item():
     # picArray = request.form.get("picArray", [])
     postDate = datetime.now()
 
-    return jsonify(state="here")
 
     # TODO: image uploading
     # try:
