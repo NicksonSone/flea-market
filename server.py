@@ -524,6 +524,7 @@ def create_item():
             insert += ","
             values += ","
     insert = fields + values + ")"
+    return jsonify(insert=insert, images=images)
     cursor.execute(insert, images)
     g.db.commit()
 
