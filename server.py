@@ -481,8 +481,8 @@ def create_item():
     title = request.form.get("title", "default")
     tradeVenue = request.form.get("tradeVenue", "default")
     description = request.form.get("description", "description")
-    # TODO : image upload
-    # picArray = request.form.get("picArray", [])
+    picArray = request.form.get("picArray", [])
+    return jsonify(picArray=len(picArray))
     postDate = datetime.now()
 
 
@@ -497,8 +497,8 @@ def create_item():
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
-            arguable, tradeVenue, recency, description, delivery, postDate\
-            ) values ( \
+            arguable, tradeVenue, recency, description, delivery, postDate,\
+            image1, image2, image3, image4) values ( \
             %s, %s, %s, %s, %s, %s, \
             %s, %s, %s, %s, %s, %s)")
     params = (userId, userName, title, categoryId, subcategoryId, price,
