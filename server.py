@@ -472,12 +472,12 @@ def edit_user_info():
 @allow_cross_domain
 def create_item():
     userId = int(request.form.get("userId", 0))
+    return jsonify(state="here")
     categoryId = int(request.form.get("categoryId", 0))
     subcategoryId = int(request.form.get("subcategoryId", 0))
     arguable = int(request.form.get("arguable", 0))
     recency = int(request.form.get("recency", 0))
 
-    return jsonify(state="here")
     delivery = int(request.form.get("delivery", 0))
     price = float(request.form.get("price", 0.0))
     title = request.form.get("title", "default")
