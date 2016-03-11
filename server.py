@@ -496,7 +496,7 @@ def create_item():
             arguable, tradeVenue, recency, description, delivery, postDate\
             ) values ( \
             %s, %s, %s, %s, %s, %s, \
-            %s, %s, %s, %s, %s, %s, \
+            %s, %s, %s, %s, %s, %s\
             )")
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, delivery, postDate,
