@@ -510,21 +510,19 @@ def create_item():
     itemId = result[0]
 
     # insert image url into database
-    fields = ("insert into Item(")
-    values = (") values (")
+    update = ("update Item set ")
+    query = (" where itemId = %s")
 
     # forming insertion statement
     numImages = len(picArray)
-    images = ()
+    parameters = ()
     for i in xrange(numImages):
-        fields += "image" + str(i+1)
-        values += "%s"
-        images += (picArray[i],)
+        update += "image" + str(i+1) + " = %s"
+        parameters += (picArray[i],)
         if i < numImages - 1:
-            fields += ","
-            values += ","
-    insert = fields + values + ")"
-    cursor.execute(insert, images)
+            update += ","
+    parameters += (itemId,)
+    cursor.execute(update, parameters)
     g.db.commit()
 
     # create Sell relationship between seller and posted item
