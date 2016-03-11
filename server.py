@@ -653,6 +653,7 @@ def get_collected_items():
 def image_upload():
     if request.method == 'POST':
         image = request.files['fileList']
+        return jsonify(lock=lock)
         while lock == 1:
             pass
         lock = 1
