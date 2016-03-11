@@ -517,7 +517,7 @@ def create_item():
     numImages = len(picArray)
     images = ()
     for i in xrange(numImages):
-        insert += "image" + str(i+1)
+        fields += "image" + str(i+1)
         values += "%s"
         images += (picArray[i],)
         if i < numImages - 1:
