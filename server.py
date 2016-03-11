@@ -509,7 +509,6 @@ def create_item():
     query = ("select last_insert_id() from Item")
     cursor.execute(query)
     result = cursor.fetchone()
-    return jsonify(result=len(result))
     itemId = result[0]
 
     # create Sell relationship between seller and posted item
