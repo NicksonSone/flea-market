@@ -522,6 +522,7 @@ def create_item():
         if i < numImages - 1:
             update += ","
     parameters += (itemId,)
+    return jsonify(update=update, pa=len(parameters))
     cursor.execute(update, parameters)
     g.db.commit()
 
