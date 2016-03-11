@@ -506,12 +506,12 @@ def create_item():
     cursor.execute(insert, params)
     g.db.commit()
 
+    return jsonify(state="here")
+
     query = ("select last_insert_id()")
     cursor.execute(query)
     result = cursor.fetchone()
     itemId = result[0]
-
-    return jsonify(state="here")
 
     # create Sell relationship between seller and posted item
     insert = ("insert into Sell(userId, itemId) values(%s, %s)")
