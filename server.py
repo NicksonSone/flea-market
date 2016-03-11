@@ -481,13 +481,10 @@ def create_item():
     title = request.form.get("title", "default")
     tradeVenue = request.form.get("tradeVenue", "default")
     description = request.form.get("description", "description")
-    picArray = request.form.get("picArray", [])
+    picArray = request.form.getlist("picArray[]", [])
     return jsonify(picArray=len(picArray))
     postDate = datetime.now()
 
-
-    # TODO: image uploading
-    # try:
     #   get sender name
     cursor = g.db.cursor()
     query = "select userName from User where userId = %s"
@@ -500,7 +497,8 @@ def create_item():
             arguable, tradeVenue, recency, description, delivery, postDate,\
             image1, image2, image3, image4) values ( \
             %s, %s, %s, %s, %s, %s, \
-            %s, %s, %s, %s, %s, %s)")
+            %s, %s, %s, %s, %s, %s, \
+            %s, %s, %s, %s)")
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, delivery, postDate)
     cursor.execute(insert, params)
@@ -641,7 +639,7 @@ def image_upload():
         if image:
             bucket = Bucket("avatar")
             numObejcts = int(bucket.stat()["objects"])
-            imageId = str(numObejcts + 1)
+            imageId = str(numObejcts + 1 + ".jpg")
             bucket.put_object(imageId, image.stream)
             url = bucket.generate_url(imageId)
 
