@@ -521,6 +521,7 @@ def create_item():
         parameters += (picArray[i],)
         if i < numImages - 1:
             update += ","
+    update += query
     parameters += (itemId,)
     return jsonify(update=update, pa=len(parameters))
     cursor.execute(update, parameters)
