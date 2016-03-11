@@ -639,7 +639,7 @@ def image_upload():
         if image:
             bucket = Bucket("avatar")
             numObejcts = int(bucket.stat()["objects"])
-            imageId = str(numObejcts + 1 + ".jpg")
+            imageId = str(numObejcts + 1) + ".jpg"
             bucket.put_object(imageId, image.stream)
             url = bucket.generate_url(imageId)
 
