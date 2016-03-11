@@ -521,10 +521,9 @@ def create_item():
         values += "%s"
         images += (picArray[i],)
         if i < numImages - 1:
-            insert += ","
+            fields += ","
             values += ","
     insert = fields + values + ")"
-    return jsonify(insert=insert, images=images)
     cursor.execute(insert, images)
     g.db.commit()
 
