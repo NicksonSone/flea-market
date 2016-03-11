@@ -523,7 +523,6 @@ def create_item():
             update += ","
     update += query
     parameters += (itemId,)
-    return jsonify(update=update, pa=len(parameters))
     cursor.execute(update, parameters)
     g.db.commit()
 
