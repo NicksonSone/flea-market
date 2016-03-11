@@ -493,14 +493,14 @@ def create_item():
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
-            arguable, tradeVenue, recency, description, delivery, postDate,\
-            image1, image2, image3, image4) values ( \
+            arguable, tradeVenue, recency, description, delivery, postDate\
+            ) values ( \
             %s, %s, %s, %s, %s, %s, \
             %s, %s, %s, %s, %s, %s, \
-            %s, %s, %s, %s)")
+            )")
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, delivery, postDate,
-              picArray[0], picArray[1], picArray[2], picArray[3])
+              )
     cursor.execute(insert, params)
     g.db.commit()
 
@@ -508,6 +508,24 @@ def create_item():
     cursor.execute(query)
     result = cursor.fetchone()
     itemId = result[0]
+
+    # insert image url into database
+    fields = ("insert into Item(")
+    values = (") values (")
+
+    # forming insertion statement
+    numImages = len(picArray)
+    images = ()
+    for i in xrange(numImages):
+        insert += "image" + str(i+1)
+        values += "%s"
+        images += (picArray[i],)
+        if i < numImages - 1:
+            insert += ","
+            values += ","
+    insert = fields + values + ")"
+    cursor.execute(insert, images)
+    g.db.commit()
 
     # create Sell relationship between seller and posted item
     insert = ("insert into Sell(userId, itemId) values(%s, %s)")
