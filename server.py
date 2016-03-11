@@ -482,7 +482,8 @@ def create_item():
     title = request.form.get("title", "default")
     tradeVenue = request.form.get("tradeVenue", "default")
     description = request.form.get("description", "description")
-    # image upload
+    # TODO : image upload
+    # picArray = request.form.get("picArray", [])
     postDate = datetime.now()
 
     # TODO: image uploading
@@ -504,13 +505,13 @@ def create_item():
               arguable, tradeVenue, recency, description, delivery, postDate)
     cursor.execute(insert, params)
     g.db.commit()
-    return jsonify(state="here")
 
-    # get newly generated item id
     query = ("select last_insert_id()")
     cursor.execute(query)
     result = cursor.fetchone()
     itemId = result[0]
+
+    return jsonify(state="here")
 
     # create Sell relationship between seller and posted item
     insert = ("insert into Sell(userId, itemId) values(%s, %s)")
