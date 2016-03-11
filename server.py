@@ -481,8 +481,9 @@ def create_item():
     title = request.form.get("title", "default")
     tradeVenue = request.form.get("tradeVenue", "default")
     description = request.form.get("description", "description")
-    picArray = request.form.getlist("picArray", [])
-    return jsonify(picArray=len(picArray))
+    # picArray = request.form.getlist("picArray", [])
+
+    return jsonify(picArray=list(request.form.iterkeys()))
     postDate = datetime.now()
 
     #   get sender name
