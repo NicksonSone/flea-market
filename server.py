@@ -472,7 +472,7 @@ def edit_user_info():
 @allow_cross_domain
 def create_item():
 
-    userId = request.form.get("userId", 0)
+    userId = int(request.form.get("userId", 0))
     categoryId = int(request.form.get("categoryId", 0))
     subcategoryId = int(request.form.get("subcategoryId", 0))
     arguable = int(request.form.get("arguable", 0))
@@ -486,6 +486,8 @@ def create_item():
     # picArray = request.form.get("picArray", [])
     postDate = datetime.now()
 
+    return jsonify(state="here")
+
     # TODO: image uploading
     # try:
     #   get sender name
@@ -494,7 +496,6 @@ def create_item():
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
 
-    return jsonify(state="here")
 
     # create new item
     insert = ("insert into Item(\
