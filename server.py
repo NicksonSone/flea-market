@@ -490,6 +490,7 @@ def create_item():
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
 
+    return "asf"
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
@@ -503,7 +504,6 @@ def create_item():
               )
     cursor.execute(insert, params)
     g.db.commit()
-    return "asf"
 
     query = ("select last_insert_id() from Item")
     cursor.execute(query)
