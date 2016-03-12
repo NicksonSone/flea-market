@@ -488,7 +488,6 @@ def create_item():
     # decode Chinese character for storage
     title = urllib.unquote(title).decode("utf-8")
     description = urllib.unquote(description).decode("utf-8")
-    return "b"
 
     #   get sender name
     cursor = g.db.cursor()
@@ -509,6 +508,7 @@ def create_item():
               )
     cursor.execute(insert, params)
     g.db.commit()
+    return "e"
 
     query = ("select last_insert_id() from Item")
     cursor.execute(query)
