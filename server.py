@@ -481,8 +481,8 @@ def create_item():
     price = float(request.form.get("price", 0.0))
     tradeVenue = int(request.form.get("tradeVenue", 0))
     title = request.form.get("title", "default")
-    return title
     title = urllib.unquote(title).decode("utf-8")
+    return title
     description = request.form.get("description", "description")
     picArray = request.form.getlist("picArray[]")
     postDate = datetime.now()
