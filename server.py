@@ -485,9 +485,9 @@ def create_item():
 
 
 
+    return jsonify(title=title.__class__.__name__)
 
     title = urllib.unquote(title).decode("utf-8")
-    return jsonify(title=title)
 
 
 
