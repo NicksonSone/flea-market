@@ -481,10 +481,12 @@ def create_item():
     price = float(request.form.get("price", 0.0))
     tradeVenue = int(request.form.get("tradeVenue", 0))
     title = str(request.form.get("title", "default"))
+    return "a"
     description = str(request.form.get("description", "description"))
     picArray = request.form.getlist("picArray[]")
     postDate = datetime.now()
 
+    # decode Chinese character for storage
     title = urllib.unquote(title).decode("utf-8")
     description = urllib.unquote(description).decode("utf-8")
 
