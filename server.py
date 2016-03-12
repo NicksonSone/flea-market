@@ -482,12 +482,12 @@ def create_item():
     tradeVenue = int(request.form.get("tradeVenue", 0))
     title = str(request.form.get("title", "default"))
     description = str(request.form.get("description", "description"))
-    return "a"
     picArray = request.form.getlist("picArray[]")
     postDate = datetime.now()
 
     # decode Chinese character for storage
     title = urllib.unquote(title).decode("utf-8")
+    return "a"
     description = urllib.unquote(description).decode("utf-8")
 
     #   get sender name
