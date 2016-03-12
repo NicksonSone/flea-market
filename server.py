@@ -471,7 +471,7 @@ def edit_user_info():
 @app.route("/item/a", methods=["GET", "OPTIONS"])
 @allow_cross_domain
 def create_item():
-    userId = int(request.form.get("userId", 0))
+    userId = int(request.args.get("userId", 0))
     return jsonify(user=userId)
     categoryId = int(request.form.get("categoryId", 0))
     subcategoryId = int(request.form.get("subcategoryId", 0))
