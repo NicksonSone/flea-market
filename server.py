@@ -488,7 +488,6 @@ def create_item():
     # decode Chinese character for storage
     title = urllib.unquote(title).decode("utf-8")
     description = urllib.unquote(description).decode("utf-8")
-    return jsonify(a=title, b=description)
 
     #   get sender name
     cursor = g.db.cursor()
