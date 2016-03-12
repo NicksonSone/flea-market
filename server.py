@@ -2,6 +2,7 @@
 
 import ast
 import MySQLdb
+import urllib
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG, lock
@@ -556,6 +557,7 @@ def get_item_info():
     # transform datetime object to list of date elements, to be josnifiable
     item = list(cursor.fetchone())
     item[11] = datetimeToTimeElement(item[11])
+    item[3] = urllib.unquote(item[3])
 
     # get seller info
     userId = item[1]
