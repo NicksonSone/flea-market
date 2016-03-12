@@ -495,14 +495,13 @@ def create_item():
             userId, userName, title, categoryId, subcategoryId, price,\
             arguable, tradeVenue, recency, description, delivery, postDate\
             ) values ( \
-            %s, %s, %s, %s, %s, %s, \
+            %s, %s, N'%s, %s, %s, %s, \
             %s, %s, %s, %s, %s, %s\
             )")
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, delivery, postDate,
               )
     cursor.execute(insert, params)
-    return "sdf"
     g.db.commit()
 
     query = ("select last_insert_id() from Item")
