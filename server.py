@@ -480,7 +480,6 @@ def create_item():
     price = float(request.form.get("price", 0.0))
     title = request.form.get("title", "default")
     tradeVenue = int(request.form.get("tradeVenue", 0))
-    return "her"
     description = request.form.get("description", "description")
     picArray = request.form.getlist("picArray[]")
     postDate = datetime.now()
@@ -509,6 +508,8 @@ def create_item():
     cursor.execute(query)
     result = cursor.fetchone()
     itemId = result[0]
+
+    return jsonify(a=tradeVenue, b=tradeVenue.__class__.__name__)
 
     # insert image url into database
     update = ("update Item set ")
