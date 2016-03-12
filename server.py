@@ -506,8 +506,8 @@ def create_item():
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, delivery, postDate,
               )
-    return jsonify(a=insert)
     cursor.execute(insert, params)
+    return jsonify(a=insert)
     g.db.commit()
 
     query = ("select last_insert_id() from Item")
