@@ -476,11 +476,11 @@ def create_item():
     categoryId = int(request.form.get("categoryId", 0))
     subcategoryId = int(request.form.get("subcategoryId", 0))
     arguable = int(request.form.get("arguable", 0))
-    return "h"
     recency = int(request.form.get("recency", 0))
     delivery = int(request.form.get("delivery", 0))
     price = float(request.form.get("price", 0.0))
     tradeVenue = int(request.form.get("tradeVenue", 0))
+    return "h"
     title = request.form.get("title", "default")
     title = urllib.unquote(title).decode("utf-8")
     description = request.form.get("description", "description")
