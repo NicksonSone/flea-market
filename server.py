@@ -494,7 +494,6 @@ def create_item():
     query = "select userName from User where userId = %s"
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
-    return jsonify(a=userId)
 
     # create new item
     insert = ("insert into Item(\
@@ -509,6 +508,7 @@ def create_item():
               )
     cursor.execute(insert, params)
     g.db.commit()
+    return jsonify(a=userId)
 
     query = ("select last_insert_id() from Item")
     cursor.execute(query)
