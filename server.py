@@ -513,7 +513,6 @@ def create_item():
     result = cursor.fetchone()
     itemId = result[0]
 
-
     # insert image url into database
     update = ("update Item set ")
     query = (" where itemId = %s")
