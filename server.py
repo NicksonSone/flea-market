@@ -468,11 +468,22 @@ def edit_user_info():
     return jsonify(state=1)
 
 
-@app.route("/item/a", methods=["GET", "OPTIONS"])
+@app.route("/item", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def create_item():
-    userId = int(request.args.get("userId", 0))
-    return jsonify(user=userId)
+    # userId = int(request.form.get("userId", 0))
+    # categoryId = int(request.form.get("categoryId", 0))
+    # subcategoryId = int(request.form.get("subcategoryId", 0))
+    # arguable = int(request.form.get("arguable", 0))
+    # recency = int(request.form.get("recency", 0))
+    # delivery = int(request.form.get("delivery", 0))
+    # price = float(request.form.get("price", 0.0))
+    # tradeVenue = int(request.form.get("tradeVenue", 0))
+    # title = request.form.get("title", "default")
+    # description = request.form.get("description", "description")
+    # picArray = request.form.getlist("picArray[]")
+
+    userId = int(request.form.get("userId", 0))
     categoryId = int(request.form.get("categoryId", 0))
     subcategoryId = int(request.form.get("subcategoryId", 0))
     arguable = int(request.form.get("arguable", 0))
@@ -483,9 +494,10 @@ def create_item():
     title = request.form.get("title", "default")
     description = request.form.get("description", "description")
     picArray = request.form.getlist("picArray[]")
+
     postDate = datetime.now()
 
-    #   get sender name
+    # get sender name
     cursor = g.db.cursor()
     query = "select userName from User where userId = %s"
     cursor.execute(query, (userId,))
