@@ -531,7 +531,6 @@ def create_item():
     insert = ("insert into Sell(userId, itemId) values(%s, %s)")
     cursor.execute(insert, (userId, itemId))
     g.db.commit()
-    return jsonify(a=tradeVenue, b=tradeVenue.__class__.__name__)
 
     # create fallsIn relationship between the category and subcategory
     insert = ("insert into FallsIn(itemId, categoryId, subcategoryId) \
