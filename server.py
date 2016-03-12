@@ -481,6 +481,7 @@ def create_item():
     price = float(request.form.get("price", 0.0))
     tradeVenue = int(request.form.get("tradeVenue", 0))
     title = request.form.get("title", "default")
+    title = urllib.unquote(title).decode("utf-8")
     description = request.form.get("description", "description")
     picArray = request.form.getlist("picArray[]")
     postDate = datetime.now()
@@ -557,7 +558,9 @@ def get_item_info():
     # transform datetime object to list of date elements, to be josnifiable
     item = list(cursor.fetchone())
     item[11] = datetimeToTimeElement(item[11])
-    item[3] = urllib.unquote(item[3]).decode("utf-8")
+
+    # decode Chinese character
+    # item[3] = urllib.unquote(item[3]).decode("utf-8")
 
     # get seller info
     userId = item[1]
