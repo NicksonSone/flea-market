@@ -494,6 +494,7 @@ def create_item():
     query = "select userName from User where userId = %s"
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
+    return jsonify(a=userId)
 
     # create new item
     insert = ("insert into Item(\
