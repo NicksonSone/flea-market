@@ -487,8 +487,8 @@ def create_item():
 
     # decode Chinese character for storage
     title = urllib.unquote(title).decode("utf-8")
-    return "a"
     description = urllib.unquote(description).decode("utf-8")
+    return "b"
 
     #   get sender name
     cursor = g.db.cursor()
