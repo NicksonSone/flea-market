@@ -490,7 +490,6 @@ def create_item():
     cursor.execute(query, (userId,))
     userName = cursor.fetchone()[0]
 
-    return "asf"
     # create new item
     insert = ("insert into Item(\
             userId, userName, title, categoryId, subcategoryId, price,\
@@ -502,6 +501,7 @@ def create_item():
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, delivery, postDate,
               )
+    return jsonify(insert=insert, params=list(params))
     cursor.execute(insert, params)
     g.db.commit()
 
