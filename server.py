@@ -471,7 +471,6 @@ def edit_user_info():
 @app.route("/item", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def create_item():
-    return "sdf"
     userId = int(request.form.get("userId", 0))
     categoryId = int(request.form.get("categoryId", 0))
     subcategoryId = int(request.form.get("subcategoryId", 0))
@@ -480,6 +479,7 @@ def create_item():
     delivery = int(request.form.get("delivery", 0))
     price = float(request.form.get("price", 0.0))
     tradeVenue = int(request.form.get("tradeVenue", 0))
+    return "sdf"
     title = request.form.get("title", "default")
     return jsonify(title=title)
     description = request.form.get("description", "description")
