@@ -479,7 +479,6 @@ def create_item():
     delivery = int(request.form.get("delivery", 0))
     price = float(request.form.get("price", 0.0))
     tradeVenue = int(request.form.get("tradeVenue", 0))
-    return "sdf"
     title = request.form.get("title", "default")
     return jsonify(title=title)
     description = request.form.get("description", "description")
