@@ -557,7 +557,7 @@ def get_item_info():
     # transform datetime object to list of date elements, to be josnifiable
     item = list(cursor.fetchone())
     item[11] = datetimeToTimeElement(item[11])
-    item[3] = urllib.unquote(item[3])
+    item[3] = urllib.unquote(item[3]).decode("utf-8")
 
     # get seller info
     userId = item[1]
