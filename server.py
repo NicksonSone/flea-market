@@ -571,6 +571,7 @@ def get_item_info():
     # transform datetime object to list of date elements, to be josnifiable
     item = list(cursor.fetchone())
     item[11] = datetimeToTimeElement(item[11])
+    return jsonify(t=item[3].__class__.__name__)
 
     # decode Chinese character
     # item[3] = urllib.unquote(item[3]).decode("utf-8")
