@@ -501,7 +501,7 @@ def create_item():
     params = (userId, userName, title, categoryId, subcategoryId, price,
               arguable, tradeVenue, recency, description, delivery, postDate,
               )
-    return jsonify(insert=insert, params=list(params))
+    return jsonify(insert=insert)
     cursor.execute(insert, params)
     g.db.commit()
 
