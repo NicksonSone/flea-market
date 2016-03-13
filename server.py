@@ -482,6 +482,7 @@ def create_item():
     price = float(request.form.get("price", 0.0))
     tradeVenue = int(request.form.get("tradeVenue", 0))
     title = request.form.get("title", "default")
+    title = str(title)
     return jsonify(a=title.__class__.__name__, t=title)
     description = str(request.form.get("description", "description"))
     picArray = request.form.getlist("picArray[]")
