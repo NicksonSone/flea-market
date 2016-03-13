@@ -487,7 +487,7 @@ def create_item():
 
     # decode Chinese character for storage
     title = urllib.unquote(title).decode("utf-8")
-    # title = title.encode("utf8")
+    title = title.encode("utf8")
     description = urllib.unquote(description).decode("utf-8")
 
     #   get sender name
