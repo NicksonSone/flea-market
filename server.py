@@ -339,7 +339,7 @@ def register():
     data = parseData()
 
     userName = data.get("userName", "")
-    return jsonify(t=type(userName))
+    return type(userName)
     password = data.get("password", "")
     phoneNum = data.get("phoneNum", "")
     email = data.get("email", "")
