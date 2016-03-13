@@ -482,7 +482,7 @@ def create_item():
     tradeVenue = int(request.form.get("tradeVenue", 0))
     title = str(request.form.get("title", "default"))
     title = urllib.unquote(title).decode("utf-8")
-    title = urllib.unquote(title).decode("utf-8")
+    title = title.decode("utf-8")
     return jsonify(a=title.__class__.__name__, t=title)
     description = str(request.form.get("description", "description"))
     picArray = request.form.getlist("picArray[]")
