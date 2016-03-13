@@ -482,7 +482,6 @@ def create_item():
     tradeVenue = int(request.form.get("tradeVenue", 0))
     title = str(request.form.get("title", "default"))
     title = urllib.unquote(title).decode("utf-8")
-    return jsonify(a=title.__class__.__name__, t=title)
     description = str(request.form.get("description", "description"))
     picArray = request.form.getlist("picArray[]")
     postDate = datetime.now()
@@ -509,8 +508,8 @@ def create_item():
               arguable, tradeVenue, recency, description, delivery, postDate,
               )
     cursor.execute(insert, params)
-    return jsonify(a=insert)
     g.db.commit()
+    return "a"
 
     query = ("select last_insert_id() from Item")
     cursor.execute(query)
