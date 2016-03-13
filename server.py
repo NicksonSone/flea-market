@@ -339,7 +339,6 @@ def register():
     data = parseData()
 
     userName = data.get("userName", "")
-    return userName.__class__.__name__
     password = data.get("password", "")
     phoneNum = data.get("phoneNum", "")
     email = data.get("email", "")
@@ -440,7 +439,6 @@ def get_user_info():
     result = cursor.fetchone()
     dict_res = {}
     dict_res["userName"] = result[0]
-    return jsonify(a=result[1].__class__.__name__, b=result[1])
     dict_res["realName"] = result[1]
     dict_res["phoneNum"] = result[2]
     dict_res["QQ"] = result[3]
@@ -483,7 +481,6 @@ def create_item():
     price = float(request.form.get("price", 0.0))
     tradeVenue = int(request.form.get("tradeVenue", 0))
     title = request.form.get("title", "default")
-    title = str(title)
     return jsonify(a=title.__class__.__name__, t=title)
     description = str(request.form.get("description", "description"))
     picArray = request.form.getlist("picArray[]")
