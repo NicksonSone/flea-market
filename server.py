@@ -488,6 +488,7 @@ def create_item():
 
     # decode Chinese character for storage
     title = urllib.unquote(title).decode("utf-8")
+    return jsonify(a=title.__class__.__name__, t=title)
     description = urllib.unquote(description).decode("utf-8")
 
     #   get sender name
