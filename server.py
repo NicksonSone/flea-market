@@ -487,7 +487,7 @@ def create_item():
 
     # decode Chinese character for storage
     title = urllib.unquote(title).decode("utf-8")
-    title = str(title)
+    title = title.decode("utf8")
     return "w"
     description = urllib.unquote(description).decode("utf-8")
 
