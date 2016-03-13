@@ -485,11 +485,11 @@ def create_item():
     picArray = request.form.getlist("picArray[]")
     postDate = datetime.now()
 
-    # decode Chinese character for storage
+    # magically change the character coding for storage
     title = urllib.unquote(title).decode("utf-8")
     title = title.encode("utf8")
-    return title
     description = urllib.unquote(description).decode("utf-8")
+    description = description.encode("utf8")
 
     #   get sender name
     cursor = g.db.cursor()
