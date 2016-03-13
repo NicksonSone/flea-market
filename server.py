@@ -440,7 +440,7 @@ def get_user_info():
     result = cursor.fetchone()
     dict_res = {}
     dict_res["userName"] = result[0]
-    return jsonify(a=result[0].__class__.__name__)
+    return jsonify(a=result[0].__class__.__name__, b=result[0])
     dict_res["realName"] = result[1]
     dict_res["phoneNum"] = result[2]
     dict_res["QQ"] = result[3]
