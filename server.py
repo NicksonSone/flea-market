@@ -314,7 +314,7 @@ def browsing_page():
 
     for i in xrange(len(products)):
         products[i] = list(products[i])
-        products[i][2] = datetimeToTimeElement(products[i][2])
+        products[i][3] = datetimeToTimeElement(products[i][3])
 
     # number of products under specific category
     count = ("select count(itemId) from FallsIn where categoryId = %s")
