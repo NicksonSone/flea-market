@@ -281,7 +281,8 @@ def browsing_page():
     subcategories = getSubCategory(categoryId)
 
     # form query and parameter for retrieving products
-    query = ("select title, tradeVenue, postDate, price, recency from Item"
+    query = ("select itemId, title, tradeVenue, postDate, price, recency"
+             " from Item"
              " where categoryId = %s ")
     parameters = (categoryId,)
     if subcategoryId is not -1:
