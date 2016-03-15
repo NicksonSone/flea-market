@@ -320,6 +320,7 @@ def browsing_page():
     parameters = (categoryId,)
 
     if subcategoryId is not -1:
+        return "asdf"
         query += "and subcategoryId = %s"
         parameters += (subcategoryId,)
 
