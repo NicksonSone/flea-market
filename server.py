@@ -318,9 +318,9 @@ def browsing_page():
     # number of products under specific category
     count = ("select count(itemId) from FallsIn where categoryId = %s")
     parameters = (categoryId,)
+    return str(subcategoryId)
 
     if subcategoryId is not -1:
-        return "asdf"
         query += "and subcategoryId = %s"
         parameters += (subcategoryId,)
 
