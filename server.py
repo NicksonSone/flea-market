@@ -672,7 +672,6 @@ def image_upload():
             outbuf = cStringIO.StringIO()
             process = Image.open(image.stream)
             process.save(outbuf, "JPEG")
-            print "here"
 
             bucket.put_object(imageId, outbuf)
             # bucket.put_object(imageId, image.stream)
