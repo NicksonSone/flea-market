@@ -669,7 +669,7 @@ def image_upload():
 
             # use Image to process
             # print image.stream.__class__.__name__
-            print imageId
+            print "hasodfowhefohwoe"
 
             bucket.put_object(imageId, image.stream)
             url = bucket.generate_url(imageId)
