@@ -663,13 +663,12 @@ def image_upload():
     if request.method == 'POST':
         image = request.files['fileList']
         if image:
+            print "here"
             bucket = Bucket("avatar")
             numObejcts = int(bucket.stat()["objects"])
             imageId = str(numObejcts + 1) + ".jpg"
 
             # use Image to process
-            # print image.stream.__class__.__name__
-            print "hasodfowhefohwoe"
 
             bucket.put_object(imageId, image.stream)
             url = bucket.generate_url(imageId)
