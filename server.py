@@ -671,7 +671,7 @@ def image_upload():
             process = Image.open(image.stream)
 
             bucket.put_object(imageId, process.tostring())
-            print "here"
+            print process.size, "here"
             url = bucket.generate_url(imageId)
 
             return url
