@@ -3,7 +3,7 @@
 import ast
 import MySQLdb
 import urllib
-import Image
+from PIL import Image
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG, lock
