@@ -668,7 +668,7 @@ def image_upload():
             imageId = str(numObejcts + 1) + ".jpg"
 
             # use Image to process
-            process = Image.open(image.stream)
+            # process = Image.open(image.stream)
 
             # bucket.put_object(imageId, process.tostring())
             bucket.put_object(imageId, image.stream)
