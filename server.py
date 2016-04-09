@@ -671,11 +671,11 @@ def image_upload():
             # use Image to process
             outbuf = cStringIO.StringIO()
             process = Image.open(image.stream)
-            process.save(outbuf)
+            process.save(outbuf, "JPEG")
+            print "here"
 
             bucket.put_object(imageId, outbuf)
             # bucket.put_object(imageId, image.stream)
-            print "here"
             url = bucket.generate_url(imageId)
 
             return url
