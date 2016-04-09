@@ -668,7 +668,8 @@ def image_upload():
             imageId = str(numObejcts + 1) + ".jpg"
 
             # use Image to process
-            print image.stream.__class__.__name__
+            process = Image.open(image.stream)
+            print process.size
 
             bucket.put_object(imageId, image.stream)
             url = bucket.generate_url(imageId)
