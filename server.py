@@ -666,13 +666,14 @@ def image_upload():
             bucket = Bucket("avatar")
             numObejcts = int(bucket.stat()["objects"])
             imageId = str(numObejcts + 1) + ".jpg"
+            print image.stream.buf
 
             # use Image to process
             # process = Image.open(image.stream)
 
             # bucket.put_object(imageId, process.tostring())
             bucket.put_object(imageId, image.stream)
-            print image.stream.size()
+            print image.stream.buf
             url = bucket.generate_url(imageId)
 
             return url
