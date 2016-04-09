@@ -3,6 +3,7 @@
 import ast
 import MySQLdb
 import urllib
+import Image
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
 from config import DEBUG, lock
@@ -659,23 +660,20 @@ def get_collected_items():
 @app.route("/image/upload", methods=["POST", "OPTIONS"])
 @allow_cross_domain
 def image_upload():
-    global lock
     if request.method == 'POST':
         image = request.files['fileList']
-        while lock == 1:
-            pass
-        lock = 1
         if image:
             bucket = Bucket("avatar")
             numObejcts = int(bucket.stat()["objects"])
             imageId = str(numObejcts + 1) + ".jpg"
+
+            # use Image to process
+            print image.stream.__class__.__name__
+
             bucket.put_object(imageId, image.stream)
             url = bucket.generate_url(imageId)
 
-            lock = 0
-
             return url
-        lock = 0
     return jsonify(error="fail to upload image")
 
 
