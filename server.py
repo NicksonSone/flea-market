@@ -670,7 +670,7 @@ def image_upload():
             # use Image to process
             process = Image.open(image.stream)
 
-            bucket.put_object(imageId, process.getdata())
+            bucket.put_object(imageId, process.tostring())
             print "here"
             url = bucket.generate_url(imageId)
 
