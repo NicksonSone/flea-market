@@ -3,6 +3,7 @@
 import ast
 import MySQLdb
 import urllib
+import cStringIO
 from PIL import Image
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
@@ -666,14 +667,15 @@ def image_upload():
             bucket = Bucket("avatar")
             numObejcts = int(bucket.stat()["objects"])
             imageId = str(numObejcts + 1) + ".jpg"
-            print image.stream.buf
 
             # use Image to process
-            # process = Image.open(image.stream)
+            outbuf = cStringIO.StringIO()
+            process = Image.open(image.stream)
+            process.save(outbuf)
 
-            # bucket.put_object(imageId, process.tostring())
-            bucket.put_object(imageId, image.stream)
-            print image.stream.buf
+            bucket.put_object(imageId, outbuf)
+            # bucket.put_object(imageId, image.stream)
+            print "here"
             url = bucket.generate_url(imageId)
 
             return url
