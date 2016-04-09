@@ -6,7 +6,7 @@ import urllib
 from PIL import Image
 from functools import wraps
 from flask import Flask, jsonify, g, request, make_response
-from config import DEBUG, lock
+from config import DEBUG
 from sae.storage import Bucket
 from datetime import datetime
 
