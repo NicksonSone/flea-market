@@ -37,6 +37,18 @@ RETURN:
 		itemId (number)
 		title (string)
 		postDate (list)
+	books (list)
+		itemId (number)
+		title (string)
+		postDate (list)
+	groceries (list)
+		itemId (number)
+		title (string)
+		postDate (list)
+	entertainments (list)
+		itemId (number)
+		title (string)
+		postDate (list)
 STATE:
 	succeed: 1
 ==================================================
@@ -144,6 +156,12 @@ PARAMS:
 	arguable (number) 0 - no, 1 - yes
 	recency (number) 0-5: brand new - 60% below or other
 	delivery (number) 0 - in person, 1 - express, 2 - both
+	image1 (string)
+	image2 (string)
+	image3 (string)
+	image4 (string)
+
+
 RETURN: 
 	itemId (string)	
 STATE:
