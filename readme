@@ -1,0 +1,211 @@
+API
+
+Head: http://sysuflea.sinaapp.com
+Usage: 
+for registration, the url would be
+	 http://sysuflea.sinaapp.com
+
+Register
+==================================================
+/register (post) 
+PARAMS:
+	userName (string)
+	password (string)
+	phoneNum (string)
+	email (string)
+	QQ (string)
+	location (string)
+	school (string)
+	avatar (to be decided)
+RETURN: 
+	userId (string)	
+STATE:
+	succeed: 1, email or phoneNUM registered: 2, failure for unknown reasons: 0
+==================================================
+
+
+Login
+==================================================
+/login (put)	
+PARAMS:
+	account (string)
+	password (string)
+RETURN: 
+	userId (string)	
+	userName (string)
+STATE:
+	succeed: 1, incorrect password: 2, inexistent user: 3, 
+==================================================
+
+
+User
+==================================================
+/user (get)
+PARAMS:
+	userId (string)
+RETURN:
+	userName (string)
+	phoneNum (string)
+	QQ	 (string)
+	email (string)
+	location (string)
+	school 	 (string)
+	avatar (unknown)
+STATE:
+	none
+==================================================
+==================================================
+/user (post)
+PARAMS:
+	userId (string)
+	userName (string)
+	realName
+	QQ (string)
+	location (string)
+	school (string)
+RETURN:
+	none
+STATE:
+	succeed: 1, fail: 0
+
+==================================================
+
+Item
+==================================================
+/item (post)
+PARAMS:
+	userId (string)
+	title (string)
+	categoryId (number)
+	subcategoryId (number)
+	price (number)
+	tradeVenue (string)
+	description (string)
+	pictureNum (number)
+	pictures (array of pictures)
+	arguable (number) 0 - no, 1 - yes
+	recency (number) 0-5: brand new - 60% below or other
+	delivery (number) 0 - in person, 1 - express, 2 - both
+RETURN: 
+	itemId (string)	
+STATE:
+	succeed: 1, fail: 0
+==================================================
+==================================================
+/item (get)
+PARAMS:
+	itemId (string)
+RETURN:
+	title (string)
+	type (number)
+	subtype (number)
+	price (number)
+	tradeVenue (string)
+	description (string)
+	pictureNum (number)
+	pictures (array of pictures)
+	arguable (number) 0 - no, 1 - yes
+	postTime (number)
+	storage (number)
+	sellerId (string)
+STATE:
+	none
+==================================================
+==================================================
+/item/collect (post)
+PARAMS:
+	itemId (string)
+	userId (string)
+RETURN:
+	none	
+STATE:
+	1: succeed, 0: fail	
+==================================================
+==================================================
+/item/collections (get)
+PARAMS:
+	userId (string)
+RETURN:
+	items(list)
+		itemId (string)
+		title (string)
+STATE:
+	none
+==================================================
+==================================================
+/item/sellingProducts(get)
+PARAMS:
+	userId (string)
+RETURN:
+	items(list)
+		itemId (string)
+		title (string)
+		state (int)
+STATE:
+	none
+==================================================
+==================================================
+/item/wish (post)
+PARAMS:
+	name (string)
+	type (number)
+	tradeVenue (string)
+RETURN:
+STATE:
+==================================================
+
+
+Trade Record
+==================================================
+/record	(get)
+PARAMS:
+	recordId (string)
+RETURN:
+	itemName (string)	
+	dealTime (string)
+	deliveryMethods (number) 1 - in person, 2 - express
+	amount (number)
+	buyerId (string)
+	buyerName (string)
+	sellerId (string)
+	sellerName (string)
+STATE:
+	none
+==================================================
+==================================================
+/record/buying (get)
+PARAMS:
+	userId (string)
+RETURN:
+	records (list)
+		recordId (string)
+		itemName (string)	
+		dealTime (string)
+		amount (number)
+		deliveryMethods (number) 1 - in person, 2 - express
+		sellerId (string)
+		sellerName (string)
+STATE:
+	none
+==================================================
+	
+==================================================
+/record/sold (get)
+PARAMS:
+	userId (string)
+RETURN:
+	records (list)
+		recordId (string)
+		itemName (string)	
+		dealTime (string)
+		deliveryMethods (number) 1 - in person, 2 - express
+		buyerId (string)
+		buyerName (string)
+STATE:
+	none
+==================================================
+
+
+
+
+
