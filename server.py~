@@ -668,14 +668,12 @@ def image_upload():
             numObejcts = int(bucket.stat()["objects"])
             imageId = str(numObejcts + 1) + ".jpg"
 
-            # resize image
+            # use Image to process
             outbuf = cStringIO.StringIO()
-            size = (800, 900)
             process = Image.open(image.stream)
-            process.resize(size, Image.BILINEAR)
+            print process.size
             process.save(outbuf, "JPEG")
 
-            # save image
             bucket.put_object(imageId, outbuf)
             # bucket.put_object(imageId, image.stream)
             url = bucket.generate_url(imageId)

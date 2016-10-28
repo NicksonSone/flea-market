@@ -1,0 +1,23 @@
+
+@app.route("/image/upload", methods=["POST", "OPTIONS"])
+@allow_cross_domain
+def image_upload():
+    global lock
+    if request.method == 'POST':
+        image = request.files['fileList']
+        while lock == 1:
+            pass
+        lock = 1
+        if image:
+            bucket = Bucket("avatar")
+            numObejcts = int(bucket.stat()["objects"])
+            imageId = str(numObejcts + 1) + ".jpg"
+            bucket.put_object(imageId, image.stream)
+            url = bucket.generate_url(imageId)
+
+            lock = 0
+
+            return url
+        lock = 0
+    return jsonify(error="fail to upload image")
+
